@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">HMSDemo</string>
+    <string name="title_activity_login_demo">Login Demo</string>
+    <string name="title_activity_location_demo">Location Demo</string>
+    <string name="title_activity_pay_demo">Pay Demo</string>
+    <string name="title_activity_map_demo">Map Demo</string>
+    <string name="title_activity_push_demo">Push Demo</string>
+
+    <string name="type_prompt">Choose a product Type</string>
+    <string name="product_prompt">Choose a product</string>
+    <string name="getToken">Get Token</string>
+    <string name="deleteToken">Delete Token</string>
+    <string name="set_push_unable">Turn Off Push Message</string>
+    <string name="set_push_enable">Turn on Push Messag</string>
+    <string name="add_subscribe_topic">Add Subscripiton Topic</string>
+    <string name="set_msg_enable">Turn on Message</string>
+    <string name="get_aaid">Get aaId</string>
+    <string name="delete_aaid">Delete aaId</string>
+    <string name="sign_in">Sign In</string>
+    <string name="sign_out">Sign Out</string>
+    <string name="cancel">Cancel</string>
+    <string name="confirm">Confirm</string>
+    <string name="add_topic">Enter Topic name to add</string>
+    <string name="delete_topic">Enter Topic name to delete</string>
+    <string name="delete_subscribe_topic">Delete Subscribed Topic</string>
+    <string name="send_msg">Send massage upwards</string>
+    <string name="silent_sign_in">Silent Login</string>
+    <string name="revoke_authority">Revoke Authrization</string>
+</resources>

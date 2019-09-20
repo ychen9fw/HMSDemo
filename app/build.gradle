@@ -1,0 +1,66 @@
+apply plugin: 'com.android.application'
+apply plugin: 'com.huawei.agconnect'
+
+android {
+    compileSdkVersion 28
+    defaultConfig {
+        applicationId "com.example.hmsdemo.huawei"
+        minSdkVersion 22
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        resConfigs "en", "zh-rCN"
+    }
+
+    signingConfigs {
+        release {
+            storeFile file('D:/KeystoreFile/ResumeApp/resume.keystore')
+            storePassword 'jiayuanyuan'
+            keyPassword '1qaz@WSX'
+            keyAlias 'key2'
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            debuggable true
+            signingConfig signingConfigs.release
+
+        }
+        debug {
+            minifyEnabled true
+            debuggable true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+    }
+
+
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.android.support:appcompat-v7:28.0.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    implementation 'com.android.support:design:28.0.0'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    //HMS dependencies
+    implementation 'com.huawei.hms:base:3.0.0.301'
+    implementation 'com.huawei.hms:hwid:3.0.0.301'
+    implementation 'com.huawei.hms:location:3.0.0.301'
+    implementation 'com.huawei.hms:iap:3.0.0.301'
+    implementation 'com.huawei.hms:hms-ads-identifier:3.4.26.303'
+    implementation 'com.huawei.hms:hms-ads-identifier:3.4.26.303'
+    implementation 'com.huawei.hms:hms-ads-installreferrer:3.4.26.303'
+    implementation 'com.huawei.hms:maps:3.0.0.301'
+    implementation 'com.huawei.hms:push:3.0.0.301'
+    implementation 'com.huawei.android.hms:drive:1.0.0.300'
+    implementation 'com.huawei.hms:opendevice:3.0.0.301'
+
+}

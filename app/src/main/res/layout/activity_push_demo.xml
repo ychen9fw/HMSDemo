@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".PushDemo">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar"></include>
+
+    <Button
+        android:id="@+id/btn_get_aaid"
+        style="@style/ButtonStyle"
+        android:text="@string/get_aaid" />
+
+    <Button
+        android:id="@+id/btn_get_token"
+        style="@style/ButtonStyle"
+        android:text="@string/getToken" />
+
+    <Button
+        android:id="@+id/btn_delete_token"
+        style="@style/ButtonStyle"
+        android:text="@string/deleteToken" />
+
+    <Button
+        android:id="@+id/btn_set_push"
+        android:text="@string/set_push_unable"
+        style="@style/ButtonStyle" />
+
+    <Button
+        android:id="@+id/btn_add_topic"
+        style="@style/ButtonStyle"
+        android:text="@string/add_subscribe_topic" />
+
+    <Button
+        android:id="@+id/btn_delete_topic"
+        style="@style/ButtonStyle"
+        android:text="@string/delete_subscribe_topic" />
+
+    <Button
+        android:id="@+id/btn_send_msg"
+        style="@style/ButtonStyle"
+        android:text="@string/send_msg" />
+
+    <include
+        layout="@layout/log_layout"
+        android:layout_below="@+id/btn_send_msg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></include>
+
+</LinearLayout>

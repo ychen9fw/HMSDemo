@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.hmsdemo.LocationDemo"
+    android:scrollbars = "vertical">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar"></include>
+
+    <Button
+        android:id="@+id/btn_checkLocationAvailability"
+        style="@style/ButtonStyle"
+        android:text="check Location Availability"/>
+
+    <Button
+        android:id="@+id/btn_getLastKnownLocation"
+        style="@style/ButtonStyle"
+        android:text="get Last Known Location" />
+
+    <Button
+        android:id="@+id/btn_updatesLocation"
+        style="@style/ButtonStyle"
+        android:text="updates Location" />
+
+    <Button
+        android:id="@+id/btn_stopUpdatesLocation"
+        style="@style/ButtonStyle"
+        android:text="stop Updates Location" />
+
+    <include
+        layout="@layout/log_layout"
+        android:layout_below="@+id/btn_send_msg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></include>
+
+</LinearLayout>
