@@ -54,13 +54,15 @@ dependencies {
     implementation 'com.huawei.hms:base:3.0.0.301'
     implementation 'com.huawei.hms:hwid:3.0.0.301'
     implementation 'com.huawei.hms:location:3.0.0.301'
-    implementation 'com.huawei.hms:iap:3.0.0.301'
-    implementation 'com.huawei.hms:hms-ads-identifier:3.4.26.303'
+    implementation 'com.huawei.hms:iap:3.0.0.300'
     implementation 'com.huawei.hms:hms-ads-identifier:3.4.26.303'
     implementation 'com.huawei.hms:hms-ads-installreferrer:3.4.26.303'
     implementation 'com.huawei.hms:maps:3.0.0.301'
     implementation 'com.huawei.hms:push:3.0.0.301'
     implementation 'com.huawei.android.hms:drive:1.0.0.300'
     implementation 'com.huawei.hms:opendevice:3.0.0.301'
+    //implementation 'com.huawei.hms:hianalytics:2.3.0.300'
+    // implementation 'com.huawei.agconnect:agconnect-auth:1.0.0.301'
 
+    implementation 'com.huawei.hms:game:3.0.0.301'
 }

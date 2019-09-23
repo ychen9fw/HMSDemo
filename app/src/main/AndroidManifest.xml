@@ -16,7 +16,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:allowBackup">
-        <activity android:name=".AdsDemo"></activity>
+        <activity android:name=".AuthenticationDemo"></activity>
+        <activity android:name=".AnalysisDemo" />
+        <activity android:name=".GameDemo" />
+        <activity android:name=".AdsDemo" />
         <activity android:name=".DriveDemo" />
         <activity android:name=".PushDemo" />
         <activity android:name=".MapDemo" />
