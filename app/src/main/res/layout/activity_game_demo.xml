@@ -6,4 +6,9 @@
     android:layout_height="match_parent"
     tools:context="com.example.hmsdemo.GameDemo">
 
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar"></include>
+
 </android.support.constraint.ConstraintLayout>

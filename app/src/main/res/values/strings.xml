@@ -5,6 +5,12 @@
     <string name="title_activity_pay_demo">Pay Demo</string>
     <string name="title_activity_map_demo">Map Demo</string>
     <string name="title_activity_push_demo">Push Demo</string>
+    <string name="title_activity_ads_demo">Ads Demo</string>
+    <string name="title_activity_drive_demo">Drive Demo</string>
+    <string name="title_activity_authen_demo">Authentication Demo</string>
+    <string name="title_activity_game_demo">Game Demo</string>
+    <string name="title_activity_analysis_demo">Analysis Demo</string>
+
 
     <string name="type_prompt">Choose a product Type</string>
     <string name="product_prompt">Choose a product</string>
