@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+        <item android:id="@+id/styleMap"
+            android:title="Current Place"
+            app:showAsAction="ifRoom"/>
+
+        <item
+            android:id="@+id/turntraffic"
+            android:title="Turn Traffic"
+            app:showAsAction="never"/>
+
+        <item android:id="@+id/drawnCircle"
+            android:title="drawn circle"
+            app:showAsAction="never"/>
+
+        <item android:id="@+id/searchCurrentPlace"
+            android:title="Current Place"
+            app:showAsAction="never"/>
+
+</menu>

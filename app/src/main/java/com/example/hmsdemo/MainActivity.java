@@ -1,7 +1,6 @@
 package com.example.hmsdemo;
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -18,6 +17,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.hmsdemo.map.MapDemo;
 import com.example.hmsdemo.utils.PermissionManager;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{

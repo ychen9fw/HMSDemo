@@ -31,5 +31,17 @@
     <string name="delete_subscribe_topic">Delete Subscribed Topic</string>
     <string name="send_msg">Send massage upwards</string>
     <string name="silent_sign_in">Silent Login</string>
-    <string name="revoke_authority">Revoke Authrization</string>
+    <string name="revoke_authority">Revoke Authorization</string>
+
+
+    <!--Style-->
+    <string name="styled_map_demo_label">Styled Map</string>
+    <string name="styled_map_demo_description">Demonstrates how to style a map.</string>
+    <string name="style_label_retro">Retro</string>
+    <string name="style_label_night">Night</string>
+    <string name="style_label_grayscale">Grayscale</string>
+    <string name="style_label_no_pois_no_transit">No POIs or transit</string>
+    <string name="style_label_default">Default</string>
+    <string name="style_choose">Choose style</string>
+    <string name="style_set_to">Style set to: %1$s</string>
 </resources>
