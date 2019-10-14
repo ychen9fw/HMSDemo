@@ -7,9 +7,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Handler;
 import android.os.Message;
-import android.support.annotation.NonNull;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -25,6 +23,9 @@ import com.huawei.hms.aaid.entity.AAIDResult;
 import com.huawei.hms.common.ApiException;
 import com.huawei.hms.push.HmsMessaging;
 import com.huawei.hms.push.RemoteMessage;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.widget.Toolbar;
 
 public class PushDemo extends BaseActivity implements View.OnClickListener {
 
@@ -122,10 +123,10 @@ public class PushDemo extends BaseActivity implements View.OnClickListener {
                 setReceiveNotifyMsg(tvSetPush.getText().toString().equals(getString(R.string.set_push_enable)));
                 break;
             case R.id.btn_add_topic:
-                addTopic();
+                //addTopic();
                 break;
             case R.id.btn_delete_topic:
-                deleteTopic();
+                //deleteTopic();
                 break;
             case R.id.btn_send_msg:
                 sendMsg();
@@ -181,7 +182,8 @@ public class PushDemo extends BaseActivity implements View.OnClickListener {
             @Override
             public void run() {
                 try {
-                    token = HmsInstanceId.getInstance(PushDemo.this).getToken(appid, "HCM");
+                    showLog("aaid is: "+aaId);
+                    token = HmsInstanceId.getInstance(getApplicationContext()).getToken(aaId, "HCM");
                     showLog("token:" + token);
                 } catch (Exception e) {
                     showLog("getToken failed" + "\n" + e);
@@ -199,7 +201,7 @@ public class PushDemo extends BaseActivity implements View.OnClickListener {
             @Override
             public void run() {
                 try {
-                    HmsInstanceId.getInstance(getBaseContext()).deleteToken(appid, "HCM");
+                    HmsInstanceId.getInstance(getApplicationContext()).deleteToken(appid, "HCM");
                     showLog("deleteToken:success");
                 } catch (ApiException e) {
                     e.printStackTrace();
@@ -248,7 +250,7 @@ public class PushDemo extends BaseActivity implements View.OnClickListener {
     /**
      * subscribe
      */
-    private void addTopic() {
+/*    private void addTopic() {
         final TopicDialog topicDialog = new TopicDialog(this, true);
         topicDialog.setOnDialogClickListener(new OnDialogClickListener() {
             @Override
@@ -283,7 +285,7 @@ public class PushDemo extends BaseActivity implements View.OnClickListener {
 
     /**
      * unsubscribe
-     */
+
     private void deleteTopic() {
         final TopicDialog topicDialog = new TopicDialog(this, false);
         topicDialog.setOnDialogClickListener(new OnDialogClickListener() {
@@ -314,7 +316,7 @@ public class PushDemo extends BaseActivity implements View.OnClickListener {
             }
         });
         topicDialog.show();
-    }
+    } **/
 
     /**
      * send upstream

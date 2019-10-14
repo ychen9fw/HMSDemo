@@ -6,10 +6,9 @@ import android.view.MenuItem;
 import android.view.View;
 
 import android.os.AsyncTask;
-import android.support.annotation.Nullable;
 import android.util.Log;
 import android.content.Intent;
-import android.support.v7.widget.Toolbar;
+import androidx.appcompat.widget.Toolbar;
 //HMS Account Library
 import com.example.hmsdemo.utils.HTTPManager;
 import com.example.hmsdemo.utils.JSONConverter;
@@ -27,6 +26,8 @@ import com.huawei.hms.support.api.hwid.SignInHuaweiId;
 import org.json.JSONObject;
 
 import java.util.Set;
+
+import androidx.annotation.Nullable;
 
 
 public class LoginDemo extends BaseActivity implements View.OnClickListener{

@@ -15,12 +15,12 @@ import android.widget.TextView;
 import com.example.hmsdemo.R;
 
 /**
- * 主题订阅/取消订阅提示框
+ * Theme subscription/unsubscription input box
  */
 public class TopicDialog extends Dialog implements View.OnClickListener {
     private View view;
 
-    private OnDialogClickListener onDialogClickListener;// 取消、确定按钮的监听
+    private OnDialogClickListener onDialogClickListener;// cancel and confirm button monitoring
 
     private EditText edTopic;
 
@@ -42,7 +42,7 @@ public class TopicDialog extends Dialog implements View.OnClickListener {
             @Override
             public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
                 if (i == EditorInfo.IME_ACTION_UNSPECIFIED) {
-                    // 先隐藏键盘
+                    //  hiding soft keyboard
                     InputMethodManager imm =
                         (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
                     if (imm != null) {
@@ -79,5 +79,10 @@ public class TopicDialog extends Dialog implements View.OnClickListener {
 
     public void setOnDialogClickListener(OnDialogClickListener onDialogClickListener) {
         this.onDialogClickListener = onDialogClickListener;
+    }
+
+    public interface OnDialogClickListener {
+        void onConfirmClick(String topic);
+        void onCancelClick();
     }
 }

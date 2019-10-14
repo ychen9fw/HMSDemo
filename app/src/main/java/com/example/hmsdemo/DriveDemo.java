@@ -1,8 +1,7 @@
 package com.example.hmsdemo;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
+import androidx.appcompat.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.huawei.api.services.drive.Drive;
@@ -15,7 +14,7 @@ import com.huawei.hms.support.api.hwid.SignInHuaweiId;
 
 import java.util.Set;
 
-public class DriveDemo extends AppCompatActivity {
+public class DriveDemo extends BaseActivity {
 
     private SignInHuaweiId huaweiId;
     private HuaweiIdSignInOptions signInOptions;

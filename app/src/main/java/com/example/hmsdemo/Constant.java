@@ -2,9 +2,6 @@ package com.example.hmsdemo;
 
 public class Constant {
 
-    public static final int IS_LOG = 1;
-    //login
-    public static final int REQUEST_SIGN_IN_LOGIN = 1002;
     //Not logged in to pull up Huawei account login page
     public static final int REQ_CODE_NOT_LOGIN = 1003;
     //Pull up the Payment Cashier
@@ -26,4 +23,11 @@ public class Constant {
     public static final int PRODUCT_TYPE_RESERVED_NON_RENEWWABLE = 3;
 
     public static final String PUSH_TAG = "Push Message";
+
+    // for signin
+
+    public static final int IS_LOG = 1;
+    //login
+    public static final int REQUEST_SIGN_IN_LOGIN = 1002;
+    public static final int REQUEST_SIGN_IN_LOGIN_GMS = 2002;
 }

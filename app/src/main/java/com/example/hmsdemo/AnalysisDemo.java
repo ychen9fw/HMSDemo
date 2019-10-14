@@ -1,9 +1,10 @@
 package com.example.hmsdemo;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
+import androidx.appcompat.widget.Toolbar;
 import android.view.MenuItem;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class AnalysisDemo extends AppCompatActivity {
 

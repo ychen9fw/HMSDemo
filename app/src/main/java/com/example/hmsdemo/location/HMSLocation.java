@@ -1,23 +1,20 @@
-package com.example.hmsdemo;
-
+package com.example.hmsdemo.location;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.IntentSender;
 import android.location.Location;
 import android.os.Looper;
-import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.widget.Toolbar;
 import android.util.Log;
-import android.view.MenuItem;
-import android.view.View;
 
+import com.example.hmsdemo.BaseActivity;
+import com.example.hmsdemo.LocationDemo;
 import com.huawei.hmf.tasks.OnFailureListener;
 import com.huawei.hmf.tasks.OnSuccessListener;
 import com.huawei.hms.common.ApiException;
 import com.huawei.hms.common.ResolvableApiException;
 import com.huawei.hms.location.FusedLocationProviderClient;
+import com.huawei.hms.location.LocationAvailability;
 import com.huawei.hms.location.LocationCallback;
 import com.huawei.hms.location.LocationRequest;
 import com.huawei.hms.location.LocationResult;
@@ -26,68 +23,47 @@ import com.huawei.hms.location.LocationSettingsRequest;
 import com.huawei.hms.location.LocationSettingsResponse;
 import com.huawei.hms.location.LocationSettingsStatusCodes;
 import com.huawei.hms.location.SettingsClient;
-import com.huawei.hms.location.LocationAvailability;
 
 import java.util.List;
 
-public class LocationDemo extends BaseActivity implements View.OnClickListener{
+import androidx.annotation.NonNull;
 
-    private LocationCallback locationCallback;
+public class HMSLocation extends BaseLocation{
+
+    private static final String TAG = "HMS Location";
+
+    private static LocationCallback locationCallback;
     private FusedLocationProviderClient fusedLocationProviderClient;
     private SettingsClient settingsClient;
     private LocationRequest locationRequest;
-    private String TAG = "Location DEMO";
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_location_demo);
-
-        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
-        settingsClient = LocationServices.getSettingsClient(this);
-
-        findViewById(R.id.btn_stopUpdatesLocation).setOnClickListener(this);
-        findViewById(R.id.btn_updatesLocation).setOnClickListener(this);
-        findViewById(R.id.btn_checkLocationAvailability).setOnClickListener(this);
-        findViewById(R.id.btn_getLastKnownLocation).setOnClickListener(this);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        // add back arrow to toolbar
-        if (getSupportActionBar() != null){
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setDisplayShowHomeEnabled(true);
-            getSupportActionBar().setTitle(R.string.title_activity_location_demo);
-        }
-        init();
+    public HMSLocation(BaseActivity baseActivity){
+        this.baseActivity = baseActivity;
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // handle arrow click here
-        if (item.getItemId() == android.R.id.home) {
-            finish(); // close this activity and return to preview activity (if there is any)
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    private void init(){
+    public void setLocationRequest(){
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(baseActivity);
+        settingsClient = LocationServices.getSettingsClient(baseActivity);
         locationRequest = LocationRequest.create();
         locationRequest.setInterval(60000);
         locationRequest.setFastestInterval(3000);
         locationRequest.setNumUpdates(1);
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+    }
 
+    @Override
+    public void setUpLocationCallBack(){
         if (null == locationCallback) {
             locationCallback = new LocationCallback() {
                 @Override
                 public void onLocationResult(LocationResult locationResult) {
                     if (locationResult != null) {
-                        List<Location> locations = locationResult.getLocations();
+                        List<android.location.Location> locations = locationResult.getLocations();
                         if (!locations.isEmpty()) {
                             for (Location location : locations) {
-                                showLog("onLocationResult location[Longitude,Latitude,Accuracy]:" + location.getLongitude()
+                                callBack.callBack(location);
+                                baseActivity.showLog("onLocationResult location[Longitude,Latitude,Accuracy]:" + location.getLongitude()
                                         + "," + location.getLatitude() + "," + location.getAccuracy());
                                 Log.i(TAG,
                                         "onLocationResult location[Longitude,Latitude,Accuracy]:" + location.getLongitude()
@@ -101,8 +77,8 @@ public class LocationDemo extends BaseActivity implements View.OnClickListener{
                 public void onLocationAvailability(LocationAvailability locationAvailability) {
                     if (locationAvailability != null) {
                         boolean flag = locationAvailability.isLocationAvailable();
-                        showLog("onLocationAvailability isLocationAvailable:" + flag);
-                        Log.i(TAG, "onLocationAvailability isLocationAvailable:" + flag);
+                        baseActivity.showLog("onLocationAvailability isLocationAvailable:" + flag);
+                        //Log.i(TAG, "onLocationAvailability isLocationAvailable:" + flag);
                     }
                 }
             };
@@ -110,9 +86,10 @@ public class LocationDemo extends BaseActivity implements View.OnClickListener{
 
     }
 
+    @Override
     @SuppressLint("MissingPermission")
-    private void updatesLocation(){
-        showLog("updating Location" );
+    public void updatesLocation(){
+        baseActivity.showLog("updating Location" );
         try {
             LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder();
             builder.addLocationRequest(locationRequest);
@@ -128,14 +105,14 @@ public class LocationDemo extends BaseActivity implements View.OnClickListener{
                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
                                         public void onSuccess(Void aVoid) {
-                                            showLog("requestLocationUpdatesWithCallback onSuccess");
+                                            //BaseActivity.showLog("requestLocationUpdatesWithCallback onSuccess");
                                             Log.i(TAG, "requestLocationUpdatesWithCallback onSuccess");
                                         }
                                     })
                                     .addOnFailureListener(new OnFailureListener() {
                                         @Override
                                         public void onFailure(Exception e) {
-                                            showLog("requestLocationUpdatesWithCallback onFailure:" + e.getMessage());
+                                            //BaseActivity.showLog("requestLocationUpdatesWithCallback onFailure:" + e.getMessage());
                                             Log.e(TAG,
                                                     "requestLocationUpdatesWithCallback onFailure:" + e.getMessage());
                                         }
@@ -152,9 +129,9 @@ public class LocationDemo extends BaseActivity implements View.OnClickListener{
                                     try {
                                         //call startResolutionForResult to ask for user's permission
                                         ResolvableApiException rae = (ResolvableApiException) e;
-                                        rae.startResolutionForResult(LocationDemo.this, 0);
+                                        rae.startResolutionForResult(baseActivity, 0);
                                     } catch (IntentSender.SendIntentException sie) {
-                                        showLog("PendingIntent unable to execute request.");
+                                        //showLog("PendingIntent unable to execute request.");
                                         Log.e(TAG, "PendingIntent unable to execute request.");
                                     }
                                     break;
@@ -166,10 +143,10 @@ public class LocationDemo extends BaseActivity implements View.OnClickListener{
         }
     }
 
-    // get last location
+    @Override
     @SuppressLint("MissingPermission")
-    private void getCurrentLocation(){
-        showLog("getting current location" );
+    public void getCurrentLocation(){
+        baseActivity.showLog("getting current location" );
         try {
             fusedLocationProviderClient.getLastLocation()
                     .addOnSuccessListener(new OnSuccessListener<Location>() {
@@ -179,8 +156,9 @@ public class LocationDemo extends BaseActivity implements View.OnClickListener{
                             if (location != null) {
                                 String curlatitude = String.valueOf(location.getLatitude());
                                 String curlongitude = String.valueOf(location.getLongitude());
-                                showLog("getLastLocation location[Longitude,Latitude,Accuracy]:" + location.getLongitude()
+                                baseActivity.showLog("getLastLocation location[Longitude,Latitude,Accuracy]:" + location.getLongitude()
                                         + "," + location.getLatitude() + "," + location.getAccuracy());
+                                callBack.callBack(location);
                             } else if (location == null) {
                                 updatesLocation();
                             }
@@ -195,55 +173,47 @@ public class LocationDemo extends BaseActivity implements View.OnClickListener{
                     });
         }catch (Exception e) {
             Log.e(TAG, "getLastLocation exception:" + e.getMessage());
+
         }
     }
 
+    @Override
     @SuppressLint("MissingPermission")
-    private void removeLocationUpdates(){
-        showLog("remove location updates" );
+    public void removeLocationUpdates() {
+        baseActivity.showLog("remove location updates");
         try {
             fusedLocationProviderClient.removeLocationUpdates(locationCallback)
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
-                            showLog("removeLocationUpdatesWithCallback onSuccess");
+                            baseActivity.showLog("removeLocationUpdatesWithCallback onSuccess");
                             Log.i(TAG, "removeLocationUpdatesWithCallback onSuccess");
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(Exception e) {
-                            showLog("removeLocationUpdatesWithCallback onFailure:" + e.getMessage());
+                            baseActivity.showLog("removeLocationUpdatesWithCallback onFailure:" + e.getMessage());
                             Log.e(TAG, "removeLocationUpdatesWithCallback onFailure:" + e.getMessage());
                         }
                     });
         } catch (Exception e) {
-            showLog("removeLocationUpdatesWithCallback exception:" + e.getMessage());
+            baseActivity.showLog("removeLocationUpdatesWithCallback exception:" + e.getMessage());
             Log.e(TAG, "removeLocationUpdatesWithCallback exception:" + e.getMessage());
         }
     }
 
-
     @Override
-    protected void onDestroy() {
-        //Remove the location updates
-        removeLocationUpdates();
-        super.onDestroy();
-    }
-
-
-    /**
-     * get location availability
-     */
-    private void getLocationAvailability() {
-        showLog("getting location availability" );
+    @SuppressLint("MissingPermission")
+    public void getLocationAvailability() {
+        baseActivity.showLog("getting location availability" );
         try {
             fusedLocationProviderClient.getLocationAvailability()
                     .addOnSuccessListener(new OnSuccessListener<LocationAvailability>() {
                         @Override
                         public void onSuccess(LocationAvailability locationAvailability) {
                             if (locationAvailability != null) {
-                                showLog("getLocationAvailability onSuccess:" + locationAvailability.toString());
+                                baseActivity.showLog("getLocationAvailability onSuccess:" + locationAvailability.toString());
                                 Log.i(TAG, "getLocationAvailability onSuccess:" + locationAvailability.toString());
                             }
                         }
@@ -251,34 +221,13 @@ public class LocationDemo extends BaseActivity implements View.OnClickListener{
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(Exception e) {
-                            showLog("getLocationAvailability onFailure:" + e.getMessage());
+                            baseActivity.showLog("getLocationAvailability onFailure:" + e.getMessage());
                             Log.e(TAG, "getLocationAvailability onFailure:" + e.getMessage());
                         }
                     });
         } catch (Exception e) {
-            showLog("getLocationAvailability exception:" + e.getMessage());
+            baseActivity.showLog("getLocationAvailability exception:" + e.getMessage());
             Log.e(TAG, "getLocationAvailability exception:" + e.getMessage());
         }
     }
-
-    @Override
-    public void onClick(View v) {
-        int id = v.getId();
-        switch (id) {
-            case R.id.btn_checkLocationAvailability:
-                getLocationAvailability();
-                break;
-            case R.id.btn_getLastKnownLocation:
-                getCurrentLocation();
-                break;
-            case R.id.btn_updatesLocation:
-                updatesLocation();
-                break;
-            case R.id.btn_stopUpdatesLocation:
-                removeLocationUpdates();
-                break;
-            default:
-        }
-    }
-
 }

@@ -2,7 +2,10 @@
 package com.example.hmsdemo;
 
 import android.app.Activity;
-import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.os.PersistableBundle;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ScrollView;
@@ -12,11 +15,15 @@ import com.example.hmsdemo.R;
 
 public class BaseActivity extends AppCompatActivity {
     StringBuffer b = new StringBuffer();
+    protected String tag ="" ;//GMS or HMS
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
+        super.onCreate(savedInstanceState, persistentState);
+    }
 
-
-    protected void showLog(String addLog) {
-        b.append(addLog).append('\n');
+    public void showLog(String addLog) {
+        b.append(tag).append('\n').append(addLog).append('\n');
         runOnUiThread(new Runnable() {
             @Override
             public void run() {

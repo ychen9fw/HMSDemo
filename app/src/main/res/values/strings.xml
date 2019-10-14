@@ -32,8 +32,10 @@
     <string name="send_msg">Send massage upwards</string>
     <string name="silent_sign_in">Silent Login</string>
     <string name="revoke_authority">Revoke Authorization</string>
-
-
+    <string name="msg_subscribe_failed">Failed to subscribe to topic</string>
+    <string name="msg_subscribed">Subscribed to topic</string>
+    <string name="msg_unsubscribed">Successful unsubscribe</string>
+    <string name="msg_unsubscribe_failed">Unsuccessful unsubscribe</string>
     <!--Style-->
     <string name="styled_map_demo_label">Styled Map</string>
     <string name="styled_map_demo_description">Demonstrates how to style a map.</string>
@@ -44,4 +46,7 @@
     <string name="style_label_default">Default</string>
     <string name="style_choose">Choose style</string>
     <string name="style_set_to">Style set to: %1$s</string>
+
+    <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
+    <string name="default_notification_channel_name" translatable="true">Weather</string>
 </resources>

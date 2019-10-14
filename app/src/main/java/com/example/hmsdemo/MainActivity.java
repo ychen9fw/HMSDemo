@@ -9,16 +9,20 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.provider.Settings;
-import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.hmsdemo.location.GHLocation;
 import com.example.hmsdemo.map.MapDemo;
+import com.example.hmsdemo.push.PushActivity;
+import com.example.hmsdemo.signin.GHSignin;
 import com.example.hmsdemo.utils.PermissionManager;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -123,7 +127,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void goToHuaweiPushDemo() {
-        Intent intent = new Intent(this, PushDemo.class);
+        //Intent intent = new Intent(this, PushDemo.class);
+        Intent intent = new Intent(this, PushActivity.class);
         startActivity(intent);
     }
 
@@ -133,12 +138,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void goToHuaweiLocationDemo() {
-        Intent intent = new Intent(this, LocationDemo.class);
+        //Intent intent = new Intent(this, LocationDemo.class);
+        Intent intent = new Intent(this, GHLocation.class);
         startActivity(intent);
     }
 
     private void goToHuaweiIDDemo() {
-        Intent intent = new Intent(this, LoginDemo.class);
+        //Intent intent = new Intent(this, LoginDemo.class);
+        Intent intent = new Intent(this, GHSignin.class);
         startActivity(intent);
     }
 

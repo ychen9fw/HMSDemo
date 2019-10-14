@@ -8,11 +8,7 @@ import android.graphics.Color;
 import android.graphics.Point;
 import android.location.Location;
 import android.os.Parcel;
-import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -55,6 +51,10 @@ import com.huawei.hms.maps.model.MarkerOptions;
 import com.huawei.hms.maps.model.VisibleRegion;
 
 import java.util.List;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
 
 public class MapDemo extends BaseActivity implements OnMapReadyCallback, HuaweiMap.OnMapClickListener{
 

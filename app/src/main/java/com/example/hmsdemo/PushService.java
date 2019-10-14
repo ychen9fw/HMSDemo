@@ -1,6 +1,7 @@
 package com.example.hmsdemo;
 
 import android.content.Intent;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.huawei.hms.push.HmsMessageService;
@@ -14,7 +15,9 @@ public class PushService extends HmsMessageService {
     @Override
     public void onNewToken(String s) {
         super.onNewToken(s);
-        Log.d(Constant.PUSH_TAG, s);
+        //Log.d(Constant.PUSH_TAG, s);
+        Log.d("Token", "I am getting token");
+        Log.d("Token", s);
         Intent intent = new Intent();
         intent.setAction(PushDemo.PUSH_ACTION);
         intent.putExtra("method", "onNewToken");
