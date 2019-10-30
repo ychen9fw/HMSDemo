@@ -6,7 +6,7 @@ import android.view.MenuItem;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class AnalysisDemo extends AppCompatActivity {
+public class AnalysisDemo extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

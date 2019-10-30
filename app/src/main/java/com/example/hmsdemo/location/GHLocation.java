@@ -3,6 +3,8 @@ package com.example.hmsdemo.location;
 import android.location.Location;
 import android.os.Bundle;
 import androidx.appcompat.widget.Toolbar;
+
+import android.view.MenuItem;
 import android.view.View;
 
 import com.example.hmsdemo.BaseActivity;
@@ -52,6 +54,22 @@ public class GHLocation extends BaseActivity implements View.OnClickListener {
         }
         locationService.setLocationRequest();
         locationService.setUpLocationCallBack();
+        locationService.setonLocationCallBack(new BaseLocation.onLocationCallBack() {
+            @Override
+            public void callBack(Location location) {
+                showLog("current Location is:" + location.getLongitude()
+                        + "," + location.getLatitude() + "," + location.getAccuracy());
+            }
+        });
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // handle arrow click here
+        if (item.getItemId() == android.R.id.home) {
+            finish(); // close this activity and return to preview activity (if there is any)
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -85,12 +103,7 @@ public class GHLocation extends BaseActivity implements View.OnClickListener {
 
 
     private void getCurrentLocation() {
-        locationService.setonLocationCallBack(new BaseLocation.onLocationCallBack() {
-            @Override
-            public void callBack(Location location) {
-                showLog("location is " + location.getLatitude() + ", " + location.getLongitude() );
-            }
-        });
+        locationService.getCurrentLocation();
     }
 
     private void removeLocationUpdates() {

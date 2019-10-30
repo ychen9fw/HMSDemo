@@ -10,20 +10,26 @@
 
     <application
         android:allowBackup="true"
+        android:debuggable="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
+        android:versionCode="100004"
+        android:versionName="1.0.4"
+        tools:ignore="HardcodedDebugMode"
         tools:replace="android:allowBackup">
-        <activity android:name=".push.PushActivity"></activity>
+        <activity android:name=".payment.HMSPayment"></activity>
+        <activity android:name=".payment.GMSPayment" />
+        <activity android:name=".ads.HGAds" />
+        <activity android:name=".push.PushActivity" />
         <activity android:name=".location.GHLocation" />
         <activity android:name=".signin.GHSignin" />
         <activity android:name=".map.styleMapDemo" />
         <activity android:name=".AuthenticationDemo" />
         <activity android:name=".AnalysisDemo" />
         <activity android:name=".GameDemo" />
-        <activity android:name=".AdsDemo" />
         <activity android:name=".DriveDemo" />
         <activity android:name=".PushDemo" />
         <activity android:name=".map.MapDemo" />
@@ -54,18 +60,6 @@
                 <action android:name="com.huawei.push.action.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-
-        <service
-            android:name="com.huawei.hms.support.api.push.service.HmsMsgService"
-            android:enabled="true"
-            android:exported="true"
-            android:process=":pushservice">
-            <intent-filter>
-                <action android:name="com.huawei.push.msg.NOTIFY_MSG" />
-                <action android:name="com.huawei.push.msg.PASSBY_MSG" />
-            </intent-filter>
-        </service>
-
         <service
             android:name=".push.pushservices.MyGmsPushService"
             android:exported="false">
@@ -74,6 +68,9 @@
             </intent-filter>
         </service>
 
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="@string/admob_app_id" />
     </application>
 
 </manifest>

@@ -9,6 +9,7 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.example.hmsdemo.push.pushPre.BasePush;
@@ -20,6 +21,8 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.huawei.hms.api.HuaweiApiAvailability;
 import com.example.hmsdemo.R;
+
+import androidx.appcompat.widget.Toolbar;
 
 public class PushActivity extends BaseActivity implements View.OnClickListener {
     public static String TAG = "push_msg";
@@ -52,6 +55,16 @@ public class PushActivity extends BaseActivity implements View.OnClickListener {
         findViewById(R.id.btn_get_token).setOnClickListener(this);
         findViewById(R.id.btn_unsubscribe_topic).setOnClickListener(this);
 
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        // add back arrow to toolbar
+        if (getSupportActionBar() != null){
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+            getSupportActionBar().setTitle(R.string.title_activity_location_demo);
+        }
+
         //Use Interface to Judje whether Mobile Phone Supports Google MoBile Service,If supported,the result will be return to SUCCESS
         int gmsResult = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(this);
 
@@ -82,6 +95,16 @@ public class PushActivity extends BaseActivity implements View.OnClickListener {
         this.registerReceiver(receiver, filter);
         //Initialize Load Tip Box
         progressDialog = new ProgressDialog(this);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // handle arrow click here
+        if (item.getItemId() == android.R.id.home) {
+            finish(); // close this activity and return to preview activity (if there is any)
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

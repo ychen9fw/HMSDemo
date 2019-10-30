@@ -4,6 +4,7 @@ import android.content.Intent;
 import com.example.hmsdemo.push.PushActivity;
 import com.huawei.hms.push.HmsMessageService;
 import com.huawei.hms.push.RemoteMessage;
+import com.huawei.hms.push.SendException;
 
 public class MyHmsPushService extends HmsMessageService {
     @Override
@@ -34,6 +35,17 @@ public class MyHmsPushService extends HmsMessageService {
         intent.putExtra("method",method);
         intent.putExtra("msg",msg);
         //Transfer data to activity by broadcasting
+        sendBroadcast(intent);
+    }
+
+    @Override
+    public void onSendError(String s, Exception e) {
+        super.onSendError(s, e);
+        Intent intent = new Intent();
+        intent.setAction(PushActivity.TAG);
+        intent.putExtra("method", "onSendError");
+        intent.putExtra("msg", s + "onSendError called, message id:" + s + " ErrCode:"
+                + ((SendException) e).getErrorCode() + " message:" + e.getMessage());
         sendBroadcast(intent);
     }
 }

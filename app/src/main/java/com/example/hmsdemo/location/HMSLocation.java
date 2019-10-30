@@ -62,9 +62,9 @@ public class HMSLocation extends BaseLocation{
                         List<android.location.Location> locations = locationResult.getLocations();
                         if (!locations.isEmpty()) {
                             for (Location location : locations) {
-                                callBack.callBack(location);
                                 baseActivity.showLog("onLocationResult location[Longitude,Latitude,Accuracy]:" + location.getLongitude()
                                         + "," + location.getLatitude() + "," + location.getAccuracy());
+                                callBack.callBack(location);
                                 Log.i(TAG,
                                         "onLocationResult location[Longitude,Latitude,Accuracy]:" + location.getLongitude()
                                                 + "," + location.getLatitude() + "," + location.getAccuracy());
@@ -105,14 +105,14 @@ public class HMSLocation extends BaseLocation{
                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
                                         public void onSuccess(Void aVoid) {
-                                            //BaseActivity.showLog("requestLocationUpdatesWithCallback onSuccess");
+                                            baseActivity.showLog("requestLocationUpdatesWithCallback onSuccess");
                                             Log.i(TAG, "requestLocationUpdatesWithCallback onSuccess");
                                         }
                                     })
                                     .addOnFailureListener(new OnFailureListener() {
                                         @Override
                                         public void onFailure(Exception e) {
-                                            //BaseActivity.showLog("requestLocationUpdatesWithCallback onFailure:" + e.getMessage());
+                                            baseActivity.showLog("requestLocationUpdatesWithCallback onFailure:" + e.getMessage());
                                             Log.e(TAG,
                                                     "requestLocationUpdatesWithCallback onFailure:" + e.getMessage());
                                         }
@@ -154,10 +154,7 @@ public class HMSLocation extends BaseLocation{
                         public void onSuccess(Location location) {
                             // GPS location can be null if GPS is switched off
                             if (location != null) {
-                                String curlatitude = String.valueOf(location.getLatitude());
-                                String curlongitude = String.valueOf(location.getLongitude());
-                                baseActivity.showLog("getLastLocation location[Longitude,Latitude,Accuracy]:" + location.getLongitude()
-                                        + "," + location.getLatitude() + "," + location.getAccuracy());
+                                baseActivity.showLog("getLastLocation success");
                                 callBack.callBack(location);
                             } else if (location == null) {
                                 updatesLocation();

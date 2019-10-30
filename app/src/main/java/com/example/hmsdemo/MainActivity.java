@@ -13,11 +13,19 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.hmsdemo.ads.GMSAds;
+import com.example.hmsdemo.ads.HGAds;
+import com.example.hmsdemo.ads.HMSAds;
 import com.example.hmsdemo.location.GHLocation;
 import com.example.hmsdemo.map.MapDemo;
+import com.example.hmsdemo.payment.GMSPayment;
+import com.example.hmsdemo.payment.HMSPayment;
 import com.example.hmsdemo.push.PushActivity;
 import com.example.hmsdemo.signin.GHSignin;
 import com.example.hmsdemo.utils.PermissionManager;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
+import com.huawei.hms.api.HuaweiApiAvailability;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -41,14 +49,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         permissionManager = new PermissionManager(this);
         findViewById(R.id.btn_HuaweiIDDemo).setOnClickListener(this);
         findViewById(R.id.btn_HuaweiLocationDemo).setOnClickListener(this);
-        findViewById(R.id.btn_HuaweiPayDemo).setOnClickListener(this);
         findViewById(R.id.btn_HuaweiPushDemo).setOnClickListener(this);
         findViewById(R.id.btn_HuaweiAdsDemo).setOnClickListener(this);
-        findViewById(R.id.btn_HuaweiMapDemo).setOnClickListener(this);
+        findViewById(R.id.btn_HuaweiPayDemo).setOnClickListener(this);
+/*         findViewById(R.id.btn_HuaweiMapDemo).setOnClickListener(this);
+
+
         findViewById(R.id.btn_HuaweiDriveDemo).setOnClickListener(this);
         findViewById(R.id.btn_HuaweiGameDemo).setOnClickListener(this);
         findViewById(R.id.btn_HuaweiAnalysisDemo).setOnClickListener(this);
-        findViewById(R.id.btn_HuaweiAutheDemo).setOnClickListener(this);
+        findViewById(R.id.btn_HuaweiAutheDemo).setOnClickListener(this); */
     }
 
 
@@ -73,11 +83,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 goToHuaweiAdsDemo();
                 break;
 
-            case R.id.btn_HuaweiMapDemo:
+ /*            case R.id.btn_HuaweiMapDemo:
                 goToHuaweiMapDemo();
                 break;
 
-            case R.id.btn_HuaweiDriveDemo:
+           case R.id.btn_HuaweiDriveDemo:
                 goToHuaweiDriveDemo();
                 break;
 
@@ -90,7 +100,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.btn_HuaweiAutheDemo:
                 goToHuaweiAutheDemo();
-                break;
+                break;*/
             default:
         }
     }
@@ -106,7 +116,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void goToHuaweiAdsDemo() {
-        Intent intent = new Intent(this, AdsDemo.class);
+        //Intent intent = new Intent(this, AdsDemo.class);
+        Intent intent = new Intent(this, HGAds.class);
         startActivity(intent);
     }
 
@@ -133,7 +144,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void goToHuaweiPayDemo() {
-        Intent intent = new Intent(this, PayDemo.class);
+        //Intent intent = new Intent(this, PayDemo.class);
+        Intent intent = null;
+        int gmsResult = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(this);
+
+        //Use Interface to Judje whether Mobile Phone Supports Huawei MoBile Service,If supported,the result will be return to SUCCESS
+        int hmsResult = HuaweiApiAvailability.getInstance().isHuaweiMobileServicesAvailable(this);
+        if(gmsResult == ConnectionResult.SUCCESS){
+            //Initialized as GMS PUSH functional class
+            intent = new Intent(this,GMSPayment.class);
+        }else if(hmsResult == com.huawei.hms.api.ConnectionResult.SUCCESS){
+            //Initialized as HMS PUSH functional class
+            intent = new Intent(this, HMSPayment.class);
+        }else {//If neither service supports, hide all buttons
+            return;
+        }
+
         startActivity(intent);
     }
 

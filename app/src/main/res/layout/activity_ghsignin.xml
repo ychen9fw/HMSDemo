@@ -23,11 +23,11 @@
         style="@style/ButtonStyle"
         android:text="Revoke Auth" />
 
-    <Button
+<!--    <Button
         android:id="@+id/btn_silentSignin"
         style="@style/ButtonStyle"
         android:text="Silent Signin" />
-
+-->
     <Button
         android:id="@+id/btn_signout"
         style="@style/ButtonStyle"

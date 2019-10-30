@@ -78,6 +78,12 @@ public class AccountManager {
         return getAccountService(activity).getSignedInAccountFromIntent(data);
     }
 
+    public void removeAuth(Activity activity){
+        getAccountService(activity).removeAuth();
+    }
+
+    public void signOut(Activity activity) {getAccountService(activity).signOut();}
+
     private AccountInterface getAccountService(Activity activity) {
         if (null == this.accountService) {
             synchronized (this.lock) {

@@ -26,11 +26,6 @@
                 android:text="Huawei ID Demo" />
 
             <Button
-                android:id="@+id/btn_HuaweiAdsDemo"
-                style="@style/ButtonStyle"
-                android:text="Huawei Ads Demo" />
-
-            <Button
                 android:id="@+id/btn_HuaweiLocationDemo"
                 style="@style/ButtonStyle"
                 android:text="Huawei Location Demo" />
@@ -41,35 +36,41 @@
                 android:text="Huawei Push Message Demo" />
 
             <Button
-                android:id="@+id/btn_HuaweiMapDemo"
+                android:id="@+id/btn_HuaweiAdsDemo"
                 style="@style/ButtonStyle"
-                android:text="Huawei Map Demo" />
-
+                android:text="Huawei Ads Demo" />
             <Button
                 android:id="@+id/btn_HuaweiPayDemo"
                 style="@style/ButtonStyle"
                 android:text="Huawei Pay Demo" />
-
+            <!--
             <Button
-                android:id="@+id/btn_HuaweiGameDemo"
+                android:id="@+id/btn_HuaweiMapDemo"
                 style="@style/ButtonStyle"
-                android:text="Huawei Game Demo" />
+                android:text="Huawei Map Demo" />
 
-            <Button
-                android:id="@+id/btn_HuaweiAnalysisDemo"
-                style="@style/ButtonStyle"
-                android:text="Huawei Analysis Demo" />
 
-            <Button
-                android:id="@+id/btn_HuaweiDriveDemo"
-                style="@style/ButtonStyle"
-                android:text="Huawei Drive Demo" />
 
-            <Button
-                android:id="@+id/btn_HuaweiAutheDemo"
-                style="@style/ButtonStyle"
-                android:text="Huawei Authentication Demo" />
+                        <Button
+                            android:id="@+id/btn_HuaweiGameDemo"
+                            style="@style/ButtonStyle"
+                            android:text="Huawei Game Demo" />
 
+                        <Button
+                            android:id="@+id/btn_HuaweiAnalysisDemo"
+                            style="@style/ButtonStyle"
+                            android:text="Huawei Analysis Demo" />
+
+                        <Button
+                            android:id="@+id/btn_HuaweiDriveDemo"
+                            style="@style/ButtonStyle"
+                            android:text="Huawei Drive Demo" />
+
+                        <Button
+                            android:id="@+id/btn_HuaweiAutheDemo"
+                            style="@style/ButtonStyle"
+                            android:text="Huawei Authentication Demo" />
+            -->
         </LinearLayout>
     </ScrollView>
 

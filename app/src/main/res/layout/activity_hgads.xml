@@ -1,28 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:orientation="vertical"
     android:layout_height="match_parent"
-    tools:context="com.example.hmsdemo.push.PushActivity">
+    android:orientation="vertical"
+    tools:context="com.example.hmsdemo.ads.HGAds">
 
     <include
         android:id="@+id/toolbar"
         layout="@layout/toolbar"></include>
-
-    <Button
-        android:id="@+id/btn_get_token"
-        android:text="get token"
-        style="@style/ButtonStyle" />
-
-    <Button
-        android:id="@+id/btn_subscribe_topic"
-        android:text="subscription topic"
-        style="@style/ButtonStyle" />
-    <Button
-        android:id="@+id/btn_unsubscribe_topic"
-        style="@style/ButtonStyle"
-        android:text="unsubscribe topic" />
 
     <include
         layout="@layout/log_layout"
