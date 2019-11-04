@@ -56,7 +56,7 @@ public class HMSPayment extends BaseActivity {
         if (getSupportActionBar() != null){
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
-            getSupportActionBar().setTitle(R.string.title_activity_analysis_demo);
+            getSupportActionBar().setTitle("HMS Payment");
         }
 
         iapClient = Iap.getIapClient(this);
@@ -127,7 +127,7 @@ public class HMSPayment extends BaseActivity {
         //skuDetailReq.priceType = priceType;
         skuDetailReq.priceType = 0;
         ArrayList<String> mIitemlist = new ArrayList<>();
-        mIitemlist.add("comsumable_testproduct_001");
+        mIitemlist.add("removeads");
         skuDetailReq.skuIds = mIitemlist;
         //skuDetailReq.skuIds = skus;
         Task<SkuDetailResult> task = iapClient.getSkuDetail(skuDetailReq);

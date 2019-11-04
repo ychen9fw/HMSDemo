@@ -92,16 +92,15 @@ public class GMSPayment extends BaseActivity implements PurchasesUpdatedListener
         skuList.add("removeads");
         skuList.add("add2level");
         //skuList.add("android.test.purchased");//test purchase
-        showLog("Querying SKU");
+        showLog("Query product details");
         SkuDetailsParams.Builder params = SkuDetailsParams.newBuilder();
         params.setSkusList(skuList).setType(BillingClient.SkuType.INAPP);
         billingClient.querySkuDetailsAsync(params.build(),
                 new SkuDetailsResponseListener() {
                     @Override
                     public void onSkuDetailsResponse(int responseCode, List<SkuDetails> skuDetailsList) {
-                        showLog("getting response");
                         if (responseCode == BillingClient.BillingResponse.OK && skuDetailsList != null) {
-                            showLog("getted response");
+                            showLog("getSkuDetail success " + responseCode + " skuDetail" + skuDetailsList.toString());
                             showLog(String.valueOf(skuDetailsList.size()));
                             for (SkuDetails skuDetails : skuDetailsList) {
                                 String sku = skuDetails.getSku();
@@ -140,6 +139,7 @@ public class GMSPayment extends BaseActivity implements PurchasesUpdatedListener
             }
         } else if (responseCode == BillingClient.BillingResponse.USER_CANCELED) {
             // Handle an error caused by a user cancelling the purchase flow.
+            showLog("user canceled payment");
         } else {
             // Handle any other error codes.
         }

@@ -4,11 +4,11 @@ apply plugin: 'com.huawei.agconnect'
 android {
     compileSdkVersion 29
     defaultConfig {
-        applicationId "com.dora.hmsdemo.huawei"
+        applicationId "com.hmsdemo.dora.huawei"
         minSdkVersion 22
         targetSdkVersion 29
-        versionCode 100004
-        versionName "1.0.4"
+        versionCode 100005
+        versionName "1.0.5"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         resConfigs "en", "zh-rCN"
