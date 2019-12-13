@@ -5,6 +5,7 @@ public class Sku {
     private String productId;
     private int priceType;
     private double price;
+    private Object o;
 
     public Sku(String productName, String productId, int priceType, double price){
         this.productName = productName;

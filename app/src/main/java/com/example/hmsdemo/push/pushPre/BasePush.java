@@ -9,7 +9,7 @@ public abstract class BasePush {
     public abstract void getToken();//get token
     public abstract void addTopic(String topic);//add topic
     public abstract void deleteTopic(String topic);//delete topic
-
+    public abstract void sendMessage(String msg);
     public interface OnPushCallBack {
         void callBack(String result);
     }

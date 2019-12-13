@@ -104,6 +104,11 @@ public class HmsPush extends BasePush {
         }
     }
 
+    @Override
+    public void sendMessage(String msg) {
+
+    }
+
     /**
      * get aaid
      */

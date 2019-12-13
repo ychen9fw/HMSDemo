@@ -96,5 +96,10 @@ public class GmsPush extends BasePush {
             ((PushActivity)baseActivity).getHandler().sendEmptyMessage(1);
         }
     }
+
+    @Override
+    public void sendMessage(String msg) {
+
+    }
 }
 
