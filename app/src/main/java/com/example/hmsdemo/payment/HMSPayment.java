@@ -128,6 +128,7 @@ public class HMSPayment extends BaseActivity {
         skuDetailReq.priceType = 0;
         ArrayList<String> mIitemlist = new ArrayList<>();
         mIitemlist.add("removeads");
+        mIitemlist.add("testConsumable01");
         skuDetailReq.skuIds = mIitemlist;
         //skuDetailReq.skuIds = skus;
         Task<SkuDetailResult> task = iapClient.getSkuDetail(skuDetailReq);
@@ -144,7 +145,7 @@ public class HMSPayment extends BaseActivity {
                         String sku = skuDetail.productId;
                         String price = skuDetail.price;
                         showLog(sku);
-                        if ("removeads".equals(sku)) {
+                        if ("testConsumable01".equals(sku)) {
                             skuDe = skuDetail;
                             priceView.setText(price);
                             payBtn.setEnabled(true);
