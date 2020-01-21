@@ -52,9 +52,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.btn_HuaweiPushDemo).setOnClickListener(this);
         findViewById(R.id.btn_HuaweiAdsDemo).setOnClickListener(this);
         findViewById(R.id.btn_HuaweiPayDemo).setOnClickListener(this);
-/*         findViewById(R.id.btn_HuaweiMapDemo).setOnClickListener(this);
+         findViewById(R.id.btn_HuaweiMapDemo).setOnClickListener(this);
 
-
+/*
         findViewById(R.id.btn_HuaweiDriveDemo).setOnClickListener(this);
         findViewById(R.id.btn_HuaweiGameDemo).setOnClickListener(this);
         findViewById(R.id.btn_HuaweiAnalysisDemo).setOnClickListener(this);
@@ -83,11 +83,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 goToHuaweiAdsDemo();
                 break;
 
- /*            case R.id.btn_HuaweiMapDemo:
+             case R.id.btn_HuaweiMapDemo:
                 goToHuaweiMapDemo();
                 break;
 
-           case R.id.btn_HuaweiDriveDemo:
+ /*          case R.id.btn_HuaweiDriveDemo:
                 goToHuaweiDriveDemo();
                 break;
 
