@@ -190,7 +190,7 @@ public class MapDemo extends BaseActivity implements OnMapReadyCallback, HuaweiM
 
         if (ActivityCompat.checkSelfPermission(this,
                 Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            Toast.makeText(getApplicationContext(), "need ACCESS_FINE_LOCATION", Toast.LENGTH_SHORT);
+          Toast.makeText(getApplicationContext(), "need ACCESS_FINE_LOCATION", Toast.LENGTH_SHORT);
             return;
         }
 
