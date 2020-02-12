@@ -1,7 +1,11 @@
 package com.example.hmsdemo.push.pushPre;
 
+import android.text.TextUtils;
+import android.util.Log;
+
 import com.example.hmsdemo.BaseActivity;
 import com.example.hmsdemo.push.PushActivity;
+import com.huawei.agconnect.config.AGConnectServicesConfig;
 import com.huawei.hmf.tasks.OnCompleteListener;
 import com.huawei.hmf.tasks.OnFailureListener;
 import com.huawei.hmf.tasks.OnSuccessListener;
@@ -14,7 +18,7 @@ import com.huawei.hms.push.HmsMessaging;
  * HMS Push Function Implementation Class
  */
 public class HmsPush extends BasePush {
-    private String aaId = null;//HMS Push needs AAID to get token
+    private String appId = null;//HMS Push needs AAID to get token
     public HmsPush(BaseActivity baseActivity) {
         this.baseActivity = baseActivity;
     }
@@ -22,8 +26,8 @@ public class HmsPush extends BasePush {
     @Override
     public void getToken() {
         //If there is no aaid, get the AAID first
-        if(aaId == null){
-            getAAId();
+        if(appId == null){
+            appId = AGConnectServicesConfig.fromContext(baseActivity).getString("client/app_id");
         }
         new Thread() {
             @Override
@@ -31,11 +35,14 @@ public class HmsPush extends BasePush {
                 try {
                     if(callBack!=null){
                         //get token
-                        String token = HmsInstanceId.getInstance(baseActivity).getToken(aaId, "HCM");
+                        String token = HmsInstanceId.getInstance(baseActivity).getToken(appId, "HCM");
                         //Callback the acquired token as a parameter of callback to the user
-                        callBack.callBack(token);
+                        if(!TextUtils.isEmpty(token)) {
+                            Log.i("TOKEN", "get token:" + token);
+                            callBack.callBack(token);
+                            callBack = null;
+                        }
                         //Callback completed,set callback empty
-                        callBack = null;
                     }
                 } catch (Exception e) {
                     //Acquisition failure, print logs
@@ -107,25 +114,6 @@ public class HmsPush extends BasePush {
     @Override
     public void sendMessage(String msg) {
 
-    }
-
-    /**
-     * get aaid
-     */
-    private void getAAId(){
-        Task<AAIDResult> idResult =  HmsInstanceId.getInstance(baseActivity).getAAID();
-        idResult.addOnSuccessListener(new OnSuccessListener<AAIDResult>() {
-            @Override
-            public void onSuccess(AAIDResult aaidResult) {
-                aaId = aaidResult.getId();
-                baseActivity.showLog("get aaId:" + aaId );
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(Exception e) {
-                baseActivity.showLog("get aaId failed");
-            }
-        });
     }
 }
 

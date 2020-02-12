@@ -26,21 +26,6 @@
         <activity android:name=".push.PushActivity" />
         <activity android:name=".Maps.GHLocation" />
         <activity android:name=".signin.GHSignin" />
-        <activity android:name=".map.styleMapDemo" />
-        <activity android:name=".AuthenticationDemo" />
-        <activity android:name=".AnalysisDemo" />
-        <activity android:name=".GameDemo" />
-        <activity android:name=".DriveDemo" />
-        <activity android:name=".PushDemo" />
-        <activity android:name=".PayDemo" />
-        <activity
-            android:name=".LocationDemo"
-            android:label="@string/title_activity_location_demo"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".LoginDemo"
-            android:label="@string/title_activity_login_demo"
-            android:screenOrientation="portrait" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

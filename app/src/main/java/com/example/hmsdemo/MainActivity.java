@@ -50,12 +50,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.btn_HuaweiPushDemo).setOnClickListener(this);
         findViewById(R.id.btn_HuaweiAdsDemo).setOnClickListener(this);
         findViewById(R.id.btn_HuaweiPayDemo).setOnClickListener(this);
-
-/*
-        findViewById(R.id.btn_HuaweiDriveDemo).setOnClickListener(this);
-        findViewById(R.id.btn_HuaweiGameDemo).setOnClickListener(this);
-        findViewById(R.id.btn_HuaweiAnalysisDemo).setOnClickListener(this);
-        findViewById(R.id.btn_HuaweiAutheDemo).setOnClickListener(this); */
     }
 
 
@@ -80,51 +74,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 goToHuaweiAdsDemo();
                 break;
 
-
- /*          case R.id.btn_HuaweiDriveDemo:
-                goToHuaweiDriveDemo();
-                break;
-
-            case R.id.btn_HuaweiGameDemo:
-                goToHuaweiGameDemo();
-                break;
-
-            case R.id.btn_HuaweiAnalysisDemo:
-                goToHuaweiAnalysisDemo();
-                break;
-            case R.id.btn_HuaweiAutheDemo:
-                goToHuaweiAutheDemo();
-                break;*/
             default:
         }
     }
 
-    private void goToHuaweiAutheDemo() {
-        Intent intent = new Intent(this, AuthenticationDemo.class);
-        startActivity(intent);
-    }
-
-    private void goToHuaweiAnalysisDemo() {
-        Intent intent = new Intent(this, AnalysisDemo.class);
-        startActivity(intent);
-    }
 
     private void goToHuaweiAdsDemo() {
         //Intent intent = new Intent(this, AdsDemo.class);
         Intent intent = new Intent(this, HGAds.class);
         startActivity(intent);
     }
-
-    private void goToHuaweiDriveDemo() {
-        Intent intent = new Intent(this, DriveDemo.class);
-        startActivity(intent);
-    }
-
-    private void goToHuaweiGameDemo() {
-        Intent intent = new Intent(this, GameDemo.class);
-        startActivity(intent);
-    }
-
 
     private void goToHuaweiPushDemo() {
         //Intent intent = new Intent(this, PushDemo.class);
@@ -133,7 +92,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void goToHuaweiPayDemo() {
-        //Intent intent = new Intent(this, PayDemo.class);
         Intent intent = null;
         int gmsResult = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(this);
 

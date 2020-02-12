@@ -11,27 +11,23 @@ import android.widget.TextView;
 
 import com.example.hmsdemo.BaseActivity;
 import com.example.hmsdemo.Constant;
-import com.example.hmsdemo.PayDemo;
 import com.example.hmsdemo.R;
 import com.huawei.hmf.tasks.OnFailureListener;
 import com.huawei.hmf.tasks.OnSuccessListener;
 import com.huawei.hmf.tasks.Task;
+import com.huawei.hms.iap.Iap;
+import com.huawei.hms.iap.IapApiException;
+import com.huawei.hms.iap.IapClient;
+import com.huawei.hms.iap.entity.IsEnvReadyResult;
+import com.huawei.hms.iap.entity.OrderStatusCode;
+import com.huawei.hms.iap.entity.ProductInfo;
+import com.huawei.hms.iap.entity.ProductInfoReq;
+import com.huawei.hms.iap.entity.ProductInfoResult;
+import com.huawei.hms.iap.entity.PurchaseIntentReq;
+import com.huawei.hms.iap.entity.PurchaseIntentResult;
+import com.huawei.hms.iap.entity.PurchaseResultInfo;
 import com.huawei.hms.support.api.client.Status;
-import com.huawei.hms.support.api.entity.iap.GetBuyIntentReq;
-import com.huawei.hms.support.api.entity.iap.OrderStatusCode;
-import com.huawei.hms.support.api.entity.iap.SkuDetail;
-import com.huawei.hms.support.api.entity.iap.SkuDetailReq;
-import com.huawei.hms.support.api.iap.BuyResultInfo;
-import com.huawei.hms.support.api.iap.GetBuyIntentResult;
-import com.huawei.hms.support.api.iap.HuaweiIap;
-import com.huawei.hms.support.api.iap.IsBillingSupportedResult;
-import com.huawei.hms.support.api.iap.SkuDetailResult;
-import com.huawei.hms.support.api.iap.json.Iap;
-import com.huawei.hms.support.api.iap.json.IapApiException;
-import com.huawei.hms.support.api.iap.json.IapClient;
 
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +40,7 @@ public class HMSPayment extends BaseActivity {
     private Button payBtn;
     private String TAG = "hms PAY";
     private IapClient iapClient;
-    private SkuDetail skuDe;
+    private ProductInfo productDe;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,6 +57,7 @@ public class HMSPayment extends BaseActivity {
 
         iapClient = Iap.getIapClient(this);
         payBtn = findViewById(R.id.payRemoveAdsBtn);
+        priceView = findViewById(R.id.price);
         payBtn.setEnabled(false);
         init();
         payBtn.setOnClickListener(new View.OnClickListener() {
@@ -84,15 +81,14 @@ public class HMSPayment extends BaseActivity {
 
     public void init() {
         showLog("check if billing is supported for current device and country ");
-        priceView = (TextView) findViewById(R.id.price);
-        Task<IsBillingSupportedResult> task = iapClient.isBillingSupported();
-        task.addOnSuccessListener(new OnSuccessListener<IsBillingSupportedResult>() {
+        Task<IsEnvReadyResult> task = iapClient.isEnvReady();
+        task.addOnSuccessListener(new OnSuccessListener<IsEnvReadyResult>() {
             @Override
-            public void onSuccess(IsBillingSupportedResult isBillingSupportedResult) {
-                if (isBillingSupportedResult != null) {
-                    showLog("isBillingSupported success: " + isBillingSupportedResult.getReturnCode());
+            public void onSuccess(IsEnvReadyResult  result) {
+                if (result != null) {
+                    showLog("isEnvReadyResult success: " + result.getReturnCode());
                     getSkuDetail();
-                    Log.i(TAG, "isBillingSupported success: " + isBillingSupportedResult.getReturnCode());
+                    Log.i(TAG, "isBillingSupported success: " + result.getReturnCode());
                 }
             }
         }).addOnFailureListener(new OnFailureListener() {
@@ -103,7 +99,6 @@ public class HMSPayment extends BaseActivity {
                     Status status = apiException.getStatus();
                     if (status.getStatusCode() == OrderStatusCode.ORDER_HWID_NOT_LOGIN) {
                         showLog("user not login");
-                        Log.i(TAG, "not login");
                         if (status.hasResolution()) {
                             try {
                                 //If there is no login, please login  startResolutionForResult
@@ -124,34 +119,34 @@ public class HMSPayment extends BaseActivity {
 
     private void getSkuDetail() {
         showLog("Query product details");
-        SkuDetailReq skuDetailReq = new SkuDetailReq();
-        //skuDetailReq.priceType = priceType;
-        skuDetailReq.priceType = 0;
-        ArrayList<String> mIitemlist = new ArrayList<>();
-        mIitemlist.add("removeads");
-        mIitemlist.add("testConsumable01");
-        skuDetailReq.skuIds = mIitemlist;
-        //skuDetailReq.skuIds = skus;
-        Task<SkuDetailResult> task = iapClient.getSkuDetail(skuDetailReq);
+        List<String> productIdList = new ArrayList<>();
+        // The product ID is the same as that set by a developer when configuring product information in AppGallery Connect.
+        productIdList.add("removeads");
+        productIdList.add("testConsumable01");
+        ProductInfoReq req = new ProductInfoReq();
+
+        // priceType: 0: consumable; 1: non-consumable; 2: auto-renewable subscription
+        req.setPriceType(0);
+        req.setProductIds(productIdList);
+
+        Task<ProductInfoResult> task = iapClient.obtainProductInfo(req);
         //Task<SkuDetailResult> task = Iap.getIapClient(this.getApplicationContext()).getSkuDetail(skuDetailReq);
-        task.addOnSuccessListener(new OnSuccessListener<SkuDetailResult>() {
+        task.addOnSuccessListener(new OnSuccessListener<ProductInfoResult>() {
             @Override
-            public void onSuccess(SkuDetailResult result) {
+            public void onSuccess(ProductInfoResult result) {
                 //get result
                 if (result != null) {
-                    List<SkuDetail> skuDetailList = result.getSkuList();
-
-                    showLog("getSkuDetail success " + result.getReturnCode() + " skuDetail" + skuDetailList.toString());
-                    for (SkuDetail skuDetail : skuDetailList) {
-                        String sku = skuDetail.productId;
-                        String price = skuDetail.price;
+                    List<ProductInfo> productList  =  result.getProductInfoList();
+                    for (ProductInfo product : productList) {
+                        String sku = product.getProductId();
+                        String price = product.getPrice();
                         showLog(sku);
                         if ("testConsumable01".equals(sku)) {
-                            skuDe = skuDetail;
+                            productDe = product;
                             priceView.setText(price);
                             payBtn.setEnabled(true);
                         }
-                        Log.i(TAG, "getSkuDetail success " + result.getReturnCode() + " skuDetail" + skuDetail.toString());
+                        Log.i(TAG, "get product detail success " + result.getReturnCode() + " product is: " + product.toString());
                     }
                 }
             }
@@ -172,14 +167,14 @@ public class HMSPayment extends BaseActivity {
 
     private void getBuyIntent() {
         showLog("Buy product");
-        GetBuyIntentReq getBuyIntentReq = new GetBuyIntentReq();
-        getBuyIntentReq.priceType = 0;
-        getBuyIntentReq.productId = skuDe.productId;
-        getBuyIntentReq.developerPayload = "tespmspay";
-        Task<GetBuyIntentResult> task = iapClient.getBuyIntent(getBuyIntentReq);
-        task.addOnSuccessListener(new OnSuccessListener<GetBuyIntentResult>() {
+        PurchaseIntentReq req  = new PurchaseIntentReq();
+        req.setPriceType(0);
+        req.setProductId(productDe.getProductId());
+        req.setDeveloperPayload("test");
+        Task<PurchaseIntentResult> task = iapClient.createPurchaseIntent(req);
+        task.addOnSuccessListener(new OnSuccessListener<PurchaseIntentResult>() {
             @Override
-            public void onSuccess(GetBuyIntentResult result) {
+            public void onSuccess(PurchaseIntentResult result) {
                 //Obtain payment results
                 if (result != null) {
                     Status status = result.getStatus();
@@ -213,24 +208,46 @@ public class HMSPayment extends BaseActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == Constant.REQ_CODE_NOT_LOGIN) {
-            Bundle bundle = data.getExtras();
-            showLog("isBillingSupported: " + bundle.getInt("returnCode") + "");
-            Log.i(TAG, "isBillingSupported: " + bundle.getInt("returnCode") + "");
+            if (data != null) {
+                // Obtain the execution result.
+                int returnCode = data.getIntExtra("returnCode", 1);
+                showLog("isBillingSupported: " + returnCode);
+                Log.i(TAG, "isBillingSupported: " + returnCode);
+            }
+
         } else if (requestCode == Constant.REQ_CODE_GO_PAY) {
             //支付结果
-            BuyResultInfo buyResultInfo = HuaweiIap.HuaweiIapApi.getBuyResultInfoFromIntent(data);
-            showLog("pay result: " + buyResultInfo.getReturnCode());
-            Log.i(TAG, "pay result: " + buyResultInfo.getReturnCode());
-            if (buyResultInfo.getReturnCode() == 0) {
-                String InAppPurchaseData = buyResultInfo.getInAppPurchaseData();
-                try {
-                    JSONObject jsonObject = new JSONObject(InAppPurchaseData);
-                    showLog("order ID " + jsonObject.getString("orderId"));
-                    //mPurchaseToken = jsonObject.getString("purchaseToken");
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+            if (data == null) {
+                showLog("onActivityResult data is null");
+                return;
             }
+            PurchaseResultInfo purchaseResultInfo  = iapClient.parsePurchaseResultInfoFromIntent(data);
+            showLog("pay result: " + purchaseResultInfo.getReturnCode());
+            Log.i(TAG, "pay result: " + purchaseResultInfo.getReturnCode());
+            switch(purchaseResultInfo.getReturnCode()) {
+                case OrderStatusCode.ORDER_STATE_CANCEL:
+                    // User cancel payment.
+                    showLog("User canceled payment");
+                    break;
+                case OrderStatusCode.ORDER_STATE_FAILED:
+                    showLog("Order state failed");
+                    break;
+                case OrderStatusCode.ORDER_PRODUCT_OWNED:
+                    showLog("Product is already owned");
+                    break;
+                case OrderStatusCode.ORDER_STATE_SUCCESS:
+                    // pay success.
+                    showLog("Payment Successed!");
+                    String inAppPurchaseData = purchaseResultInfo.getInAppPurchaseData();
+                    String inAppPurchaseDataSignature = purchaseResultInfo.getInAppDataSignature();
+                    // use the public key of your app to verify the signature.
+                    // If ok, you can deliver your products.
+                    // If the user purchased a consumable product, call the consumeOwnedPurchase API to consume it after successfully delivering the product.
+                    break;
+                default:
+                    break;
+            }
+            return;
         }
 
     }

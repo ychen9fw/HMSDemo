@@ -10,11 +10,12 @@ import com.huawei.hmf.tasks.OnCompleteListener;
 import com.huawei.hmf.tasks.OnFailureListener;
 import com.huawei.hmf.tasks.OnSuccessListener;
 import com.huawei.hmf.tasks.Task;
-import com.huawei.hms.auth.api.signin.HuaweiIdSignIn;
-import com.huawei.hms.auth.api.signin.HuaweiIdSignInClient;
 import com.huawei.hms.common.ApiException;
-import com.huawei.hms.support.api.hwid.HuaweiIdSignInOptions;
-import com.huawei.hms.support.api.hwid.SignInHuaweiId;
+import com.huawei.hms.support.hwid.HuaweiIdAuthManager;
+import com.huawei.hms.support.hwid.request.HuaweiIdAuthParams;
+import com.huawei.hms.support.hwid.request.HuaweiIdAuthParamsHelper;
+import com.huawei.hms.support.hwid.result.AuthHuaweiId;
+import com.huawei.hms.support.hwid.service.HuaweiIdAuthService;
 
 /**
  * Huawei Account Interface Implementation Class
@@ -22,37 +23,38 @@ import com.huawei.hms.support.api.hwid.SignInHuaweiId;
 public class HuaweiAccount implements AccountInterface {
     private static final String TAG = "HuaweiAccount";
 
-    private HuaweiIdSignInClient signInClient;
+    private HuaweiIdAuthService service;
     private Activity activity;
+    HuaweiIdAuthParams authParams;
     public HuaweiAccount(Activity activity){
         this.activity = activity;
         initHMS(activity);
     }
 
     private void initHMS(Activity activity) {
-        HuaweiIdSignInOptions mSignInOptions = new HuaweiIdSignInOptions.Builder(HuaweiIdSignInOptions.DEFAULT_SIGN_IN)
-                .requestAccessToken()
-                .requestIdToken("").build();
-        signInClient = HuaweiIdSignIn.getClient(activity, mSignInOptions);
+
+        authParams = new HuaweiIdAuthParamsHelper(HuaweiIdAuthParams.DEFAULT_AUTH_REQUEST_PARAM).setIdToken().createParams();
+        service= HuaweiIdAuthManager.getService(activity, authParams);
+
     }
 
     @Override
     public Intent getSignInIntent() {
-        return signInClient.getSignInIntent();
+        return service.getSignInIntent();
     }
 
     @Override
     public AccountInfo getSignedInAccountFromIntent(Intent data) {
         AccountInfo accountInfo = new AccountInfo();
-        Task<SignInHuaweiId> signInHuaweiIdTask = HuaweiIdSignIn.getSignedInAccountFromIntent(data);
-        if (signInHuaweiIdTask.isSuccessful()) {
-            SignInHuaweiId huaweiAccount = signInHuaweiIdTask.getResult();
+        Task<AuthHuaweiId> authHuaweiIdTask  = HuaweiIdAuthManager.parseAuthResultFromIntent(data);
+        if (authHuaweiIdTask.isSuccessful()) {
+            AuthHuaweiId  huaweiAccount = authHuaweiIdTask.getResult();
             accountInfo.setAccessToken(huaweiAccount.getIdToken());
             accountInfo.setDisplayName(huaweiAccount.getDisplayName());
             //accountInfo.setPhotoUrl(huaweiAccount.getPhotoUriString());
             Log.i(TAG, "signIn successful: ");
         } else {
-            Log.i(TAG, "signIn failed: " + ((ApiException) signInHuaweiIdTask.getException()).getStatusCode());
+            Log.i(TAG, "signIn failed: " + ((ApiException) authHuaweiIdTask.getException()).getStatusCode());
         }
         return accountInfo;
     }
@@ -60,7 +62,7 @@ public class HuaweiAccount implements AccountInterface {
     @Override
     public void removeAuth(){
         //showLog("revoke Auth demo");
-        signInClient.revokeAccess().addOnCompleteListener(new OnCompleteListener<Void>(){
+        service.cancelAuthorization().addOnCompleteListener(new OnCompleteListener<Void>(){
             //Perform operations after the withdrawal.
             @Override
             public void onComplete(Task<Void> task){
@@ -86,7 +88,7 @@ public class HuaweiAccount implements AccountInterface {
 
     @Override
     public void signOut() {
-        Task<Void> signOutTask = signInClient.signOut();
+        Task<Void> signOutTask = service.signOut();
         signOutTask.addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {

@@ -11,8 +11,6 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.huawei.hms.api.HuaweiApiAvailability;
 
-import java.io.IOException;
-
 import androidx.appcompat.widget.Toolbar;
 
 public class HGAds extends BaseActivity {
@@ -22,7 +20,7 @@ public class HGAds extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_hgads);
+        setContentView(R.layout.activity_ghads);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

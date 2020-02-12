@@ -50,7 +50,7 @@ public class PushActivity extends BaseActivity implements View.OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_push);
+        setContentView(R.layout.activity_ghpush);
         findViewById(R.id.btn_subscribe_topic).setOnClickListener(this);
         findViewById(R.id.btn_get_token).setOnClickListener(this);
         findViewById(R.id.btn_unsubscribe_topic).setOnClickListener(this);
