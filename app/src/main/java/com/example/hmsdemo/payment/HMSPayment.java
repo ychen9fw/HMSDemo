@@ -121,6 +121,7 @@ public class HMSPayment extends BaseActivity {
     }
 
 
+
     private void getSkuDetail() {
         showLog("Query product details");
         SkuDetailReq skuDetailReq = new SkuDetailReq();

@@ -1,14 +1,12 @@
-package com.example.hmsdemo.location;
+package com.example.hmsdemo.Maps;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.IntentSender;
 import android.location.Location;
 import android.os.Looper;
 import android.util.Log;
 
 import com.example.hmsdemo.BaseActivity;
-import com.example.hmsdemo.LocationDemo;
 import com.huawei.hmf.tasks.OnFailureListener;
 import com.huawei.hmf.tasks.OnSuccessListener;
 import com.huawei.hms.common.ApiException;

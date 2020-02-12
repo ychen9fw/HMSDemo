@@ -44,11 +44,6 @@
                 style="@style/ButtonStyle"
                 android:text="Huawei Pay Demo" />
 
-            <Button
-                android:id="@+id/btn_HuaweiMapDemo"
-                style="@style/ButtonStyle"
-                android:text="Huawei Map Demo" />
-
             <!--
 
                                     <Button

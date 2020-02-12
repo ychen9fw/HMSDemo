@@ -13,11 +13,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
-import com.example.hmsdemo.ads.GMSAds;
 import com.example.hmsdemo.ads.HGAds;
-import com.example.hmsdemo.ads.HMSAds;
-import com.example.hmsdemo.location.GHLocation;
-import com.example.hmsdemo.map.MapDemo;
+import com.example.hmsdemo.Maps.GHLocation;
 import com.example.hmsdemo.payment.GMSPayment;
 import com.example.hmsdemo.payment.HMSPayment;
 import com.example.hmsdemo.push.PushActivity;
@@ -41,6 +38,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         if(!isNetworkConnected()){
             Toast.makeText(this, "No Available Network. Please try again later", Toast.LENGTH_LONG).show();
             return;
@@ -52,7 +50,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.btn_HuaweiPushDemo).setOnClickListener(this);
         findViewById(R.id.btn_HuaweiAdsDemo).setOnClickListener(this);
         findViewById(R.id.btn_HuaweiPayDemo).setOnClickListener(this);
-         findViewById(R.id.btn_HuaweiMapDemo).setOnClickListener(this);
 
 /*
         findViewById(R.id.btn_HuaweiDriveDemo).setOnClickListener(this);
@@ -83,9 +80,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 goToHuaweiAdsDemo();
                 break;
 
-             case R.id.btn_HuaweiMapDemo:
-                goToHuaweiMapDemo();
-                break;
 
  /*          case R.id.btn_HuaweiDriveDemo:
                 goToHuaweiDriveDemo();
@@ -131,11 +125,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         startActivity(intent);
     }
 
-
-    private void goToHuaweiMapDemo() {
-        Intent intent = new Intent(this, MapDemo.class);
-        startActivity(intent);
-    }
 
     private void goToHuaweiPushDemo() {
         //Intent intent = new Intent(this, PushDemo.class);

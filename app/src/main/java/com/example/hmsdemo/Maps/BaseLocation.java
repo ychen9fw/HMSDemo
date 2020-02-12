@@ -1,4 +1,4 @@
-package com.example.hmsdemo.location;
+package com.example.hmsdemo.Maps;
 
 import android.location.Location;
 

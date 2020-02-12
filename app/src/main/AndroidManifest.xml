@@ -24,7 +24,7 @@
         <activity android:name=".payment.GMSPayment" />
         <activity android:name=".ads.HGAds" />
         <activity android:name=".push.PushActivity" />
-        <activity android:name=".location.GHLocation" />
+        <activity android:name=".Maps.GHLocation" />
         <activity android:name=".signin.GHSignin" />
         <activity android:name=".map.styleMapDemo" />
         <activity android:name=".AuthenticationDemo" />
@@ -32,7 +32,6 @@
         <activity android:name=".GameDemo" />
         <activity android:name=".DriveDemo" />
         <activity android:name=".PushDemo" />
-        <activity android:name=".map.MapDemo" />
         <activity android:name=".PayDemo" />
         <activity
             android:name=".LocationDemo"
