@@ -192,11 +192,7 @@ public class GHLocation extends BaseActivity implements View.OnClickListener, On
                 .addCircle(new CircleOptions().center(currentLatLng).radius(500).fillColor(Color.GREEN));
     }
 
-    /**
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we
-     * just add a marker near Africa.
-     */
+
     @SuppressLint("MissingPermission")
     @Override
     public void onMapReady(HuaweiMap map) {
