@@ -14,7 +14,8 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.hmsdemo.ads.HGAds;
-import com.example.hmsdemo.Maps.GHLocation;
+import com.example.hmsdemo.location.GHLocation;
+import com.example.hmsdemo.map.map;
 import com.example.hmsdemo.payment.GMSPayment;
 import com.example.hmsdemo.payment.HMSPayment;
 import com.example.hmsdemo.push.PushActivity;
@@ -50,6 +51,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.btn_HuaweiPushDemo).setOnClickListener(this);
         findViewById(R.id.btn_HuaweiAdsDemo).setOnClickListener(this);
         findViewById(R.id.btn_HuaweiPayDemo).setOnClickListener(this);
+        findViewById(R.id.btn_HuaweiMapDemo).setOnClickListener(this);
+
     }
 
 
@@ -73,9 +76,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.btn_HuaweiAdsDemo:
                 goToHuaweiAdsDemo();
                 break;
-
+            case R.id.btn_HuaweiMapDemo:
+                goToHuaweiMapDemo();
+                break;
             default:
         }
+    }
+
+    private void goToHuaweiMapDemo() {
+        //Intent intent = new Intent(this, AdsDemo.class);
+        Intent intent = new Intent(this, map.class);
+        startActivity(intent);
     }
 
 

@@ -87,7 +87,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-iid:20.0.0'
     implementation 'com.google.firebase:firebase-messaging:20.0.0'
     implementation 'com.google.android.gms:play-services-ads:18.2.0'
-
+    implementation 'com.google.android.gms:play-services-maps:17.0.0'
     implementation 'com.google.guava:guava:28.0-android'
     implementation 'com.android.billingclient:billing:1.2.2'
 }

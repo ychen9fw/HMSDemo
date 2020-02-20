@@ -1,6 +1,8 @@
 package com.example.hmsdemo.push.pushservices;
 
 import android.content.Intent;
+import android.util.Log;
+
 import com.example.hmsdemo.push.PushActivity;
 import com.huawei.hms.push.HmsMessageService;
 import com.huawei.hms.push.RemoteMessage;
@@ -10,6 +12,7 @@ public class MyHmsPushService extends HmsMessageService {
     @Override
     public void onNewToken(String s) {
         super.onNewToken(s);
+        Log.i("TOKEN", s );
         sendMyBroadcast("OnNewToken",s);
     }
 

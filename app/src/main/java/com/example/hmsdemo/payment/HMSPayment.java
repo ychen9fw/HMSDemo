@@ -38,13 +38,17 @@ public class HMSPayment extends BaseActivity {
 
     private TextView priceView;
     private Button payBtn;
+    private TextView subPriceView;
+    private Button subButton;
     private String TAG = "hms PAY";
     private IapClient iapClient;
     private ProductInfo productDe;
+    private ProductInfo subProduct;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_gmspayment);
+        setContentView(R.layout.activity_hmspayment);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -59,11 +63,20 @@ public class HMSPayment extends BaseActivity {
         payBtn = findViewById(R.id.payRemoveAdsBtn);
         priceView = findViewById(R.id.price);
         payBtn.setEnabled(false);
+        subButton = findViewById(R.id.btn_subscribe);
+        subPriceView = findViewById(R.id.subscribe_price);
+        subButton.setEnabled(false);
         init();
         payBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v)
             {
-                getBuyIntent();
+                getBuyIntent(productDe, 0);
+            }
+        }); //priceType: 0: consumable; 1: non-consumable; 2: auto-renewable subscription
+        subButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v)
+            {
+                getBuyIntent(subProduct, 2);
             }
         });
     }
@@ -88,6 +101,7 @@ public class HMSPayment extends BaseActivity {
                 if (result != null) {
                     showLog("isEnvReadyResult success: " + result.getReturnCode());
                     getSkuDetail();
+                    getSubscribeDetail();
                     Log.i(TAG, "isBillingSupported success: " + result.getReturnCode());
                 }
             }
@@ -164,12 +178,58 @@ public class HMSPayment extends BaseActivity {
         });
     }
 
+    private void getSubscribeDetail() {
+        showLog("Query subscription product details");
+        List<String> productIdList = new ArrayList<>();
+        // The product ID is the same as that set by a developer when configuring product information in AppGallery Connect.
+        productIdList.add("subscription01");
+        ProductInfoReq req = new ProductInfoReq();
 
-    private void getBuyIntent() {
+        // priceType: 0: consumable; 1: non-consumable; 2: auto-renewable subscription
+        req.setPriceType(2);
+        req.setProductIds(productIdList);
+
+        Task<ProductInfoResult> task = iapClient.obtainProductInfo(req);
+        //Task<SkuDetailResult> task = Iap.getIapClient(this.getApplicationContext()).getSkuDetail(skuDetailReq);
+        task.addOnSuccessListener(new OnSuccessListener<ProductInfoResult>() {
+            @Override
+            public void onSuccess(ProductInfoResult result) {
+                //get result
+                if (result != null) {
+                    List<ProductInfo> productList  =  result.getProductInfoList();
+                    for (ProductInfo product : productList) {
+                        String sku = product.getProductId();
+                        String price = product.getPrice();
+                        showLog(sku);
+                        if ("subscription01".equals(sku)) {
+                            subProduct = product;
+                            subPriceView.setText(price);
+                            subButton.setEnabled(true);
+                        }
+                    }
+                }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(Exception e) {
+                if (e instanceof IapApiException) {
+                    IapApiException iapApiException = (IapApiException) e;
+                    Status status = iapApiException.getStatus();
+                    showLog("getSkuDetail fail：" + status.getStatusCode());
+                    Log.i(TAG, "getSkuDetail fail：" + status.getStatusCode());
+                    Log.i(TAG, "getSkuDetail fail：" + iapApiException.getStatusMessage());
+                }
+            }
+        });
+    }
+
+
+
+    private void getBuyIntent(ProductInfo product, int priceType) {
         showLog("Buy product");
         PurchaseIntentReq req  = new PurchaseIntentReq();
-        req.setPriceType(0);
-        req.setProductId(productDe.getProductId());
+        req.setPriceType(priceType);
+        req.setProductId(product.getProductId());
         req.setDeveloperPayload("test");
         Task<PurchaseIntentResult> task = iapClient.createPurchaseIntent(req);
         task.addOnSuccessListener(new OnSuccessListener<PurchaseIntentResult>() {

@@ -1,4 +1,4 @@
-package com.example.hmsdemo.Maps;
+package com.example.hmsdemo.location;
 
 import android.annotation.SuppressLint;
 import android.content.IntentSender;
@@ -38,6 +38,7 @@ public class GMSLocation extends BaseLocation{
     public GMSLocation(BaseActivity baseActivity){
         this.baseActivity = baseActivity;
     }
+
 
     @Override
     public void setLocationRequest(){

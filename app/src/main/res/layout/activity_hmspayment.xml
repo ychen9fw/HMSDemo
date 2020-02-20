@@ -41,6 +41,35 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/subscribe"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:text="Subscribe" />
+
+
+        <TextView
+            android:id="@+id/subscribe_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="" />
+
+        <Button
+            android:id="@+id/btn_subscribe"
+            android:layout_width="wrap_content"
+            style="@style/ButtonStyle"
+            android:text="Subscribe" />
+
+    </LinearLayout>
+
     <include
         layout="@layout/log_layout"
         android:layout_below="@+id/btn_send_msg"

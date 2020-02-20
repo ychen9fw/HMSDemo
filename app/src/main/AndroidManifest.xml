@@ -22,9 +22,10 @@
         tools:replace="android:allowBackup">
         <activity android:name=".payment.HMSPayment"></activity>
         <activity android:name=".payment.GMSPayment" />
+        <activity android:name=".map.map" />
         <activity android:name=".ads.HGAds" />
         <activity android:name=".push.PushActivity" />
-        <activity android:name=".Maps.GHLocation" />
+        <activity android:name=".location.GHLocation" />
         <activity android:name=".signin.GHSignin" />
         <activity android:name=".MainActivity">
             <intent-filter>
@@ -47,14 +48,12 @@
 
         <service
             android:name=".push.pushservices.MyHmsPushService"
-            android:enabled="true"
-            android:exported="true"
-            android:permission="${applicationId}.permission.PROCESS_PUSH_MSG"
-            android:process=":HmsMessageService">
+            android:exported="false">
             <intent-filter>
                 <action android:name="com.huawei.push.action.MESSAGING_EVENT" />
             </intent-filter>
         </service>
+
         <service
             android:name=".push.pushservices.MyGmsPushService"
             android:exported="false">

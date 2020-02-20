@@ -1,4 +1,4 @@
-package com.example.hmsdemo.Maps;
+package com.example.hmsdemo.map;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -19,6 +19,9 @@ import android.widget.TextView;
 
 import com.example.hmsdemo.BaseActivity;
 import com.example.hmsdemo.R;
+import com.example.hmsdemo.location.BaseLocation;
+import com.example.hmsdemo.location.GMSLocation;
+import com.example.hmsdemo.location.HMSLocation;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.huawei.hms.api.HuaweiApiAvailability;
@@ -47,7 +50,7 @@ import com.huawei.hms.site.api.model.TextSearchResponse;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GHLocation extends BaseActivity implements View.OnClickListener, OnMapReadyCallback, HuaweiMap.OnMapClickListener{
+public class map extends BaseActivity implements View.OnClickListener, OnMapReadyCallback, HuaweiMap.OnMapClickListener{
 
     private BaseLocation locationService;
     private Location currentLocation;
@@ -67,7 +70,7 @@ public class GHLocation extends BaseActivity implements View.OnClickListener, On
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_ghlocation);
+        setContentView(R.layout.acitivity_map);
         findViewById(R.id.btn_search).setOnClickListener(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -192,11 +195,7 @@ public class GHLocation extends BaseActivity implements View.OnClickListener, On
                 .addCircle(new CircleOptions().center(currentLatLng).radius(500).fillColor(Color.GREEN));
     }
 
-    /**
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we
-     * just add a marker near Africa.
-     */
+
     @SuppressLint("MissingPermission")
     @Override
     public void onMapReady(HuaweiMap map) {
@@ -215,7 +214,7 @@ public class GHLocation extends BaseActivity implements View.OnClickListener, On
         hmap.getUiSettings().setCompassEnabled(true);
         hmap.getUiSettings().setAllGesturesEnabled(true);
         LatLng coordinate = new LatLng(location.getLatitude(), location.getLongitude());
-        CameraUpdate yourLocation = CameraUpdateFactory.newLatLngZoom(coordinate, 19);
+        CameraUpdate yourLocation = CameraUpdateFactory.newLatLngZoom(coordinate, 40);
         hmap.animateCamera(yourLocation);
         // hmap.setMapStyle();
 
