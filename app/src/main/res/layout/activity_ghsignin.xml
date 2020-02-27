@@ -13,11 +13,6 @@
         layout="@layout/toolbar"></include>
 
     <Button
-        android:id="@+id/btn_GoogleSignIn"
-        style="@style/ButtonStyle"
-        android:text="Google Sign In" />
-
-    <Button
         android:id="@+id/btn_SignInIDToken"
         style="@style/ButtonStyle"
         android:text="Sign In" />

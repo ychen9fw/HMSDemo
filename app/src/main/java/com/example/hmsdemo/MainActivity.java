@@ -1,6 +1,7 @@
 package com.example.hmsdemo;
 
 import android.Manifest;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -8,8 +9,11 @@ import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.provider.Settings;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -26,15 +30,34 @@ import com.google.android.gms.common.GoogleApiAvailability;
 import com.huawei.hms.api.HuaweiApiAvailability;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+
+import net.openid.appauth.AuthState;
+import net.openid.appauth.AuthorizationException;
+import net.openid.appauth.AuthorizationRequest;
+import net.openid.appauth.AuthorizationResponse;
+import net.openid.appauth.AuthorizationService;
+import net.openid.appauth.AuthorizationServiceConfiguration;
+import net.openid.appauth.TokenResponse;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
     private PermissionManager permissionManager;
     private final int REQUEST_LOCATION = 1;
-
+    private static final String SHARED_PREFERENCES_NAME = "AuthStatePreference";
+    private static final String AUTH_STATE = "AUTH_STATE";
+    private static final String USED_INTENT = "USED_INTENT";
+    private String TAG = "MainActivity";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,9 +75,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.btn_HuaweiAdsDemo).setOnClickListener(this);
         findViewById(R.id.btn_HuaweiPayDemo).setOnClickListener(this);
         findViewById(R.id.btn_HuaweiMapDemo).setOnClickListener(this);
-
+        findViewById(R.id.btn_GoogleSignIn).setOnClickListener(this);
     }
-
 
     @Override
     public void onClick(View v) {
@@ -79,25 +101,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.btn_HuaweiMapDemo:
                 goToHuaweiMapDemo();
                 break;
+            case R.id.btn_GoogleSignIn:
+                GoogleSignin();
+                break;
             default:
         }
     }
 
+
+
     private void goToHuaweiMapDemo() {
-        //Intent intent = new Intent(this, AdsDemo.class);
         Intent intent = new Intent(this, map.class);
         startActivity(intent);
     }
 
 
     private void goToHuaweiAdsDemo() {
-        //Intent intent = new Intent(this, AdsDemo.class);
         Intent intent = new Intent(this, HGAds.class);
         startActivity(intent);
     }
 
     private void goToHuaweiPushDemo() {
-        //Intent intent = new Intent(this, PushDemo.class);
         Intent intent = new Intent(this, PushActivity.class);
         startActivity(intent);
     }
@@ -109,10 +133,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //Use Interface to Judje whether Mobile Phone Supports Huawei MoBile Service,If supported,the result will be return to SUCCESS
         int hmsResult = HuaweiApiAvailability.getInstance().isHuaweiMobileServicesAvailable(this);
         if(gmsResult == ConnectionResult.SUCCESS){
-            //Initialized as GMS PUSH functional class
+            //Initialized as GMS PAY functional class
             intent = new Intent(this,GMSPayment.class);
         }else if(hmsResult == com.huawei.hms.api.ConnectionResult.SUCCESS){
-            //Initialized as HMS PUSH functional class
+            //Initialized as HMS PAY functional class
             intent = new Intent(this, HMSPayment.class);
         }else {//If neither service supports, hide all buttons
             return;
@@ -122,13 +146,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void goToHuaweiLocationDemo() {
-        //Intent intent = new Intent(this, LocationDemo.class);
         Intent intent = new Intent(this, GHLocation.class);
         startActivity(intent);
     }
 
     private void goToHuaweiIDDemo() {
-        //Intent intent = new Intent(this, LoginDemo.class);
         Intent intent = new Intent(this, GHSignin.class);
         startActivity(intent);
     }
@@ -143,7 +165,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             @Override
             public void onPermissionPreviouslyDenied() {
-                showCameraRational();
+                showPermisonRational();
             }
 
             @Override
@@ -153,14 +175,144 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             @Override
             public void onPermissionGranted() {
-                //permissionIsGranted = true;
                 goToHuaweiLocationDemo();
             }
         });
 
     }
 
+    /**
+     * Google OAuth Login, reference: https://codelabs.developers.google.com/codelabs/appauth-android-codelab/#0
+     *
+     * Kicks off the authorization flow.
+     */
+    public void GoogleSignin(){
+        AuthorizationServiceConfiguration serviceConfiguration = new AuthorizationServiceConfiguration(
+                Uri.parse("https://accounts.google.com/o/oauth2/v2/auth") /* auth endpoint */,
+                Uri.parse("https://www.googleapis.com/oauth2/v4/token") /* token endpoint */
+        );
 
+        String clientId = "511828570984-fuprh0cm7665emlne3rnf9pk34kkn86s.apps.googleusercontent.com";
+        Uri redirectUri = Uri.parse("com.google.codelabs.appauth:/oauth2callback");
+        AuthorizationRequest.Builder builder = new AuthorizationRequest.Builder(
+                serviceConfiguration,
+                clientId,
+                AuthorizationRequest.RESPONSE_TYPE_CODE,
+                redirectUri
+        );
+        builder.setScopes("profile");
+        AuthorizationRequest request = builder.build();
+
+        AuthorizationService authorizationService = new AuthorizationService(this);
+
+        String action = "com.google.codelabs.appauth.HANDLE_AUTHORIZATION_RESPONSE";
+        Intent postAuthorizationIntent = new Intent(action);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, request.hashCode(), postAuthorizationIntent, 0);
+        authorizationService.performAuthorizationRequest(request, pendingIntent);
+    }
+
+
+    /** Exchanges the code, for the {@link TokenResponse}.
+     *
+     * @param intent represents the {@link Intent} from the Custom Tabs or the System Browser.
+     *
+     */
+    private void handleAuthorizationResponse(@NonNull Intent intent) {
+        AuthorizationResponse response = AuthorizationResponse.fromIntent(intent);
+        AuthorizationException error = AuthorizationException.fromIntent(intent);
+        final AuthState authState = new AuthState(response, error);
+
+        if (response != null) {
+            Log.i(TAG, String.format("Handled Authorization Response %s ", authState.toJsonString()));
+            AuthorizationService service = new AuthorizationService(this);
+            service.performTokenRequest(response.createTokenExchangeRequest(), new AuthorizationService.TokenResponseCallback() {
+                @Override
+                public void onTokenRequestCompleted(@Nullable TokenResponse tokenResponse, @Nullable AuthorizationException exception) {
+                    if (exception != null) {
+                        Log.i(TAG,"Token Exchange failed " + exception);
+                    } else {
+                        if (tokenResponse != null) {
+                            authState.update(tokenResponse, exception);
+                            persistAuthState(authState);
+                            Log.i(TAG, String.format("Token Response [ Access Token: %s, ID Token: %s ]", tokenResponse.accessToken, tokenResponse.idToken));
+                            authState.performActionWithFreshTokens(new AuthorizationService(getApplicationContext()), new AuthState.AuthStateAction() {
+                                @Override
+                                public void execute(@Nullable String accessToken, @Nullable String idToken, @Nullable AuthorizationException exception) {
+                                    new AsyncTask<String, Void, JSONObject>() {
+                                        @Override
+                                        protected JSONObject doInBackground(String... tokens) {
+                                            OkHttpClient client = new OkHttpClient();
+                                            Request request = new Request.Builder()
+                                                    .url("https://www.googleapis.com/oauth2/v3/userinfo")
+                                                    .addHeader("Authorization", String.format("Bearer %s", tokens[0]))
+                                                    .build();
+
+                                            try {
+                                                Response response = client.newCall(request).execute();
+                                                String jsonBody = response.body().string();
+                                                Log.i(TAG,String.format("User Info Response %s", jsonBody));
+                                                return new JSONObject(jsonBody);
+                                            } catch (Exception exception) {
+                                                Log.i(TAG, exception.toString());
+                                            }
+                                            return null;
+                                        }
+
+                                        @Override
+                                        protected void onPostExecute(JSONObject userInfo) {
+                                            if (userInfo != null) {
+                                                String fullName = userInfo.optString("name", null);
+                                                String givenName = userInfo.optString("given_name", null);
+                                                String familyName = userInfo.optString("family_name", null);
+                                                String imageUrl = userInfo.optString("picture", null);
+                                                Toast.makeText(getApplicationContext(), "welcome " + fullName  + " log in", Toast.LENGTH_LONG).show();
+                                                String message;
+                                                if (userInfo.has("error")) {
+                                                    message = String.format("%s [%s]", "failed request", userInfo.optString("error_description", "No description"));
+                                                } else {
+                                                    message = "request completed";
+                                                }
+                                            }
+                                        }
+                                    }.execute(accessToken);
+                                }
+                            });
+                        }
+                    }
+                }
+            });
+        }
+    }
+
+    private void persistAuthState(@NonNull AuthState authState) {
+        getSharedPreferences(SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE).edit()
+                .putString(AUTH_STATE, authState.toJsonString())
+                .commit();
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        checkIntent(intent);
+    }
+
+    private void checkIntent(@Nullable Intent intent) {
+        if (intent != null) {
+            String action = intent.getAction();
+            switch (action) {
+                case "com.google.codelabs.appauth.HANDLE_AUTHORIZATION_RESPONSE":
+                    if (!intent.hasExtra(USED_INTENT)) {
+                        handleAuthorizationResponse(intent);
+                        intent.putExtra(USED_INTENT, true);
+                    }
+                    break;
+                default:
+                    // do nothing
+            }
+        }
+    }
+
+
+    /*Check Network*/
     private boolean isNetworkConnected(){
         ConnectivityManager connectivityManager = (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
@@ -168,7 +320,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
-    private void showCameraRational() {
+    /* for permission rational*/
+    private void showPermisonRational() {
         new AlertDialog.Builder(this).setTitle("Permission Denied").setMessage("Location permission is essential for this app, without location permission, you are not able to get resource around you!")
                 .setCancelable(false)
                 .setNegativeButton("I'M SURE", new DialogInterface.OnClickListener() {
@@ -229,6 +382,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Uri uri = Uri.parse("package:" + getPackageName());
         intent.setData(uri);
         startActivity(intent);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        checkIntent(getIntent());
     }
 
 }

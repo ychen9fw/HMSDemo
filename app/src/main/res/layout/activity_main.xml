@@ -48,6 +48,11 @@
                 style="@style/ButtonStyle"
                 android:text="Huawei Map Demo" />
 
+            <Button
+                android:id="@+id/btn_GoogleSignIn"
+                style="@style/ButtonStyle"
+                android:text="Google Sign In" />
+
 
         </LinearLayout>
     </ScrollView>

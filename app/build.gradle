@@ -66,7 +66,7 @@ dependencies {
     androidTestImplementation 'androidx.test:rules:1.2.0'
     androidTestImplementation 'androidx.annotation:annotation:1.1.0'
     //HMS dependencies
-   // implementation 'com.huawei.hms:base:3.0.0.301'
+    // implementation 'com.huawei.hms:base:3.0.0.301'
     implementation 'com.huawei.hms:hwid:4.0.1.300'
     implementation 'com.huawei.hms:location:4.0.0.300'
     implementation 'com.huawei.hms:iap:4.0.1.300'
@@ -77,9 +77,9 @@ dependencies {
     implementation 'com.huawei.hms:site:4.0.0.300'
 
 
-
     // For Google oAuth Signin
-    implementation 'com.auth0.android:auth0:1.+'
+    implementation 'net.openid:appauth:0.2.0'
+    implementation 'com.squareup.okhttp3:okhttp:3.2.0'
 
     implementation 'com.google.android.gms:play-services-auth:17.0.0'
     implementation 'com.google.android.gms:play-services-location:17.0.0'
@@ -90,6 +90,10 @@ dependencies {
     implementation 'com.google.android.gms:play-services-maps:17.0.0'
     implementation 'com.google.guava:guava:28.0-android'
     implementation 'com.android.billingclient:billing:1.2.2'
+
+    //cameraKiat
+    implementation(name: 'camerakit-1.0.2', ext: 'aar')
+
 }
 
 apply plugin: 'com.google.gms.google-services'

@@ -5,6 +5,9 @@ buildscript {
         google()
         jcenter()
         maven {url 'http://developer.huawei.com/repo/'}
+        flatDir {
+            dirs 'libs'
+        }
         
     }
     dependencies {
@@ -21,6 +24,9 @@ allprojects {
         google()
         jcenter()
         maven {url 'http://developer.huawei.com/repo/'}
+        flatDir {
+            dirs 'libs'
+        }
     }
 }
 

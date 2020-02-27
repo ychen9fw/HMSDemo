@@ -1,23 +1,42 @@
 package com.example.hmsdemo.signin;
 
 import android.app.Dialog;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.provider.Telephony;
+import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 
-import com.auth0.android.Auth0;
-import com.auth0.android.authentication.AuthenticationException;
-import com.auth0.android.provider.AuthCallback;
-import com.auth0.android.provider.WebAuthProvider;
-import com.auth0.android.result.Credentials;
 import com.example.hmsdemo.BaseActivity;
 import com.example.hmsdemo.Constant;
+import com.example.hmsdemo.MainActivity;
 import com.example.hmsdemo.R;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
+
+import net.openid.appauth.AuthState;
+import net.openid.appauth.AuthorizationException;
+import net.openid.appauth.AuthorizationRequest;
+import net.openid.appauth.AuthorizationResponse;
+import net.openid.appauth.AuthorizationService;
+import net.openid.appauth.AuthorizationServiceConfiguration;
+import net.openid.appauth.TokenResponse;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 /**
  * login test
@@ -28,7 +47,8 @@ public class GHSignin extends BaseActivity implements OnClickListener {
      * TAG
      */
     public static final String TAG = "IdActivity";
-    private Auth0 auth0;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,7 +56,6 @@ public class GHSignin extends BaseActivity implements OnClickListener {
         findViewById(R.id.btn_SignInIDToken).setOnClickListener(this);
         findViewById(R.id.btn_revokeAuthorization).setOnClickListener(this);
         findViewById(R.id.btn_signout).setOnClickListener(this);
-        findViewById(R.id.btn_GoogleSignIn).setOnClickListener(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -46,6 +65,7 @@ public class GHSignin extends BaseActivity implements OnClickListener {
             getSupportActionBar().setDisplayShowHomeEnabled(true);
             getSupportActionBar().setTitle(R.string.title_activity_login_demo);
         }
+
 
     }
 
@@ -72,42 +92,16 @@ public class GHSignin extends BaseActivity implements OnClickListener {
             case R.id.btn_signout:
                 AccountManager.getInstance().signOut(this);
                 break;
-            case R.id.btn_GoogleSignIn:
-                googleSignin();
-                break;
+
             default:
                 break;
         }
     }
 
-    private void googleSignin() {
-        auth0 = new Auth0(this);
-        auth0.setOIDCConformant(true);
-        WebAuthProvider.login(auth0)
-                .withScheme("demo")
-                .withAudience(String.format("https://%s/userinfo", getString(R.string.com_auth0_domain)))
-                .start(GHSignin.this, new AuthCallback() {
-                    @Override
-                    public void onFailure(@NonNull Dialog dialog) {
-                        // Show error Dialog to user
-                        showLog("signIn failed ");
-                    }
 
-                    @Override
-                    public void onFailure(AuthenticationException exception) {
-                        // Show error to user
-                        showLog("signIn failed ");
-                    }
 
-                    @Override
-                    public void onSuccess(@NonNull Credentials credentials) {
-                        showLog("credentials " + credentials.getAccessToken());
-                        // Store credentials
-                        // Navigate to your main activity
-                    }
-                });
 
-    }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -125,7 +119,8 @@ public class GHSignin extends BaseActivity implements OnClickListener {
     @Override
     protected void onStart() {
         super.onStart();
-    }
+
+}
 
     @Override
     protected void onStop() {
