@@ -75,9 +75,6 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, O
         queryInput = findViewById(R.id.edit_text_text_search_query);
         mMapView = findViewById(R.id.mapView);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
         setToolbar();
         checkDependency();
 
@@ -95,11 +92,14 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, O
     }
 
     public void setToolbar(){
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
         // add back arrow to toolbar
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
-            getSupportActionBar().setTitle(R.string.title_activity_location_demo);
+            getSupportActionBar().setTitle(R.string.title_activity_map_demo);
         }
     }
 

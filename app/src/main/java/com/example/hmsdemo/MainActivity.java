@@ -22,6 +22,7 @@ import com.example.hmsdemo.map.MapActivity;
 import com.example.hmsdemo.payment.GMSPayment;
 import com.example.hmsdemo.payment.HMSPayment;
 import com.example.hmsdemo.push.PushActivity;
+import com.example.hmsdemo.scan.ScanActivity;
 import com.example.hmsdemo.signin.GHSignin;
 import com.example.hmsdemo.utils.PermissionManager;
 import com.google.android.gms.common.ConnectionResult;
@@ -32,6 +33,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 
 import net.openid.appauth.AuthState;
@@ -61,6 +63,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        setToolbar();
+
         if(!isNetworkConnected()){
             Toast.makeText(this, "No Available Network. Please try again later", Toast.LENGTH_LONG).show();
             return;
@@ -74,7 +78,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.btn_HuaweiPayDemo).setOnClickListener(this);
         findViewById(R.id.btn_HuaweiMapDemo).setOnClickListener(this);
         findViewById(R.id.btn_HuaweiMLDemo).setOnClickListener(this);
+        findViewById(R.id.btn_HuaweiScanDemo).setOnClickListener(this);
         findViewById(R.id.btn_GoogleSignIn).setOnClickListener(this);
+    }
+
+    public void setToolbar(){
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        // add back arrow to toolbar
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle(R.string.app_name);
+        }
     }
 
     @Override
@@ -103,6 +118,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.btn_HuaweiMLDemo:
                 goToHuaweiMLDemo();
                 break;
+            case R.id.btn_HuaweiScanDemo:
+                goToHuaweiScanDemo();
+                break;
             case R.id.btn_GoogleSignIn:
                 GoogleSignin();
                 break;
@@ -110,6 +128,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    private void goToHuaweiScanDemo() {
+        Intent intent = new Intent(this, ScanActivity.class);
+        startActivity(intent);
+    }
 
     private void goToHuaweiMLDemo() {
         Intent intent = new Intent(this, com.example.hmsdemo.ml.menu.MainActivity.class);

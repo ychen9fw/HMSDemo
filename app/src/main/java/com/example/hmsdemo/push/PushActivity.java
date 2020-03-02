@@ -62,7 +62,7 @@ public class PushActivity extends BaseActivity implements View.OnClickListener {
         if (getSupportActionBar() != null){
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
-            getSupportActionBar().setTitle(R.string.title_activity_location_demo);
+            getSupportActionBar().setTitle(R.string.title_activity_push_demo);
         }
 
         //Use Interface to Judje whether Mobile Phone Supports Google MoBile Service,If supported,the result will be return to SUCCESS

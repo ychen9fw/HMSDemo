@@ -9,7 +9,7 @@
 
     <include
         android:id="@+id/toolbar"
-        layout="@layout/toolbar"></include>
+        layout="@layout/toolbar" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -23,40 +23,54 @@
             <Button
                 android:id="@+id/btn_HuaweiIDDemo"
                 style="@style/ButtonStyle"
-                android:text="Huawei ID Demo" />
+                android:text="Huawei ID Demo"
+                tools:ignore="HardcodedText"/>
 
             <Button
                 android:id="@+id/btn_HuaweiLocationDemo"
                 style="@style/ButtonStyle"
-                android:text="Huawei Location Demo" />
+                android:text="Huawei Location Demo"
+                tools:ignore="HardcodedText"/>
 
             <Button
                 android:id="@+id/btn_HuaweiPushDemo"
                 style="@style/ButtonStyle"
-                android:text="Huawei Push Message Demo" />
+                android:text="Huawei Push Message Demo"
+                tools:ignore="HardcodedText"/>
 
             <Button
                 android:id="@+id/btn_HuaweiAdsDemo"
                 style="@style/ButtonStyle"
-                android:text="Huawei Ads Demo" />
+                android:text="Huawei Ads Demo"
+                tools:ignore="HardcodedText"/>
             <Button
                 android:id="@+id/btn_HuaweiPayDemo"
                 style="@style/ButtonStyle"
-                android:text="Huawei Pay Demo" />
+                android:text="Huawei Pay Demo"
+                tools:ignore="HardcodedText"/>
             <Button
                 android:id="@+id/btn_HuaweiMapDemo"
                 style="@style/ButtonStyle"
-                android:text="Huawei Map Demo" />
+                android:text="Huawei Map Demo"
+                tools:ignore="HardcodedText"/>
 
             <Button
                 android:id="@+id/btn_HuaweiMLDemo"
                 style="@style/ButtonStyle"
-                android:text="Huawei ML Demo" />
+                android:text="Huawei ML Demo"
+                tools:ignore="HardcodedText" />
+
+            <Button
+                android:id="@+id/btn_HuaweiScanDemo"
+                style="@style/ButtonStyle"
+                android:text="Huawei Scan Demo"
+                tools:ignore="HardcodedText"/>
 
             <Button
                 android:id="@+id/btn_GoogleSignIn"
                 style="@style/ButtonStyle"
-                android:text="Google Sign In" />
+                android:text="Google Sign In"
+                tools:ignore="HardcodedText"/>
 
 
         </LinearLayout>

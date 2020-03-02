@@ -3,14 +3,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".text.ImageTextAnalyseActivity">
+    tools:context=".ml.text.ImageTextAnalyseActivity">
 
     <ImageView
         android:id="@+id/text_image"
         android:layout_width="500dp"
         android:layout_height="320dp"
         android:layout_centerHorizontal="true"
-        android:background="@drawable/text_image"></ImageView>
+        android:background="@drawable/text_image"
+        tools:ignore="ContentDescription" />
 
     <TextView
         android:id="@+id/text_result"
@@ -19,8 +20,9 @@
         android:layout_below="@+id/text_image"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="20dp"
+        android:layout_marginRight="20dp"
         android:textColor="@color/upsdk_blue_text_007dff"
-        android:textSize="13sp"></TextView>
+        android:textSize="13sp" />
 
     <Button
         android:id="@+id/text_detect"
@@ -31,5 +33,5 @@
         android:layout_marginBottom="20dp"
         android:background="@color/upsdk_white"
         android:text="detect"
-        android:textColor="@color/emui_color_gray_7"></Button>
+        android:textColor="@color/hwid_auth_button_color_black" />
 </RelativeLayout>

@@ -6,10 +6,21 @@
     android:layout_height="match_parent"
     tools:context=".ml.menu.MainActivity">
 
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -23,8 +34,8 @@
                 android:layout_width="0dp"
                 android:layout_height="40dp"
                 android:layout_weight="0.5"
-                android:text="Image Classification"
-                android:onClick="ImageClassificationOnClick"></Button>
+                android:onClick="ImageClassificationOnClick"
+                android:text="Image Classification"></Button>
         </LinearLayout>
 
         <LinearLayout
@@ -38,8 +49,8 @@
                 android:layout_width="0dp"
                 android:layout_height="40dp"
                 android:layout_weight="0.5"
-                android:text="Image Document Analyzer"
-                android:onClick="ImageDocumentAnalyseOnClick"></Button>
+                android:onClick="ImageDocumentAnalyseOnClick"
+                android:text="Image Document Analyzer"></Button>
         </LinearLayout>
 
         <LinearLayout
@@ -53,8 +64,8 @@
                 android:layout_width="0dp"
                 android:layout_height="40dp"
                 android:layout_weight="0.5"
-                android:text="Live Face Analyzer"
-                android:onClick="LiveFaceAnalyseOnClick"></Button>
+                android:onClick="LiveFaceAnalyseOnClick"
+                android:text="Live Face Analyzer"></Button>
         </LinearLayout>
 
         <LinearLayout
@@ -68,8 +79,8 @@
                 android:layout_width="0dp"
                 android:layout_height="40dp"
                 android:layout_weight="0.5"
-                android:text="Still Face Analyzer"
-                android:onClick="StillFaceAnalyseOnClick"></Button>
+                android:onClick="StillFaceAnalyseOnClick"
+                android:text="Still Face Analyzer"></Button>
         </LinearLayout>
 
         <LinearLayout
@@ -83,8 +94,8 @@
                 android:layout_width="0dp"
                 android:layout_height="40dp"
                 android:layout_weight="0.5"
-                android:text="Image Landmark Analyzer"
-                android:onClick="ImageLandmarkAnalyseOnClick"></Button>
+                android:onClick="ImageLandmarkAnalyseOnClick"
+                android:text="Image Landmark Analyzer"></Button>
         </LinearLayout>
 
         <LinearLayout
@@ -98,8 +109,8 @@
                 android:layout_width="0dp"
                 android:layout_height="40dp"
                 android:layout_weight="0.5"
-                android:text="Live Object Analyzer"
-                android:onClick="LiveObjectAnalyseOnClick"></Button>
+                android:onClick="LiveObjectAnalyseOnClick"
+                android:text="Live Object Analyzer"></Button>
         </LinearLayout>
 
         <LinearLayout
@@ -113,8 +124,8 @@
                 android:layout_width="0dp"
                 android:layout_height="40dp"
                 android:layout_weight="0.5"
-                android:text="Image Text Analyzer"
-                android:onClick="ImageTextAnalyseOnClick"></Button>
+                android:onClick="ImageTextAnalyseOnClick"
+                android:text="Image Text Analyzer"></Button>
         </LinearLayout>
 
     </LinearLayout>

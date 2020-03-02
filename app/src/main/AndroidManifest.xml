@@ -4,8 +4,10 @@
     package="com.example.hmsdemo">
 
     <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -39,6 +41,7 @@
         <activity android:name=".ml.landmark.ImageLandmarkAnalyseActivity" />
         <activity android:name=".ml.object.LiveObjectAnalyseActivity" />
         <activity android:name=".ml.text.ImageTextAnalyseActivity" />
+        <activity android:name=".scan.ScanActivity" />
         <activity android:name=".signin.GHSignin">
         </activity>
 
