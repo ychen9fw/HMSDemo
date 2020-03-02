@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#5598fc</color>
+    <color name="colorPrimaryDark">#F79A04</color>
+    <!-- Not used in theme -->
+    <color name="primary_light">#F1E691</color>
+    <color name="colorAccent">#8BC34A</color>
+    <color name="white">#FFFFFF</color>
+    <!-- Using @android:color/white -->
+    <!--<color name="icons">#FFFFFF</color>-->
+
+    <color name="divider">#706a6a</color>
+    <color name="theme_divider">#B6B6B6</color>
+
+    <color name="text_primary">#fffefe</color>
+    <color name="text_secondary">#E8E1E1</color>
+
+    <color name="navigation_bar">#000000</color>
+    <color name="viewBg">#f1f5f8</color>
+    <color name="album_title">#4c4c4c</color>
+    <color name="md_amber_50">#40391c</color>
+    <color name="text_white">#fff</color>
+
+</resources>

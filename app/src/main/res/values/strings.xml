@@ -1,0 +1,56 @@
+<resources>
+    <string name="app_name">HMSDemo</string>
+    <string name="title_activity_login_demo">Login Demo</string>
+    <string name="title_activity_location_demo">Location Demo</string>
+    <string name="title_activity_pay_demo">Pay Demo</string>
+    <string name="title_activity_map_demo">Map Demo</string>
+    <string name="title_activity_push_demo">Push Demo</string>
+    <string name="title_activity_ads_demo">Ads Demo</string>
+    <string name="title_activity_drive_demo">Drive Demo</string>
+    <string name="title_activity_authen_demo">Authentication Demo</string>
+    <string name="title_activity_game_demo">Game Demo</string>
+    <string name="title_activity_analysis_demo">Analysis Demo</string>
+
+
+    <string name="type_prompt">Choose a product Type</string>
+    <string name="product_prompt">Choose a product</string>
+    <string name="getToken">Get Token</string>
+    <string name="deleteToken">Delete Token</string>
+    <string name="set_push_unable">Turn Off Push Message</string>
+    <string name="set_push_enable">Turn on Push Messag</string>
+    <string name="add_subscribe_topic">Add Subscripiton Topic</string>
+    <string name="set_msg_enable">Turn on Message</string>
+    <string name="get_aaid">Get aaId</string>
+    <string name="delete_aaid">Delete aaId</string>
+    <string name="sign_in">Sign In</string>
+    <string name="sign_out">Sign Out</string>
+    <string name="cancel">Cancel</string>
+    <string name="confirm">Confirm</string>
+    <string name="add_topic">Enter Topic name to add</string>
+    <string name="delete_topic">Enter Topic name to delete</string>
+    <string name="delete_subscribe_topic">Delete Subscribed Topic</string>
+    <string name="send_msg">Send massage upwards</string>
+    <string name="silent_sign_in">Silent Login</string>
+    <string name="revoke_authority">Revoke Authorization</string>
+    <string name="msg_subscribe_failed">Failed to subscribe to topic</string>
+    <string name="msg_subscribed">Subscribed to topic</string>
+    <string name="msg_unsubscribed">Successful unsubscribe</string>
+    <string name="msg_unsubscribe_failed">Unsuccessful unsubscribe</string>
+    <!--Style-->
+    <string name="styled_map_demo_label">Styled Map</string>
+    <string name="styled_map_demo_description">Demonstrates how to style a map.</string>
+    <string name="style_label_retro">Retro</string>
+    <string name="style_label_night">Night</string>
+    <string name="style_label_grayscale">Grayscale</string>
+    <string name="style_label_no_pois_no_transit">No POIs or transit</string>
+    <string name="style_label_default">Default</string>
+    <string name="style_choose">Choose style</string>
+    <string name="style_set_to">Style set to: %1$s</string>
+
+    <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
+    <string name="default_notification_channel_name" translatable="true">Weather</string>
+
+    <string name="admob_app_id">ca-app-pub-8358099365964859~6888601545</string>
+    <string name="com_auth0_client_id">B4Fiqi74VnRmoHSwX7V9J86nIQ2hs6J7</string>
+    <string name="com_auth0_domain">dev-n3sugi-x.auth0.com</string>
+</resources>
