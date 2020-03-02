@@ -94,6 +94,16 @@ dependencies {
     //cameraKiat
     implementation(name: 'camerakit-1.0.2', ext: 'aar')
 
+    //ml kit
+    implementation 'com.huawei.hms:ml-computer-vision-ocr-cn-model:1.0.0.315'
+    implementation 'com.huawei.hms:ml-computer-vision-ocr-jk-model:1.0.0.315'
+    implementation 'com.huawei.hms:ml-computer-vision-ocr-latin-model:1.0.0.315'
+    implementation 'com.huawei.hms:ml-computer-vision-image-classification-model:1.0.0.316'
+    implementation 'com.huawei.hms:ml-computer-vision-object-detection-model:1.0.0.315'
+    implementation 'com.huawei.hms:ml-computer-vision-face-recognition-model:1.0.0.315'
+    implementation 'com.huawei.hms:ml-computer-vision:1.0.0.301'
+
+
 }
 
 apply plugin: 'com.google.gms.google-services'

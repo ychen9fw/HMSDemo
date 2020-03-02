@@ -73,6 +73,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.btn_HuaweiAdsDemo).setOnClickListener(this);
         findViewById(R.id.btn_HuaweiPayDemo).setOnClickListener(this);
         findViewById(R.id.btn_HuaweiMapDemo).setOnClickListener(this);
+        findViewById(R.id.btn_HuaweiMLDemo).setOnClickListener(this);
         findViewById(R.id.btn_GoogleSignIn).setOnClickListener(this);
     }
 
@@ -99,6 +100,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.btn_HuaweiMapDemo:
                 goToHuaweiMapDemo();
                 break;
+            case R.id.btn_HuaweiMLDemo:
+                goToHuaweiMLDemo();
+                break;
             case R.id.btn_GoogleSignIn:
                 GoogleSignin();
                 break;
@@ -107,6 +111,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
+    private void goToHuaweiMLDemo() {
+        Intent intent = new Intent(this, com.example.hmsdemo.ml.menu.MainActivity.class);
+        startActivity(intent);
+    }
 
     private void goToHuaweiMapDemo() {
         Intent intent = new Intent(this, MapActivity.class);

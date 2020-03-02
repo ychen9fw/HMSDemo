@@ -3,6 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.hmsdemo">
 
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -27,6 +31,14 @@
         <activity android:name=".ads.HGAds" />
         <activity android:name=".push.PushActivity" />
         <activity android:name=".location.GHLocation" />
+        <activity android:name=".ml.menu.MainActivity" />
+        <activity android:name=".ml.classification.ImageClassificationAnalyseActivity" />
+        <activity android:name=".ml.document.ImageDocumentAnalyseActivity" />
+        <activity android:name=".ml.face.LiveFaceAnalyseActivity" />
+        <activity android:name=".ml.face.StillFaceAnalyseActivity" />
+        <activity android:name=".ml.landmark.ImageLandmarkAnalyseActivity" />
+        <activity android:name=".ml.object.LiveObjectAnalyseActivity" />
+        <activity android:name=".ml.text.ImageTextAnalyseActivity" />
         <activity android:name=".signin.GHSignin">
         </activity>
 
