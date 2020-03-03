@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.hmsdemo.ads.HGAds;
+import com.example.hmsdemo.cameraKit.CameraMenuActivity;
 import com.example.hmsdemo.location.GHLocation;
 import com.example.hmsdemo.map.MapActivity;
 import com.example.hmsdemo.payment.GMSPayment;
@@ -79,6 +80,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.btn_HuaweiMapDemo).setOnClickListener(this);
         findViewById(R.id.btn_HuaweiMLDemo).setOnClickListener(this);
         findViewById(R.id.btn_HuaweiScanDemo).setOnClickListener(this);
+        findViewById(R.id.btn_HuaweiCameraDemo).setOnClickListener(this);
         findViewById(R.id.btn_GoogleSignIn).setOnClickListener(this);
     }
 
@@ -121,11 +123,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.btn_HuaweiScanDemo:
                 goToHuaweiScanDemo();
                 break;
+            case R.id.btn_HuaweiCameraDemo:
+                goToHuaweiCameraDemo();
+                break;
             case R.id.btn_GoogleSignIn:
                 GoogleSignin();
                 break;
             default:
         }
+    }
+
+    private void goToHuaweiCameraDemo() {
+        Intent intent = new Intent(this, CameraMenuActivity.class);
+        startActivity(intent);
     }
 
     private void goToHuaweiScanDemo() {

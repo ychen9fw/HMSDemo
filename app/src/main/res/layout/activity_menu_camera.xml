@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ml.menu.MainActivity">
+    tools:context=".cameraKit.CameraMenuActivity">
 
     <include
         android:id="@+id/toolbar"
@@ -34,8 +34,9 @@
                 android:layout_width="0dp"
                 android:layout_height="40dp"
                 android:layout_weight="0.5"
-                android:onClick="ImageClassificationOnClick"
-                android:text="Image Classification" />
+                android:onClick="goToBokehMode"
+                android:text="Bokeh Mode"
+                tools:ignore="HardcodedText" />
         </LinearLayout>
 
         <LinearLayout
@@ -49,8 +50,9 @@
                 android:layout_width="0dp"
                 android:layout_height="40dp"
                 android:layout_weight="0.5"
-                android:onClick="ImageDocumentAnalyseOnClick"
-                android:text="Image Document Analyzer" />
+                android:onClick="goToPortraitMode"
+                android:text="Portrait Mode"
+                tools:ignore="HardcodedText"/>
         </LinearLayout>
 
         <LinearLayout
@@ -64,8 +66,9 @@
                 android:layout_width="0dp"
                 android:layout_height="40dp"
                 android:layout_weight="0.5"
-                android:onClick="LiveFaceAnalyseOnClick"
-                android:text="Live Face Analyzer" />
+                android:onClick="goToVideoMode"
+                android:text="Video Mode"
+                tools:ignore="HardcodedText"/>
         </LinearLayout>
 
         <LinearLayout
@@ -79,8 +82,9 @@
                 android:layout_width="0dp"
                 android:layout_height="40dp"
                 android:layout_weight="0.5"
-                android:onClick="StillFaceAnalyseOnClick"
-                android:text="Still Face Analyzer" />
+                android:onClick="goToHdrMode"
+                android:text="HDR Mode"
+                tools:ignore="HardcodedText"/>
         </LinearLayout>
 
         <LinearLayout
@@ -94,39 +98,11 @@
                 android:layout_width="0dp"
                 android:layout_height="40dp"
                 android:layout_weight="0.5"
-                android:onClick="ImageLandmarkAnalyseOnClick"
-                android:text="Image Landmark Analyzer" />
+                android:onClick="goToSuperNightMode"
+                android:text="Super Night Mode"
+                tools:ignore="HardcodedText"/>
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:gravity="center_horizontal"
-            android:orientation="horizontal"
-            android:weightSum="1">
-
-            <Button
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_weight="0.5"
-                android:onClick="LiveObjectAnalyseOnClick"
-                android:text="Live Object Analyzer" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:gravity="center_horizontal"
-            android:orientation="horizontal"
-            android:weightSum="1">
-
-            <Button
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_weight="0.5"
-                android:onClick="ImageTextAnalyseOnClick"
-                android:text="Image Text Analyzer" />
-        </LinearLayout>
 
     </LinearLayout>
 

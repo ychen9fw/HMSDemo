@@ -67,6 +67,12 @@
                 tools:ignore="HardcodedText"/>
 
             <Button
+                android:id="@+id/btn_HuaweiCameraDemo"
+                style="@style/ButtonStyle"
+                android:text="Huawei Camera Demo"
+                tools:ignore="HardcodedText"/>
+
+            <Button
                 android:id="@+id/btn_GoogleSignIn"
                 style="@style/ButtonStyle"
                 android:text="Google Sign In"

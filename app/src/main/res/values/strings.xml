@@ -56,4 +56,25 @@
     <string name="admob_app_id">ca-app-pub-8358099365964859~6888601545</string>
     <string name="com_auth0_client_id">B4Fiqi74VnRmoHSwX7V9J86nIQ2hs6J7</string>
     <string name="com_auth0_domain">dev-n3sugi-x.auth0.com</string>
+
+    <!--Camera kit-->
+    <string name="capture_image">capture Image</string>
+    <string name="request_permission">This sample needs camera permission.</string>
+    <string name="flashMode">FlashMode</string>
+
+    <string name="slender">Slender</string>
+    <string name="skinColor">SkinColor</string>
+    <string name="body">Body</string>
+
+    <string name="record">StartRec</string>
+    <string name="stoprecord">StopRec</string>
+    <string name="action_portrait">Portrait</string>
+    <string name="action_video">Video</string>
+    <string name="aiMovie">aiMovie</string>
+    <string name="pause">Pause</string>
+    <string name="resume">Resume</string>
+
+    <string name="stop_image">stop</string>
+    <string name="manualIso">manualIso</string>
+    <string name="manualExposure">manualExposure</string>
 </resources>
