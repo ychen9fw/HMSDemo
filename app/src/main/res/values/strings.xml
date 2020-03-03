@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">HMSDemo</string>
+    <string name="app_name">HMS Demo</string>
     <string name="title_activity_login_demo">Login Demo</string>
     <string name="title_activity_location_demo">Location Demo</string>
     <string name="title_activity_pay_demo">Pay Demo</string>

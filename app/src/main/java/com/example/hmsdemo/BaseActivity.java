@@ -16,6 +16,7 @@ import com.example.hmsdemo.R;
 public class BaseActivity extends AppCompatActivity {
     StringBuffer b = new StringBuffer();
     protected String tag ="" ;//GMS or HMS
+    public static boolean active = false;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
@@ -40,4 +41,5 @@ public class BaseActivity extends AppCompatActivity {
             }
         });
     }
+
 }

@@ -6,6 +6,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -229,5 +230,17 @@ public class PushActivity extends BaseActivity implements View.OnClickListener {
     }
     public Handler getHandler() {
         return handler;
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        setActiveStatus(false);
+    }
+
+    public void setActiveStatus(boolean active){
+        SharedPreferences sp = getSharedPreferences("HmsDemoPref", MODE_PRIVATE);
+        SharedPreferences.Editor myEdit = sp.edit();
+        myEdit.putBoolean("pushDemo", active);
     }
 }

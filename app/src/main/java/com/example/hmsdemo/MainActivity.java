@@ -5,6 +5,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -160,8 +161,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void goToHuaweiPushDemo() {
-        Intent intent = new Intent(this, PushActivity.class);
-        startActivity(intent);
+        if(!isActivityActive("pushDemo")){
+            setActiveStatus("pushDemo",true);
+            Intent intent = new Intent(this, PushActivity.class);
+            startActivity(intent);
+        }
     }
 
     private void goToHuaweiPayDemo() {
@@ -191,6 +195,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void goToHuaweiIDDemo() {
         Intent intent = new Intent(this, GHSignin.class);
         startActivity(intent);
+    }
+
+    private boolean isActivityActive(String activity){
+        SharedPreferences sp = getSharedPreferences("HmsDemoPref", MODE_PRIVATE);
+        return sp.getBoolean(activity, false);
+    }
+
+    public void setActiveStatus(String activity, boolean active){
+        SharedPreferences sp = getSharedPreferences("HmsDemoPref", MODE_PRIVATE);
+        SharedPreferences.Editor myEdit = sp.edit();
+        myEdit.putBoolean(activity, active);
     }
 
     //Check and request user to give permission
