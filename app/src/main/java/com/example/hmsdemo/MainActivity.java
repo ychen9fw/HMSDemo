@@ -82,6 +82,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.btn_HuaweiMLDemo).setOnClickListener(this);
         findViewById(R.id.btn_HuaweiScanDemo).setOnClickListener(this);
         findViewById(R.id.btn_HuaweiCameraDemo).setOnClickListener(this);
+        findViewById(R.id.btn_HuaweiSafetyDetectDemo).setOnClickListener(this);
         findViewById(R.id.btn_GoogleSignIn).setOnClickListener(this);
     }
 
@@ -127,11 +128,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.btn_HuaweiCameraDemo:
                 goToHuaweiCameraDemo();
                 break;
+            case R.id.btn_HuaweiSafetyDetectDemo:
+                goToHuaweiSafetyDetectDemo();
+                break;
             case R.id.btn_GoogleSignIn:
                 GoogleSignin();
                 break;
             default:
         }
+    }
+
+    private void goToHuaweiSafetyDetectDemo() {
+        Intent intent = new Intent(this, com.example.hmsdemo.safetydetect.MainActivity.class);
+        startActivity(intent);
     }
 
     private void goToHuaweiCameraDemo() {

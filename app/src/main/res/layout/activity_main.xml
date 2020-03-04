@@ -73,6 +73,12 @@
                 tools:ignore="HardcodedText"/>
 
             <Button
+                android:id="@+id/btn_HuaweiSafetyDetectDemo"
+                style="@style/ButtonStyle"
+                android:text="Huawei Safety Detect Demo"
+                tools:ignore="HardcodedText"/>
+
+            <Button
                 android:id="@+id/btn_GoogleSignIn"
                 style="@style/ButtonStyle"
                 android:text="Google Sign In"

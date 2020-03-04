@@ -56,6 +56,7 @@
         <activity android:name=".cameraKit.portrait.CameraKitPortraitCaptureActivity" />
         <activity android:name=".cameraKit.video.CameraKitBasicVideoActivity" />
         <activity android:name=".cameraKit.supernight.CameraKitSuperNightCaptureActivity" />
+        <activity android:name=".safetydetect.MainActivity" />
         <activity android:name=".signin.GHSignin">
         </activity>
 

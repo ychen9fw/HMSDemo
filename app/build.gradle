@@ -108,6 +108,7 @@ dependencies {
     implementation 'com.huawei.hms:ml-computer-vision-face-recognition-model:1.0.0.315'
     implementation 'com.huawei.hms:ml-computer-vision:1.0.0.301'
     implementation "com.huawei.hms:scan:1.1.1.301"
+    implementation 'com.huawei.hms:safetydetect:4.0.0.300'
 
 }
 
