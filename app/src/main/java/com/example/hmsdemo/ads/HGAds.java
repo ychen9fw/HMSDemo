@@ -4,14 +4,20 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.example.hmsdemo.BaseActivity;
 import com.example.hmsdemo.R;
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.huawei.hms.api.HuaweiApiAvailability;
 
 import androidx.appcompat.widget.Toolbar;
+
+import static com.huawei.hms.maps.internal.MapSdkContext.getContext;
 
 public class HGAds extends BaseActivity {
 
@@ -61,6 +67,17 @@ public class HGAds extends BaseActivity {
                 Log.e(TAG, "getOaid Fail: " + errMsg);
             }
         });
+
+        AdView mAdView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.setAdListener(new AdListener() {
+            @Override
+            public void onAdFailedToLoad(int errorCode) {
+                Toast.makeText(getContext(), "Ad failed: " + errorCode, Toast.LENGTH_LONG).show();
+            }
+
+        });
+        mAdView.loadAd(adRequest);
     }
 
     private Thread getIdentifierThread = new Thread() {
