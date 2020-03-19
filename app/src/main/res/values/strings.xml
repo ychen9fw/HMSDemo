@@ -50,5 +50,5 @@
     <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
     <string name="default_notification_channel_name" translatable="true">Weather</string>
 
-    <string name="admob_app_id">ca-app-pub-8358099365964859~6888601545</string>
+    <string name="admob_app_id">ca-app-pub-7857473971466854~7026020037</string>
 </resources>

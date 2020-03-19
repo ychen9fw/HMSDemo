@@ -23,6 +23,9 @@ import com.example.hmsdemo.payment.HMSPayment;
 import com.example.hmsdemo.push.PushActivity;
 import com.example.hmsdemo.signin.GHSignin;
 import com.example.hmsdemo.utils.PermissionManager;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.huawei.hms.api.HuaweiApiAvailability;
@@ -59,6 +62,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.btn_HuaweiGameDemo).setOnClickListener(this);
         findViewById(R.id.btn_HuaweiAnalysisDemo).setOnClickListener(this);
         findViewById(R.id.btn_HuaweiAutheDemo).setOnClickListener(this); */
+
+
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+            }
+        });
     }
 
 
