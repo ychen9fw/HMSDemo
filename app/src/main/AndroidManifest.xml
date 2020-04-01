@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.hmsdemo">
+    package="com.ychen9.demo">
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -20,17 +20,17 @@
         android:versionName="1.0.4"
         tools:ignore="HardcodedDebugMode"
         tools:replace="android:allowBackup">
-        <activity android:name=".cameraKit.Camera" />
-        <activity android:name=".payment.HMSPayment" />
-        <activity android:name=".payment.GMSPayment" />
-        <activity android:name=".map.map" />
-        <activity android:name=".ads.HGAds" />
-        <activity android:name=".push.PushActivity" />
-        <activity android:name=".location.GHLocation" />
-        <activity android:name=".signin.GHSignin">
+        <activity android:name="com.ychen9.demo.cameraKit.Camera" />
+        <activity android:name="com.ychen9.demo.payment.HMSPayment" />
+        <activity android:name="com.ychen9.demo.payment.GMSPayment" />
+        <activity android:name="com.ychen9.demo.map.map" />
+        <activity android:name="com.ychen9.demo.ads.HGAds" />
+        <activity android:name="com.ychen9.demo.push.PushActivity" />
+        <activity android:name="com.ychen9.demo.location.GHLocation" />
+        <activity android:name="com.ychen9.demo.signin.GHSignin">
         </activity>
 
-        <activity android:name=".MainActivity">
+        <activity android:name="com.ychen9.demo.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
@@ -52,14 +52,14 @@
         </activity>
 
         <service
-            android:name=".push.pushservices.MyHmsPushService"
+            android:name="com.ychen9.demo.push.pushservices.MyHmsPushService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.huawei.push.action.MESSAGING_EVENT" />
             </intent-filter>
         </service>
         <service
-            android:name=".push.pushservices.MyGmsPushService"
+            android:name="com.ychen9.demo.push.pushservices.MyGmsPushService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />

@@ -4,7 +4,7 @@ apply plugin: 'com.huawei.agconnect'
 android {
     compileSdkVersion 29
     defaultConfig {
-        applicationId "com.dora.hmsdemo.huawei"
+        applicationId "com.ychen9.demo"
         minSdkVersion 22
         targetSdkVersion 29
         versionCode 100005
@@ -17,10 +17,10 @@ android {
 
     signingConfigs {
         release {
-            storeFile file('D:/Keystorefile/resume.keystore')
-            storePassword 'jiayuanyuan'
-            keyPassword '1qaz@WSX'
-            keyAlias 'key2'
+            storeFile file('D:/123456key.jks')
+            storePassword '123456'
+            keyPassword '123456'
+            keyAlias 'key0'
         }
     }
 
@@ -94,6 +94,8 @@ dependencies {
     //cameraKiat
     implementation(name: 'camerakit-1.0.2', ext: 'aar')
 
+    // Airship - FCM
+    implementation "com.urbanairship.android:urbanairship-fcm:12.2.0"
 }
 
 apply plugin: 'com.google.gms.google-services'
