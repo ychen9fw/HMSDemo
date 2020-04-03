@@ -9,6 +9,7 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
 
+import com.urbanairship.push.fcm.AirshipFirebaseIntegration;
 import com.ychen9.demo.push.PushActivity;
 import com.ychen9.demo.R;
 import com.google.firebase.messaging.FirebaseMessagingService;
@@ -23,6 +24,7 @@ public class MyGmsPushService extends FirebaseMessagingService {
     public void onNewToken(@NonNull String s) {
         super.onNewToken(s);
         sendMyBroadcast("onNewToken",s);
+        AirshipFirebaseIntegration.processNewToken(getApplicationContext());
     }
 
     @Override
@@ -41,6 +43,7 @@ public class MyGmsPushService extends FirebaseMessagingService {
             sendNotification(remoteMessage.getNotification().getTitle(),remoteMessage.getNotification().getBody());
         }
         sendMyBroadcast("onMessageReceived",msg);
+        AirshipFirebaseIntegration.processMessageSync(getApplicationContext(), remoteMessage);
     }
 
     /**
