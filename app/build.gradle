@@ -1,6 +1,20 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.huawei.agconnect'
 
+buildscript {
+    repositories {
+        maven { url 'https://plugins.gradle.org/m2/'}
+    }
+    dependencies {
+        classpath 'gradle.plugin.com.onesignal:onesignal-gradle-plugin:0.12.6'
+    }
+}
+apply plugin: 'com.onesignal.androidsdk.onesignal-gradle-plugin'
+
+repositories {
+    maven { url 'https://maven.google.com' }
+}
+
 android {
     compileSdkVersion 29
     defaultConfig {
@@ -12,7 +26,10 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         resConfigs "en", "zh-rCN"
-        manifestPlaceholders = [auth0Domain: "@string/com_auth0_domain", auth0Scheme: "demo"]
+        manifestPlaceholders = [auth0Domain: "@string/com_auth0_domain", auth0Scheme: "demo",
+                                onesignal_app_id: "f84ee27c-d0a4-4a87-8051-04d5202d859d",
+                                // Project number pulled from dashboard, local value is ignored.
+                                onesignal_google_project_number: 'REMOTE']
     }
 
     signingConfigs {
@@ -96,6 +113,9 @@ dependencies {
 
     // Airship - FCM
     implementation "com.urbanairship.android:urbanairship-fcm:12.2.0"
+
+    implementation 'com.onesignal:OneSignal:3.13.0'
+
 }
 
 apply plugin: 'com.google.gms.google-services'
