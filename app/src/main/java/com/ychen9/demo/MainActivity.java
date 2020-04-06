@@ -1,6 +1,7 @@
 package com.ychen9.demo;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -16,6 +17,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.onesignal.OSInAppMessageAction;
 import com.onesignal.OneSignal;
 import com.ychen9.demo.ads.HGAds;
 import com.ychen9.demo.location.GHLocation;
@@ -244,6 +246,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             persistAuthState(authState);
                             Log.i(TAG, String.format("Token Response [ Access Token: %s, ID Token: %s ]", tokenResponse.accessToken, tokenResponse.idToken));
                             authState.performActionWithFreshTokens(new AuthorizationService(getApplicationContext()), new AuthState.AuthStateAction() {
+                                @SuppressLint("StaticFieldLeak")
                                 @Override
                                 public void execute(@Nullable String accessToken, @Nullable String idToken, @Nullable AuthorizationException exception) {
                                     new AsyncTask<String, Void, JSONObject>() {
@@ -295,11 +298,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void persistAuthState(@NonNull AuthState authState) {
         getSharedPreferences(SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE).edit()
                 .putString(AUTH_STATE, authState.toJsonString())
-                .commit();
+                .apply();
     }
 
     @Override
     protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
         checkIntent(intent);
     }
 
@@ -397,5 +401,5 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onStart();
         checkIntent(getIntent());
     }
-
+    
 }
