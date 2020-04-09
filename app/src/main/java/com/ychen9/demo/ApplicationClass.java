@@ -26,7 +26,7 @@ public class ApplicationClass extends Application {
 
         @Override
         public void inAppMessageClicked(OSInAppMessageAction result) {
-            Log.i("ychen9 demo", "In App Message" + result.toString());
+            Log.i("ychen9 demo", "In App Message" + result.toJSONObject().toString());
             if (ACTION_ID_MY_CUSTOM_ID.equals(result.clickName)) {
                 Log.i("OneSignalExample", "Custom Action took place! Starting YourActivity!");
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
