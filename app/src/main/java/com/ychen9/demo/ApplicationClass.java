@@ -3,6 +3,7 @@ package com.ychen9.demo;
 import android.app.Application;
 import android.content.Intent;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.onesignal.OSInAppMessageAction;
 import com.onesignal.OneSignal;
@@ -27,6 +28,7 @@ public class ApplicationClass extends Application {
         @Override
         public void inAppMessageClicked(OSInAppMessageAction result) {
             Log.i("ychen9 demo", "In App Message" + result.toJSONObject().toString());
+            Toast.makeText(ApplicationClass.this, "ychen9 demo " + "In App Message " + result.toJSONObject().toString(), Toast.LENGTH_LONG).show();
             if (ACTION_ID_MY_CUSTOM_ID.equals(result.clickName)) {
                 Log.i("OneSignalExample", "Custom Action took place! Starting YourActivity!");
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
