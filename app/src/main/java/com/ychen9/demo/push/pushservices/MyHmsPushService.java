@@ -30,6 +30,7 @@ public class MyHmsPushService extends HmsMessageService {
             msg = msg + '\n' + "Message Notification Body: " + remoteMessage.getNotification().getBody();
         }
         sendMyBroadcast("onMessageReceived",msg);
+        Log.i("HMS Push Data Message: ", msg);
     }
 
     private void sendMyBroadcast(String method, String msg) {

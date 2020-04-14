@@ -54,6 +54,8 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
+import static com.ychen9.demo.utils.tools.intentToString;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
     private PermissionManager permissionManager;
@@ -304,6 +306,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
+        Log.i("onNewIntent", intentToString(intent));
         checkIntent(intent);
     }
 
