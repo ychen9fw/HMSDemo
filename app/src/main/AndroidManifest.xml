@@ -31,7 +31,9 @@
         <activity android:name="com.ychen9.demo.signin.GHSignin">
         </activity>
 
-        <activity android:name="com.ychen9.demo.MainActivity">
+        <activity android:name="com.ychen9.demo.MainActivity"
+            android:exported="true">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
@@ -40,6 +42,17 @@
                 <action android:name="com.google.codelabs.appauth.HANDLE_AUTHORIZATION_RESPONSE"/>
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data
+                    android:host="com.huawei.codelabpush"
+                    android:path="/deeplink"
+                    android:scheme="pushscheme" />
+            </intent-filter>
+
         </activity>
         <activity
             android:name="net.openid.appauth.RedirectUriReceiverActivity"

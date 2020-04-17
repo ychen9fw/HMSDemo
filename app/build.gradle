@@ -90,7 +90,7 @@ dependencies {
     implementation 'com.huawei.hms:hms-ads-identifier:3.4.26.303'
     implementation 'com.huawei.hms:hms-ads-installreferrer:3.4.26.303'
     implementation 'com.huawei.hms:maps:4.0.0.301'
-    implementation 'com.huawei.hms:push:4.0.1.300'
+    implementation 'com.huawei.hms:push:4.0.2.300'
     implementation 'com.huawei.hms:site:4.0.0.300'
 
 
