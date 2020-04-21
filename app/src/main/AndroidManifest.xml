@@ -85,6 +85,8 @@
             android:value="@string/admob_app_id" />
         <meta-data android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
+        <meta-data android:name="com.urbanairship.autopilot"
+            android:value="com.urbanairship.Autopilot" />
 
     </application>
 

@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.onesignal.OSInAppMessageAction;
 import com.onesignal.OneSignal;
+import com.urbanairship.UAirship;
 import com.ychen9.demo.ads.HGAds;
 import com.ychen9.demo.location.GHLocation;
 import com.ychen9.demo.map.map;
@@ -88,6 +89,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void onInitializationComplete(InitializationStatus initializationStatus) {
             }
         });
+
+        UAirship.shared().getPushManager().setUserNotificationsEnabled(true);
+
     }
 
     @Override
