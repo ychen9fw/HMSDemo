@@ -90,7 +90,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
 
+        //push enable
         UAirship.shared().getPushManager().setUserNotificationsEnabled(true);
+        UAirship.shared().setDataCollectionEnabled(true);
+        UAirship.shared().getPushManager().setPushTokenRegistrationEnabled(true);
 
     }
 
