@@ -6,7 +6,10 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.onesignal.OSInAppMessageAction;
+import com.onesignal.OSNotificationOpenResult;
 import com.onesignal.OneSignal;
+
+import org.json.JSONObject;
 
 public class ApplicationClass extends Application {
     @Override
@@ -18,7 +21,22 @@ public class ApplicationClass extends Application {
                 .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification)
                 .unsubscribeWhenNotificationsAreDisabled(true)
                 .setInAppMessageClickHandler(new ExampleInAppMessageClickHandler())
+                .setNotificationOpenedHandler(new ExampleNotificationOpenedHandler())
                 .init();
+    }
+
+    class ExampleNotificationOpenedHandler implements OneSignal.NotificationOpenedHandler {
+        @Override
+        public void notificationOpened(OSNotificationOpenResult result) {
+
+            JSONObject data = result.notification.payload.additionalData;
+            String customKey;
+
+            if (data != null) {
+                customKey = data.optString("customkey", null);
+                Log.i("DeepLink", "customkey set with value: " + customKey);
+            }
+        }
     }
 
     class ExampleInAppMessageClickHandler implements OneSignal.InAppMessageClickHandler {

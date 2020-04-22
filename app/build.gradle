@@ -121,6 +121,8 @@ dependencies {
     implementation "com.urbanairship.android:urbanairship-automation:13.0.0"
     implementation "com.urbanairship.android:urbanairship-message-center:13.0.0"
 
+    implementation "com.urbanairship.android:urbanairship-hms:13.0.0"
+
     implementation 'com.onesignal:OneSignal:3.13.0'
 
 }

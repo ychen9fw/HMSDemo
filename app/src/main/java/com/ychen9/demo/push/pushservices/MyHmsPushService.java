@@ -3,6 +3,7 @@ package com.ychen9.demo.push.pushservices;
 import android.content.Intent;
 import android.util.Log;
 
+import com.urbanairship.push.hms.AirshipHmsIntegration;
 import com.ychen9.demo.push.PushActivity;
 import com.huawei.hms.push.HmsMessageService;
 import com.huawei.hms.push.RemoteMessage;
@@ -14,6 +15,8 @@ public class MyHmsPushService extends HmsMessageService {
         super.onNewToken(s);
         Log.i("TOKEN", s );
         sendMyBroadcast("OnNewToken",s);
+        AirshipHmsIntegration.processNewToken(getApplicationContext());
+
     }
 
     @Override
@@ -31,6 +34,9 @@ public class MyHmsPushService extends HmsMessageService {
         }
         sendMyBroadcast("onMessageReceived",msg);
         Log.i("HMS Push Data Message: ", msg);
+
+        AirshipHmsIntegration.processMessageSync(getApplicationContext(), remoteMessage);
+
     }
 
     private void sendMyBroadcast(String method, String msg) {
