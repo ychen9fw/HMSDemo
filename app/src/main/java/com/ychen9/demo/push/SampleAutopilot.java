@@ -9,11 +9,16 @@ import com.urbanairship.AirshipConfigOptions;
 import com.urbanairship.Autopilot;
 import com.urbanairship.BuildConfig;
 import com.urbanairship.UAirship;
+import com.urbanairship.push.NotificationActionButtonInfo;
+import com.urbanairship.push.NotificationInfo;
+import com.urbanairship.push.NotificationListener;
 import com.ychen9.demo.R;
 
 import static java.security.AccessController.getContext;
 
 public class SampleAutopilot extends Autopilot {
+
+    private String TAG = "Airship";
 
     @Override
     public void onAirshipReady(@NonNull UAirship airship) {
@@ -23,6 +28,41 @@ public class SampleAutopilot extends Autopilot {
         airship.setDeepLinkListener(deepLink -> {
             // Handle the deepLink
             return true;
+        });
+
+        airship.getPushManager().setNotificationListener(new NotificationListener() {
+            @Override
+            public void onNotificationPosted(@NonNull NotificationInfo notificationInfo) {
+                Log.i(TAG, "Notification posted. Alert: " + notificationInfo.getMessage().getAlert() + ". NotificationId: " + notificationInfo.getNotificationId());
+            }
+
+            @Override
+            public boolean onNotificationOpened(@NonNull NotificationInfo notificationInfo) {
+                Log.i(TAG, "Notification opened. Alert: " + notificationInfo.getMessage().getAlert() + ". NotificationId: " + notificationInfo.getNotificationId());
+                // Return false here to allow Airship to auto launch the launcher activity
+                return false;
+            }
+
+            @Override
+            public boolean onNotificationForegroundAction(@NonNull NotificationInfo notificationInfo, @NonNull NotificationActionButtonInfo actionButtonInfo) {
+                Log.i(TAG, "Notification foreground action. Button ID: " + actionButtonInfo.getButtonId() + ". NotificationId: " + notificationInfo.getNotificationId());
+                return false;
+            }
+
+            @Override
+            public void onNotificationBackgroundAction(@NonNull NotificationInfo notificationInfo, @NonNull NotificationActionButtonInfo actionButtonInfo) {
+                Log.i(TAG, "Notification background action. Button ID: " + actionButtonInfo.getButtonId() + ". NotificationId: " + notificationInfo.getNotificationId());
+            }
+
+            @Override
+            public void onNotificationDismissed(@NonNull NotificationInfo notificationInfo) {
+                Log.i(TAG, "Notification dismissed. Alert: " + notificationInfo.getMessage().getAlert() + ". Notification ID: " + notificationInfo.getNotificationId());
+            }
+
+        });
+
+        airship.getPushManager().addPushListener((message, notificationPosted) -> {
+            Log.i(TAG, "Received push message. Alert: " + message.getAlert() + ". posted notification: " + notificationPosted);
         });
 
     }

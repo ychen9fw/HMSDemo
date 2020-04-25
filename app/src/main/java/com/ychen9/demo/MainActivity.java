@@ -20,6 +20,8 @@ import android.widget.Toast;
 import com.onesignal.OSInAppMessageAction;
 import com.onesignal.OneSignal;
 import com.urbanairship.UAirship;
+import com.urbanairship.channel.AirshipChannelListener;
+import com.urbanairship.messagecenter.MessageCenter;
 import com.ychen9.demo.ads.HGAds;
 import com.ychen9.demo.location.GHLocation;
 import com.ychen9.demo.map.map;
@@ -90,10 +92,40 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
 
-        //push enable
+        //airship
         UAirship.shared().getPushManager().setUserNotificationsEnabled(true);
         UAirship.shared().setDataCollectionEnabled(true);
         UAirship.shared().getPushManager().setPushTokenRegistrationEnabled(true);
+        UAirship.shared().getChannel().editTags()
+                .addTag("some_tag")
+                .removeTag("some_other_tag")
+                .apply();
+        UAirship.shared().getNamedUser().setId("NamedUserID");
+
+        UAirship.shared().getChannel().editTagGroups()
+                .addTag("loyalty", "bronze-member")
+                .removeTag("loyalty", "bronze-member")
+                .setTag("games", "bingo")
+                .apply();
+
+        UAirship.shared().getNamedUser().editTagGroups()
+                .addTag("loyalty", "bronze-member")
+                .removeTag("loyalty", "bronze-member")
+                .setTag("games", "bingo")
+                .apply();
+
+        UAirship.shared().getChannel().addChannelListener(new AirshipChannelListener() {
+            @Override
+            public void onChannelCreated(@NonNull String channelId) {
+                // created
+            }
+
+            @Override
+            public void onChannelUpdated(@NonNull String channelId) {
+                // updated - tags, tokens, opt-in status changed
+            }
+        });
+
 
     }
 

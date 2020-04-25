@@ -12,6 +12,7 @@ import android.os.Message;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.urbanairship.messagecenter.MessageCenter;
 import com.ychen9.demo.push.pushPre.BasePush;
 import com.ychen9.demo.push.pushPre.GmsPush;
 import com.ychen9.demo.push.pushPre.HmsPush;
@@ -95,6 +96,8 @@ public class PushActivity extends BaseActivity implements View.OnClickListener {
         this.registerReceiver(receiver, filter);
         //Initialize Load Tip Box
         progressDialog = new ProgressDialog(this);
+
+        MessageCenter.shared().showMessageCenter();
     }
 
     @Override
