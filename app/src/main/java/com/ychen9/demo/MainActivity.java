@@ -97,13 +97,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         UAirship.shared().setDataCollectionEnabled(true);
         UAirship.shared().getPushManager().setPushTokenRegistrationEnabled(true);
         UAirship.shared().getChannel().editTags()
-                .addTag("some_tag")
+                .addTag("huawei")
                 .removeTag("some_other_tag")
                 .apply();
         UAirship.shared().getNamedUser().setId("NamedUserID");
 
         UAirship.shared().getChannel().editTagGroups()
-                .addTag("loyalty", "bronze-member")
+                .addTag("device", "huawei p30")
                 .removeTag("loyalty", "bronze-member")
                 .setTag("games", "bingo")
                 .apply();
