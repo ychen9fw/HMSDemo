@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.onesignal.OSInAppMessageAction;
 import com.onesignal.OneSignal;
 import com.urbanairship.UAirship;
+import com.urbanairship.analytics.CustomEvent;
 import com.urbanairship.channel.AirshipChannelListener;
 import com.urbanairship.messagecenter.MessageCenter;
 import com.ychen9.demo.ads.HGAds;
@@ -52,6 +53,8 @@ import net.openid.appauth.AuthorizationServiceConfiguration;
 import net.openid.appauth.TokenResponse;
 
 import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -98,13 +101,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         UAirship.shared().getPushManager().setPushTokenRegistrationEnabled(true);
         UAirship.shared().getChannel().editTags()
                 .addTag("huawei")
-                .removeTag("some_other_tag")
                 .apply();
         UAirship.shared().getNamedUser().setId("NamedUserID");
 
         UAirship.shared().getChannel().editTagGroups()
                 .addTag("device", "huawei p30")
-                .removeTag("loyalty", "bronze-member")
                 .setTag("games", "bingo")
                 .apply();
 
@@ -126,6 +127,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
 
+        // Create and name a simple event - and with a value
+        CustomEvent event2 = new CustomEvent.Builder("event_name")
+                .setEventValue(123.12)
+                .build();
+
+// Record the event it
+        UAirship.shared().getAnalytics().addEvent(event2);
 
     }
 
