@@ -64,6 +64,15 @@
                 <data android:scheme="com.google.codelabs.appauth" />
             </intent-filter>
         </activity>
+        <activity android:name=".push.ClickIntentActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.demo.click"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+            </intent-filter>
+        </activity>
+
 
         <service
             android:name="com.ychen9.demo.push.pushservices.MyHmsPushService"

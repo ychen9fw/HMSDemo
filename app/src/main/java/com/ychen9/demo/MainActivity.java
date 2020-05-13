@@ -28,6 +28,7 @@ import com.ychen9.demo.location.GHLocation;
 import com.ychen9.demo.map.map;
 import com.ychen9.demo.payment.GMSPayment;
 import com.ychen9.demo.payment.HMSPayment;
+import com.ychen9.demo.push.ClickIntentActivity;
 import com.ychen9.demo.push.PushActivity;
 import com.ychen9.demo.signin.GHSignin;
 import com.ychen9.demo.utils.PermissionManager;
