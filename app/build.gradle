@@ -1,5 +1,4 @@
 apply plugin: 'com.android.application'
-apply plugin: 'com.huawei.agconnect'
 
 buildscript {
     repositories {
@@ -94,7 +93,7 @@ dependencies {
     implementation 'com.huawei.hms:hms-ads-identifier:3.4.26.303'
     implementation 'com.huawei.hms:hms-ads-installreferrer:3.4.26.303'
     implementation 'com.huawei.hms:maps:4.0.0.301'
-    implementation 'com.huawei.hms:push:4.0.2.300'
+    implementation 'com.huawei.hms:push:4.0.3.301'
     implementation 'com.huawei.hms:site:4.0.0.300'
 
 
@@ -111,7 +110,7 @@ dependencies {
     implementation 'com.google.android.gms:play-services-maps:17.0.0'
     implementation 'com.google.guava:guava:28.0-android'
     implementation 'com.android.billingclient:billing:1.2.2'
-
+    implementation "androidx.cardview:cardview:1.0.0"
     //cameraKiat
     implementation(name: 'camerakit-1.0.2', ext: 'aar')
 
@@ -123,8 +122,11 @@ dependencies {
 
     implementation "com.urbanairship.android:urbanairship-hms:13.0.0"
 
-    implementation 'com.onesignal:OneSignal:3.13.0'
+//    implementation 'com.onesignal:OneSignal:3.13.0'
+    implementation(name: 'onesignal', ext: 'aar')
 
 }
 
 apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.huawei.agconnect'
+

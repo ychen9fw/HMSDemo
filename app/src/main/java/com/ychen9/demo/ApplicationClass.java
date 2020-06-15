@@ -17,11 +17,10 @@ public class ApplicationClass extends Application {
         super.onCreate();
 
         // OneSignal Initialization
+//        OneSignal.setLogLevel(OneSignal.LOG_LEVEL.DEBUG, OneSignal.LOG_LEVEL.DEBUG);
         OneSignal.startInit(this)
                 .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification)
                 .unsubscribeWhenNotificationsAreDisabled(true)
-                .setInAppMessageClickHandler(new ExampleInAppMessageClickHandler())
-                .setNotificationOpenedHandler(new ExampleNotificationOpenedHandler())
                 .init();
     }
 

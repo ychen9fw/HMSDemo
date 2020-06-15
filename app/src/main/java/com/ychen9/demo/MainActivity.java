@@ -136,6 +136,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 // Record the event it
         UAirship.shared().getAnalytics().addEvent(event2);
 
+        //onesignal
+        OneSignal.sendTag("phone", "huawei");
+        OneSignal.sendTag("level", "vip");
+        OneSignal.deleteTag("level");
     }
 
     @Override
