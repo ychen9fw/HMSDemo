@@ -3,6 +3,7 @@ package com.ychen9.demo.push.pushservices;
 import android.content.Intent;
 import android.util.Log;
 
+import com.onesignal.OneSignalHmsEventBridge;
 import com.urbanairship.push.hms.AirshipHmsIntegration;
 import com.ychen9.demo.push.PushActivity;
 import com.huawei.hms.push.HmsMessageService;
@@ -15,6 +16,7 @@ public class MyHmsPushService extends HmsMessageService {
         super.onNewToken(s);
         Log.i("TOKEN", s );
         sendMyBroadcast("OnNewToken",s);
+        OneSignalHmsEventBridge.onNewToken(this, s);
         AirshipHmsIntegration.processNewToken(getApplicationContext());
 
     }
@@ -22,6 +24,7 @@ public class MyHmsPushService extends HmsMessageService {
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         String msg = "";
+        OneSignalHmsEventBridge.onMessageReceived(this, remoteMessage);
 
         // Check if message contains a data payload.
         if (remoteMessage.getData().length()> 0) {

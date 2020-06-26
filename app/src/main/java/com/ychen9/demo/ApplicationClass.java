@@ -17,11 +17,13 @@ public class ApplicationClass extends Application {
         super.onCreate();
 
         // OneSignal Initialization
-//        OneSignal.setLogLevel(OneSignal.LOG_LEVEL.DEBUG, OneSignal.LOG_LEVEL.DEBUG);
+//        OneSignal.setLogLevel(OneSignal.LOG_LEVEL.VERBOSE, OneSignal.LOG_LEVEL.NONE);
         OneSignal.startInit(this)
                 .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification)
                 .unsubscribeWhenNotificationsAreDisabled(true)
                 .init();
+        String userId = OneSignal.getPermissionSubscriptionState().getSubscriptionStatus().getUserId();
+        String pushToken = OneSignal.getPermissionSubscriptionState().getSubscriptionStatus().getPushToken();
     }
 
     class ExampleNotificationOpenedHandler implements OneSignal.NotificationOpenedHandler {

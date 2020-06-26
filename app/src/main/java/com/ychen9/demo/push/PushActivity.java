@@ -72,16 +72,16 @@ public class PushActivity extends BaseActivity implements View.OnClickListener {
         //Use Interface to Judje whether Mobile Phone Supports Huawei MoBile Service,If supported,the result will be return to SUCCESS
         int hmsResult = HuaweiApiAvailability.getInstance().isHuaweiMobileServicesAvailable(this);
 
-        //If both services are supported, GMS is used
-        if(gmsResult == ConnectionResult.SUCCESS){
-            //Initialized as GMS PUSH functional class
-            myPush = new GmsPush(this);
-            tag = "GMS:";
-        }else if(hmsResult == com.huawei.hms.api.ConnectionResult.SUCCESS){
+        //use HMS first
+         if(hmsResult == com.huawei.hms.api.ConnectionResult.SUCCESS){
             //Initialized as HMS PUSH functional class
             myPush = new HmsPush(this);
             tag = "HMS:";
-        }else {//If neither service supports, hide all buttons
+        }else if(gmsResult == ConnectionResult.SUCCESS){
+             //Initialized as GMS PUSH functional class
+             myPush = new GmsPush(this);
+             tag = "GMS:";
+         }else{//If neither service supports, hide all buttons
             findViewById(R.id.btn_subscribe_topic).setVisibility(View.GONE);
             findViewById(R.id.btn_get_token).setVisibility(View.GONE);
             findViewById(R.id.btn_unsubscribe_topic).setVisibility(View.GONE);

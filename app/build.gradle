@@ -116,14 +116,14 @@ dependencies {
 
     // Airship - FCM
     implementation "com.urbanairship.android:urbanairship-fcm:13.0.0"
-    implementation "com.urbanairship.android:urbanairship-adm:9.3.1"
+    implementation "com.urbanairship.android:urbanairship-adm:13.0.0"
     implementation "com.urbanairship.android:urbanairship-automation:13.0.0"
     implementation "com.urbanairship.android:urbanairship-message-center:13.0.0"
 
     implementation "com.urbanairship.android:urbanairship-hms:13.0.0"
 
-//    implementation 'com.onesignal:OneSignal:3.13.0'
-    implementation(name: 'onesignal', ext: 'aar')
+    implementation 'com.onesignal:OneSignal:3.15.1'
+//    implementation(name: 'onesignal', ext: 'aar')
 
 }
 
