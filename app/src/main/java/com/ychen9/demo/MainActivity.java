@@ -365,6 +365,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void checkIntent(@Nullable Intent intent) {
         if (intent != null) {
             String action = intent.getAction();
+            if (action == null) return;
             switch (action) {
                 case "com.google.codelabs.appauth.HANDLE_AUTHORIZATION_RESPONSE":
                     if (!intent.hasExtra(USED_INTENT)) {
