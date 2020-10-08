@@ -63,7 +63,7 @@ public class PushActivity extends BaseActivity implements View.OnClickListener {
         if (getSupportActionBar() != null){
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
-            getSupportActionBar().setTitle(R.string.title_activity_location_demo);
+            getSupportActionBar().setTitle(R.string.title_activity_push_demo);
         }
 
         //Use Interface to Judje whether Mobile Phone Supports Google MoBile Service,If supported,the result will be return to SUCCESS
@@ -97,7 +97,8 @@ public class PushActivity extends BaseActivity implements View.OnClickListener {
         //Initialize Load Tip Box
         progressDialog = new ProgressDialog(this);
 
-        MessageCenter.shared().showMessageCenter();
+        //airship toggle to test msg center
+//        MessageCenter.shared().showMessageCenter();
     }
 
     @Override

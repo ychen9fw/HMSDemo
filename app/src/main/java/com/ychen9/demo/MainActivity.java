@@ -2,6 +2,7 @@ package com.ychen9.demo;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -17,6 +18,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.clevertap.android.sdk.CleverTapAPI;
 import com.onesignal.OSInAppMessageAction;
 import com.onesignal.OneSignal;
 import com.urbanairship.UAirship;
@@ -56,6 +58,7 @@ import net.openid.appauth.TokenResponse;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -71,6 +74,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private static final String AUTH_STATE = "AUTH_STATE";
     private static final String USED_INTENT = "USED_INTENT";
     private String TAG = "MainActivity";
+
+    CleverTapAPI clevertapDefaultInstance;
+    CleverTapAPI cleverTapAPI;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -140,6 +147,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         OneSignal.sendTag("phone", "huawei");
         OneSignal.sendTag("level", "vip");
         OneSignal.deleteTag("level");
+
+        //clevertap
+        clevertapDefaultInstance = CleverTapAPI.getDefaultInstance(getApplicationContext());
+        cleverTapAPI = CleverTapAPI.getDefaultInstance(getApplicationContext());
+        CleverTapAPI.createNotificationChannel(getApplicationContext(),"YourChannelId","Your Channel Name","Your Channel Description", NotificationManager.IMPORTANCE_MAX,true);
+        cleverTapAPI.pushEvent("Test Event");
     }
 
     @Override
@@ -186,6 +199,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void goToHuaweiPushDemo() {
+        //clevertap
+        HashMap<String, Object> profileUpdate = new HashMap<String, Object>();
+
+//Update pre-defined profile properties
+        profileUpdate.put("Name", "Jack Montana");
+        profileUpdate.put("Email", "jack@gmail.com");
+//Update custom profile properties
+        profileUpdate.put("Plan Type", "Silver");
+        profileUpdate.put("Favorite Food", "Pizza");
+
+        clevertapDefaultInstance.pushProfile(profileUpdate);
+
         Intent intent = new Intent(this, PushActivity.class);
         startActivity(intent);
     }
