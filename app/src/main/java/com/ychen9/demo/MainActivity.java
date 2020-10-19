@@ -19,6 +19,9 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.clevertap.android.sdk.CleverTapAPI;
+import com.huawei.agconnect.config.AGConnectServicesConfig;
+import com.huawei.hms.aaid.HmsInstanceId;
+import com.huawei.hms.common.ApiException;
 import com.onesignal.OSInAppMessageAction;
 import com.onesignal.OneSignal;
 import com.urbanairship.UAirship;
@@ -149,10 +152,34 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         OneSignal.deleteTag("level");
 
         //clevertap
+        String appId = AGConnectServicesConfig.fromContext(MainActivity.this).getString("client/app_id");
+        Log.e(TAG,"appId " + appId);
+        String token = null;
+        try {
+            token = HmsInstanceId.getInstance(MainActivity.this).getToken(appId, "HCM");
+            Log.e(TAG,"token " + token);
+        } catch (ApiException e) {
+            e.printStackTrace();
+        }
+        if(cleverTapAPI != null){
+            cleverTapAPI.pushHuaweiRegistrationId(token,true);
+        }
+        else{
+            Log.e(TAG,"CleverTap is NULL");
+        }
+
         clevertapDefaultInstance = CleverTapAPI.getDefaultInstance(getApplicationContext());
         cleverTapAPI = CleverTapAPI.getDefaultInstance(getApplicationContext());
-        CleverTapAPI.createNotificationChannel(getApplicationContext(),"YourChannelId","Your Channel Name","Your Channel Description", NotificationManager.IMPORTANCE_MAX,true);
-        cleverTapAPI.pushEvent("Test Event");
+        CleverTapAPI.createNotificationChannel(getApplicationContext(),"huawei","huawei","Your Channel Description", NotificationManager.IMPORTANCE_MAX,true);
+        cleverTapAPI.pushEvent("Huawei Event");
+        HashMap<String, Object> profileUpdate = new HashMap<String, Object>();
+        profileUpdate.put("MSG-push", true);                        // Enable push notifications
+        profileUpdate.put("Phone", "+14155551234");                 // Phone (with the country code, starting with +)
+        profileUpdate.put("Email", "ychen9fw@futurewei.com.com");
+        profileUpdate.put("Identity", 61026032);      // String or number
+        profileUpdate.put("Name", "pro 30");                  // String
+        clevertapDefaultInstance.pushProfile(profileUpdate);
+
     }
 
     @Override

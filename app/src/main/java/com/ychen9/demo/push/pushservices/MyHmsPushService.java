@@ -1,14 +1,20 @@
 package com.ychen9.demo.push.pushservices;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
 
+import com.clevertap.android.sdk.CleverTapAPI;
+import com.clevertap.android.sdk.Utils;
 import com.onesignal.OneSignalHmsEventBridge;
 import com.urbanairship.push.hms.AirshipHmsIntegration;
 import com.ychen9.demo.push.PushActivity;
 import com.huawei.hms.push.HmsMessageService;
 import com.huawei.hms.push.RemoteMessage;
 import com.huawei.hms.push.SendException;
+
+import org.json.JSONException;
 
 public class MyHmsPushService extends HmsMessageService {
     @Override
@@ -24,6 +30,15 @@ public class MyHmsPushService extends HmsMessageService {
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         String msg = "";
+        //clevertap
+        try {
+            String ctData = remoteMessage.getData();
+            @SuppressLint("RestrictedApi") Bundle extras = Utils.stringToBundle(ctData);
+            CleverTapAPI.createNotification(getApplicationContext(),extras);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
         OneSignalHmsEventBridge.onMessageReceived(this, remoteMessage);
 
         // Check if message contains a data payload.
