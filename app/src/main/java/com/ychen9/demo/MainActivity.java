@@ -157,9 +157,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         String token = null;
         try {
             token = HmsInstanceId.getInstance(MainActivity.this).getToken(appId, "HCM");
-            Log.e(TAG,"token " + token);
+            Log.e(TAG,"clevertap token " + token);
         } catch (ApiException e) {
             e.printStackTrace();
+            Log.e(TAG,"CleverTap token is NULL");
         }
         if(cleverTapAPI != null){
             cleverTapAPI.pushHuaweiRegistrationId(token,true);
