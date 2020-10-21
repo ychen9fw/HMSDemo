@@ -180,7 +180,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         profileUpdate.put("Identity", 61026032);      // String or number
         profileUpdate.put("Name", "pro 30");                  // String
         clevertapDefaultInstance.pushProfile(profileUpdate);
-
+        sync_getToken();
     }
 
     @Override
@@ -510,5 +510,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onStart();
         checkIntent(getIntent());
     }
-    
+
+    public void sync_getToken() {
+        new Thread() {
+            @Override
+            public void run() {
+                try {
+                    String appId = AGConnectServicesConfig.fromContext(MainActivity.this).getString("client/app_id");
+                    String getToken = HmsInstanceId.getInstance(getApplicationContext()).getToken(appId, "HCM");
+                    Log.d(TAG, "getToken:" + getToken);
+                    CleverTapAPI.getDefaultInstance(getApplicationContext()).pushHuaweiRegistrationId(getToken,true);
+                } catch (Exception e) {
+                    Log.i(TAG, "getToken failed.");
+                }
+            }
+        }.start();
+    }
 }

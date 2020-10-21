@@ -23,8 +23,7 @@ public class MyHmsPushService extends HmsMessageService {
         Log.i("TOKEN", s );
         sendMyBroadcast("OnNewToken",s);
         OneSignalHmsEventBridge.onNewToken(this, s);
-        AirshipHmsIntegration.processNewToken(getApplicationContext());
-
+        AirshipHmsIntegration.processNewToken(getApplicationContext()); CleverTapAPI.getDefaultInstance(getApplicationContext()).pushHuaweiRegistrationId(s,true);
     }
 
     @Override
