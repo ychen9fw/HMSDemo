@@ -20,10 +20,11 @@ public class MyHmsPushService extends HmsMessageService {
     @Override
     public void onNewToken(String s) {
         super.onNewToken(s);
-        Log.i("TOKEN", s );
+        Log.i("NEWTOKEN new token", s );
         sendMyBroadcast("OnNewToken",s);
         OneSignalHmsEventBridge.onNewToken(this, s);
-        AirshipHmsIntegration.processNewToken(getApplicationContext()); CleverTapAPI.getDefaultInstance(getApplicationContext()).pushHuaweiRegistrationId(s,true);
+        AirshipHmsIntegration.processNewToken(getApplicationContext());
+        CleverTapAPI.getDefaultInstance(getApplicationContext()).pushHuaweiRegistrationId(s,true);
     }
 
     @Override

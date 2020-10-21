@@ -152,33 +152,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         OneSignal.deleteTag("level");
 
         //clevertap
-        String appId = AGConnectServicesConfig.fromContext(MainActivity.this).getString("client/app_id");
-        Log.e(TAG,"appId " + appId);
-        String token = null;
-        try {
-            token = HmsInstanceId.getInstance(MainActivity.this).getToken(appId, "HCM");
-            Log.e(TAG,"clevertap token " + token);
-        } catch (ApiException e) {
-            e.printStackTrace();
-            Log.e(TAG,"CleverTap token is NULL");
-        }
-        if(cleverTapAPI != null){
-            cleverTapAPI.pushHuaweiRegistrationId(token,true);
-        }
-        else{
-            Log.e(TAG,"CleverTap is NULL");
-        }
-
         clevertapDefaultInstance = CleverTapAPI.getDefaultInstance(getApplicationContext());
         cleverTapAPI = CleverTapAPI.getDefaultInstance(getApplicationContext());
         CleverTapAPI.createNotificationChannel(getApplicationContext(),"huawei","huawei","Your Channel Description", NotificationManager.IMPORTANCE_MAX,true);
         cleverTapAPI.pushEvent("Huawei Event");
         HashMap<String, Object> profileUpdate = new HashMap<String, Object>();
         profileUpdate.put("MSG-push", true);                        // Enable push notifications
-        profileUpdate.put("Phone", "+14155551234");                 // Phone (with the country code, starting with +)
-        profileUpdate.put("Email", "ychen9fw@futurewei.com.com");
-        profileUpdate.put("Identity", 61026032);      // String or number
-        profileUpdate.put("Name", "pro 30");                  // String
+//        profileUpdate.put("Phone", "+14155551111");                 // Phone (with the country code, starting with +)
+        profileUpdate.put("Email", "1@futurewei.com");
+        profileUpdate.put("Identity", 61111111);      // String or number
+        profileUpdate.put("Name", "pro 31");                  // String
         clevertapDefaultInstance.pushProfile(profileUpdate);
         sync_getToken();
     }
@@ -518,10 +501,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 try {
                     String appId = AGConnectServicesConfig.fromContext(MainActivity.this).getString("client/app_id");
                     String getToken = HmsInstanceId.getInstance(getApplicationContext()).getToken(appId, "HCM");
-                    Log.d(TAG, "getToken:" + getToken);
+                    Log.d(TAG, "clevertap getToken:" + getToken);
                     CleverTapAPI.getDefaultInstance(getApplicationContext()).pushHuaweiRegistrationId(getToken,true);
                 } catch (Exception e) {
-                    Log.i(TAG, "getToken failed.");
+                    Log.i(TAG, "clevertap getToken failed.");
                 }
             }
         }.start();

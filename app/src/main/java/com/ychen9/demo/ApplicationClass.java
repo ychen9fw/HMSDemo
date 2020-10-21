@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.clevertap.android.sdk.ActivityLifecycleCallback;
 import com.onesignal.OSInAppMessageAction;
 import com.onesignal.OSNotificationOpenResult;
 import com.onesignal.OneSignal;
@@ -14,6 +15,7 @@ import org.json.JSONObject;
 public class ApplicationClass extends Application {
     @Override
     public void onCreate() {
+        ActivityLifecycleCallback.register(this);
         super.onCreate();
 
         // OneSignal Initialization
