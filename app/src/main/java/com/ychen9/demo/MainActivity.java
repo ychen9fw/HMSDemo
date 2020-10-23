@@ -18,7 +18,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.clevertap.android.sdk.CTInboxListener;
 import com.clevertap.android.sdk.CleverTapAPI;
+import com.clevertap.android.sdk.InAppNotificationButtonListener;
+import com.clevertap.android.sdk.InboxMessageButtonListener;
 import com.huawei.agconnect.config.AGConnectServicesConfig;
 import com.huawei.hms.aaid.HmsInstanceId;
 import com.huawei.hms.common.ApiException;
@@ -69,7 +72,7 @@ import okhttp3.Response;
 
 import static com.ychen9.demo.utils.tools.intentToString;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, InAppNotificationButtonListener, CTInboxListener, InboxMessageButtonListener {
 
     private PermissionManager permissionManager;
     private final int REQUEST_LOCATION = 1;
@@ -164,6 +167,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         profileUpdate.put("Name", "pro 31");                  // String
         clevertapDefaultInstance.pushProfile(profileUpdate);
         sync_getToken();
+        clevertapDefaultInstance.setInAppNotificationButtonListener(this);
+
+        //Set the Notification Inbox Listener
+        clevertapDefaultInstance.setCTNotificationInboxListener(this);
+        //Initialize the inbox and wait for callbacks on overridden methods
+        clevertapDefaultInstance.initializeInbox();
     }
 
     @Override
@@ -508,5 +517,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
             }
         }.start();
+    }
+
+    @Override
+    public void onInAppButtonClick(HashMap<String, String> hashMap) {
+        if(hashMap != null){
+            Log.i(TAG, "clevertap inapp click.");
+        }
+    }
+
+    @Override
+    public void onInboxButtonClick(HashMap<String, String> hashMap) {
+        if(hashMap != null){
+            //Read the values
+        }
+    }
+
+    @Override
+    public void inboxDidInitialize() {
+
+    }
+
+    @Override
+    public void inboxMessagesDidUpdate() {
+
     }
 }
