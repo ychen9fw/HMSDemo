@@ -12,6 +12,8 @@ import android.os.Message;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.clevertap.android.sdk.CTInboxStyleConfig;
+import com.clevertap.android.sdk.CleverTapAPI;
 import com.urbanairship.messagecenter.MessageCenter;
 import com.ychen9.demo.push.pushPre.BasePush;
 import com.ychen9.demo.push.pushPre.GmsPush;
@@ -24,6 +26,8 @@ import com.huawei.hms.api.HuaweiApiAvailability;
 import com.ychen9.demo.R;
 
 import androidx.appcompat.widget.Toolbar;
+
+import java.util.ArrayList;
 
 public class PushActivity extends BaseActivity implements View.OnClickListener {
     public static String TAG = "push_msg";
@@ -99,6 +103,29 @@ public class PushActivity extends BaseActivity implements View.OnClickListener {
 
         //airship toggle to test msg center
 //        MessageCenter.shared().showMessageCenter();
+
+        //clevertap
+        CleverTapAPI.getDefaultInstance(getApplicationContext()).pushEvent("button event");
+        ArrayList<String> tabs = new ArrayList<>();
+        tabs.add("Promotions");
+        tabs.add("Offers");
+        tabs.add("Others");//We support upto 2 tabs only. Additional tabs will be ignored
+
+        CTInboxStyleConfig styleConfig = new CTInboxStyleConfig();
+        styleConfig.setTabs(tabs);//Do not use this if you don't want to use tabs
+        styleConfig.setTabBackgroundColor("#FF0000");//provide Hex code in string ONLY
+        styleConfig.setSelectedTabIndicatorColor("#0000FF");
+        styleConfig.setSelectedTabColor("#000000");
+        styleConfig.setUnselectedTabColor("#FFFFFF");
+        styleConfig.setBackButtonColor("#FF0000");
+        styleConfig.setNavBarTitleColor("#FF0000");
+        styleConfig.setNavBarTitle("MY INBOX");
+        styleConfig.setNavBarColor("#FFFFFF");
+        styleConfig.setInboxBackgroundColor("#00FF00");
+
+        CleverTapAPI.getDefaultInstance(getApplicationContext()).showAppInbox(styleConfig); //Opens activity tith Tabs
+        //OR
+//        CleverTapAPI.getDefaultInstance(getApplicationContext()).showAppInbox();//Opens Activity with default style config
     }
 
     @Override

@@ -82,7 +82,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private String TAG = "MainActivity";
 
     CleverTapAPI clevertapDefaultInstance;
-    CleverTapAPI cleverTapAPI;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -156,9 +155,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         //clevertap
         clevertapDefaultInstance = CleverTapAPI.getDefaultInstance(getApplicationContext());
-        cleverTapAPI = CleverTapAPI.getDefaultInstance(getApplicationContext());
         CleverTapAPI.createNotificationChannel(getApplicationContext(),"huawei","huawei","Your Channel Description", NotificationManager.IMPORTANCE_MAX,true);
-        cleverTapAPI.pushEvent("Huawei Event");
+        clevertapDefaultInstance.pushEvent("Huawei Event");
         HashMap<String, Object> profileUpdate = new HashMap<String, Object>();
         profileUpdate.put("MSG-push", true);                        // Enable push notifications
 //        profileUpdate.put("Phone", "+14155551111");                 // Phone (with the country code, starting with +)
