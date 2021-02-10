@@ -1,6 +1,9 @@
 package com.ychen9.demo;
 
 import android.app.Application;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 import android.widget.Toast;
@@ -9,6 +12,9 @@ import com.clevertap.android.sdk.ActivityLifecycleCallback;
 import com.onesignal.OSInAppMessageAction;
 import com.onesignal.OSNotificationOpenResult;
 import com.onesignal.OneSignal;
+import com.swrve.sdk.SwrveNotificationConfig;
+import com.swrve.sdk.SwrveSDK;
+import com.swrve.sdk.config.SwrveConfig;
 
 import org.json.JSONObject;
 
@@ -26,6 +32,29 @@ public class ApplicationClass extends Application {
                 .init();
         String userId = OneSignal.getPermissionSubscriptionState().getSubscriptionStatus().getUserId();
         String pushToken = OneSignal.getPermissionSubscriptionState().getSubscriptionStatus().getPushToken();
+        //swirve
+        try {
+            SwrveConfig config = new SwrveConfig();
+            // To use the EU stack, include this in your config.
+            // config.setSelectedStack(SwrveStack.EU);
+            NotificationChannel channel = null;
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                channel = new NotificationChannel("123", "Devapp swrve default channel", NotificationManager.IMPORTANCE_DEFAULT);
+                if (getSystemService(Context.NOTIFICATION_SERVICE) != null) {
+                    NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                    notificationManager.createNotificationChannel(channel);
+                }
+            }
+            SwrveNotificationConfig.Builder notificationConfig = new SwrveNotificationConfig.Builder(R.drawable.ic_launcher_foreground, R.drawable.ic_launcher_foreground, channel)
+                    .activityClass(MainActivity.class)
+                    .largeIconDrawableId(R.drawable.ic_launcher_foreground)
+                    .accentColorHex("#3949AB");
+            config.setNotificationConfig(notificationConfig.build());
+
+            SwrveSDK.createInstance(this, 31971, "MJcdbrCQHvoFwMSXNvw", config);
+        } catch (IllegalArgumentException exp) {
+            Log.e("SwrveDemo", "Could not initialize the Swrve SDK", exp);
+        }
     }
 
     class ExampleNotificationOpenedHandler implements OneSignal.NotificationOpenedHandler {

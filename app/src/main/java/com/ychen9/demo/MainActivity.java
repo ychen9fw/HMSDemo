@@ -27,6 +27,8 @@ import com.huawei.hms.aaid.HmsInstanceId;
 import com.huawei.hms.common.ApiException;
 import com.onesignal.OSInAppMessageAction;
 import com.onesignal.OneSignal;
+import com.swrve.sdk.SwrveIdentityResponse;
+import com.swrve.sdk.SwrveSDK;
 import com.urbanairship.UAirship;
 import com.urbanairship.analytics.CustomEvent;
 import com.urbanairship.channel.AirshipChannelListener;
@@ -171,6 +173,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         clevertapDefaultInstance.setCTNotificationInboxListener(this);
         //Initialize the inbox and wait for callbacks on overridden methods
         clevertapDefaultInstance.initializeInbox();
+
+        //swrve
+//        SwrveSDK.start(this);
+        SwrveSDK.isStarted();
+        SwrveSDK.identify("user_id_0", new SwrveIdentityResponse() {
+            @Override
+            public void onSuccess(String status, String swrveId) {
+                // Success, continue with your logic
+                Log.i(TAG,"swrve user id ok ");
+            }
+            @Override
+            public void onError(int responseCode, String errorMessage) {
+                // Error should be handled.
+                Log.i(TAG,"swrve user id fail ");
+            }
+        });
     }
 
     @Override

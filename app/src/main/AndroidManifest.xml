@@ -73,6 +73,16 @@
             </intent-filter>
         </activity>
 
+<!--swrve-->
+        <service android:name="com.swrve.sdk.SwrveHmsMessageService"
+            android:exported="false" >
+            <intent-filter>
+                <action android:name="com.huawei.push.action.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+        <meta-data
+            android:name="push_kit_auto_init_enabled"
+            android:value="true" />
 
         <service
             android:name="com.ychen9.demo.push.pushservices.MyHmsPushService"
