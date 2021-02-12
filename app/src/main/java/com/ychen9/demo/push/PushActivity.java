@@ -14,6 +14,7 @@ import android.view.View;
 
 import com.clevertap.android.sdk.CTInboxStyleConfig;
 import com.clevertap.android.sdk.CleverTapAPI;
+import com.swrve.sdk.SwrveSDK;
 import com.urbanairship.messagecenter.MessageCenter;
 import com.ychen9.demo.push.pushPre.BasePush;
 import com.ychen9.demo.push.pushPre.GmsPush;
@@ -28,6 +29,9 @@ import com.ychen9.demo.R;
 import androidx.appcompat.widget.Toolbar;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class PushActivity extends BaseActivity implements View.OnClickListener {
     public static String TAG = "push_msg";
@@ -126,6 +130,17 @@ public class PushActivity extends BaseActivity implements View.OnClickListener {
         CleverTapAPI.getDefaultInstance(getApplicationContext()).showAppInbox(styleConfig); //Opens activity tith Tabs
         //OR
 //        CleverTapAPI.getDefaultInstance(getApplicationContext()).showAppInbox();//Opens Activity with default style config
+        //swrve
+        Map<String,String> payload = new HashMap<String, String>();
+        payload.put("key1", new Date().toString());
+        payload.put("key2", "value2");
+        SwrveSDK.event("huawei event", payload);
+        Map<String, String> attributes = new HashMap<String, String>();
+        attributes.put("premium", "true");
+        attributes.put("level", "1");
+        attributes.put("balance", "999");
+        SwrveSDK.userUpdate(attributes);
+        SwrveSDK.userUpdate("last_purchase", new Date());
     }
 
     @Override

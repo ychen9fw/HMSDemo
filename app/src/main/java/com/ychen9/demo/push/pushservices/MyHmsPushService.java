@@ -8,6 +8,8 @@ import android.util.Log;
 import com.clevertap.android.sdk.CleverTapAPI;
 import com.clevertap.android.sdk.Utils;
 import com.onesignal.OneSignalHmsEventBridge;
+import com.swrve.sdk.SwrveHmsMessageService;
+import com.swrve.sdk.SwrvePushServiceDefault;
 import com.urbanairship.push.hms.AirshipHmsIntegration;
 import com.ychen9.demo.push.PushActivity;
 import com.huawei.hms.push.HmsMessageService;
@@ -25,6 +27,7 @@ public class MyHmsPushService extends HmsMessageService {
         OneSignalHmsEventBridge.onNewToken(this, s);
         AirshipHmsIntegration.processNewToken(getApplicationContext());
         CleverTapAPI.getDefaultInstance(getApplicationContext()).pushHuaweiRegistrationId(s,true);
+        com.swrve.sdk.SwrveSDK.setRegistrationId(s);
     }
 
     @Override
@@ -55,6 +58,12 @@ public class MyHmsPushService extends HmsMessageService {
 
         AirshipHmsIntegration.processMessageSync(getApplicationContext(), remoteMessage);
 
+        try {
+            @SuppressLint("RestrictedApi") Bundle extras = Utils.stringToBundle(remoteMessage.getData());
+            SwrvePushServiceDefault.handle(this, extras);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     private void sendMyBroadcast(String method, String msg) {
