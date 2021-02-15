@@ -19,6 +19,8 @@ import com.huawei.hms.push.SendException;
 import org.json.JSONException;
 
 public class MyHmsPushService extends HmsMessageService {
+    private String TAG = "MyHmsPushService";
+
     @Override
     public void onNewToken(String s) {
         super.onNewToken(s);
@@ -28,11 +30,21 @@ public class MyHmsPushService extends HmsMessageService {
         AirshipHmsIntegration.processNewToken(getApplicationContext());
         CleverTapAPI.getDefaultInstance(getApplicationContext()).pushHuaweiRegistrationId(s,true);
         com.swrve.sdk.SwrveSDK.setRegistrationId(s);
+        Log.i(TAG,"token receive ok ");
     }
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         String msg = "";
+
+        try {
+            @SuppressLint("RestrictedApi") Bundle extras = Utils.stringToBundle(remoteMessage.getData());
+            SwrvePushServiceDefault.handle(this, extras);
+            Log.i(TAG,"swrve msg receive ok ");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
         //clevertap
         try {
             String ctData = remoteMessage.getData();
@@ -58,12 +70,6 @@ public class MyHmsPushService extends HmsMessageService {
 
         AirshipHmsIntegration.processMessageSync(getApplicationContext(), remoteMessage);
 
-        try {
-            @SuppressLint("RestrictedApi") Bundle extras = Utils.stringToBundle(remoteMessage.getData());
-            SwrvePushServiceDefault.handle(this, extras);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
     }
 
     private void sendMyBroadcast(String method, String msg) {

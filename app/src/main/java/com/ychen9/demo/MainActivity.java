@@ -177,7 +177,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //swrve
 //        SwrveSDK.start(this);
         SwrveSDK.isStarted();
-        SwrveSDK.identify("user_id_0", new SwrveIdentityResponse() {
+        SwrveSDK.identify("user_id_5", new SwrveIdentityResponse() {
             @Override
             public void onSuccess(String status, String swrveId) {
                 // Success, continue with your logic
