@@ -36,6 +36,7 @@ public class MyHmsPushService extends HmsMessageService {
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         String msg = "";
+        Log.i("msg received data ", remoteMessage.getData() );
 
         try {
             @SuppressLint("RestrictedApi") Bundle extras = Utils.stringToBundle(remoteMessage.getData());
