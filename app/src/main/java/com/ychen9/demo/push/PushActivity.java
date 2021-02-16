@@ -15,6 +15,7 @@ import android.view.View;
 import com.clevertap.android.sdk.CTInboxStyleConfig;
 import com.clevertap.android.sdk.CleverTapAPI;
 import com.swrve.sdk.SwrveSDK;
+import com.swrve.sdk.SwrveUserResourcesListener;
 import com.urbanairship.messagecenter.MessageCenter;
 import com.ychen9.demo.push.pushPre.BasePush;
 import com.ychen9.demo.push.pushPre.GmsPush;
@@ -141,6 +142,17 @@ public class PushActivity extends BaseActivity implements View.OnClickListener {
         attributes.put("balance", "999");
         SwrveSDK.userUpdate(attributes);
         SwrveSDK.userUpdate("last_purchase", new Date());
+        SwrveSDK.getUserResources(new SwrveUserResourcesListener() {
+            @Override
+            public void onUserResourcesSuccess(Map<String, Map<String, String>> resources, String resourcesAsJSON) {
+                showLog("swrve ab resource " + resourcesAsJSON);
+            }
+
+            @Override
+            public void onUserResourcesError(Exception exception) {
+
+            }
+        });
     }
 
     @Override

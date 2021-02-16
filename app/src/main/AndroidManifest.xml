@@ -53,6 +53,8 @@
                     android:scheme="pushscheme" />
             </intent-filter>
 
+            <!--        pushscheme://com.huawei.codelabpush/deeplink                -->
+
         </activity>
         <activity
             android:name="net.openid.appauth.RedirectUriReceiverActivity"
@@ -107,8 +109,7 @@
         <meta-data android:name="com.urbanairship.autopilot"
             android:value="com.ychen9.demo.push.SampleAutopilot" />
 
-
-<!--        clevertap-->
+        <!--        clevertap-->
         <meta-data
             android:name="CLEVERTAP_ACCOUNT_ID"
             android:value="TEST-W77-4RW-995Z"/>
