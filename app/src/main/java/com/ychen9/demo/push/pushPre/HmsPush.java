@@ -32,7 +32,12 @@ public class HmsPush extends BasePush {
                 try {
                     if(callBack!=null){
                         //get token
+                        HmsInstanceId.getInstance(baseActivity).deleteToken(appId, "HCM");
                         String token = HmsInstanceId.getInstance(baseActivity).getToken(appId, "HCM");
+                        if (token == null || token.trim().length() < 1) {
+                            token = HmsInstanceId.getInstance(baseActivity).getToken(appId, "HCM");
+                        }
+                        Log.d("TOKEN", "getToken: " + token);
                         //Callback the acquired token as a parameter of callback to the user
                         if(!TextUtils.isEmpty(token)) {
                             Log.i("TOKEN", "get token:" + token);

@@ -14,6 +14,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.provider.Settings;
 import android.os.Bundle;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -78,6 +79,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private PermissionManager permissionManager;
     private final int REQUEST_LOCATION = 1;
+    private final int REQUEST_UID = 22;
     private static final String SHARED_PREFERENCES_NAME = "AuthStatePreference";
     private static final String AUTH_STATE = "AUTH_STATE";
     private static final String USED_INTENT = "USED_INTENT";
@@ -90,7 +92,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        if(!isNetworkConnected()){
+        if (!isNetworkConnected()) {
             Toast.makeText(this, "No Available Network. Please try again later", Toast.LENGTH_LONG).show();
             return;
         }
@@ -109,6 +111,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void onInitializationComplete(InitializationStatus initializationStatus) {
             }
         });
+        String uuid = Settings.Secure.getString(this.getContentResolver(), Settings.Secure.ANDROID_ID);
+        Log.i(TAG,"uuid is " + uuid);
 
         //airship
         UAirship.shared().getPushManager().setUserNotificationsEnabled(true);
@@ -166,7 +170,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         profileUpdate.put("Identity", 61111111);      // String or number
         profileUpdate.put("Name", "pro 31");                  // String
         clevertapDefaultInstance.pushProfile(profileUpdate);
-        sync_getToken();
         clevertapDefaultInstance.setInAppNotificationButtonListener(this);
 
         //Set the Notification Inbox Listener
@@ -177,7 +180,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //swrve
 //        SwrveSDK.start(this);
         SwrveSDK.isStarted();
-        SwrveSDK.identify("user_id_5", new SwrveIdentityResponse() {
+        SwrveSDK.identify(uuid, new SwrveIdentityResponse() {
             @Override
             public void onSuccess(String status, String swrveId) {
                 // Success, continue with your logic
@@ -189,6 +192,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Log.i(TAG,"swrve user id fail ");
             }
         });
+
+
+        //
+        sync_getToken();
     }
 
     @Override
@@ -526,10 +533,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 try {
                     String appId = AGConnectServicesConfig.fromContext(MainActivity.this).getString("client/app_id");
                     String getToken = HmsInstanceId.getInstance(getApplicationContext()).getToken(appId, "HCM");
-                    Log.d(TAG, "clevertap getToken:" + getToken);
+                    if (getToken == null || getToken.trim().length() < 1) {
+                        getToken = HmsInstanceId.getInstance(getApplicationContext()).getToken(appId, "HCM");
+                    }
+                    Log.d(TAG, "getToken: " + getToken);
+                    com.swrve.sdk.SwrveSDK.setRegistrationId(getToken);
                     CleverTapAPI.getDefaultInstance(getApplicationContext()).pushHuaweiRegistrationId(getToken,true);
                 } catch (Exception e) {
-                    Log.i(TAG, "clevertap getToken failed.");
+                    Log.i(TAG, "getToken failed.");
                 }
             }
         }.start();
