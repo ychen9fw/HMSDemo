@@ -12,27 +12,26 @@
         android:id="@+id/toolbar"
         layout="@layout/toolbar"></include>
 
+    <com.huawei.hms.ads.banner.BannerView
+        android:id="@+id/test_banner_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        hwads:adId="testw6vs28auh3"
+        />
+
+    <com.huawei.hms.ads.banner.BannerView
+        android:id="@+id/hw_banner_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        hwads:adId="d53detz46o"
+        />
+
     <include
         layout="@layout/log_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
     </include>
 
-    <com.huawei.hms.ads.banner.BannerView
-        android:id="@+id/test_banner_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        hwads:adId="testw6vs28auh3 "
-         />
 
-    <com.huawei.hms.ads.banner.BannerView
-        android:id="@+id/hw_banner_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        hwads:adId="d53detz46o"
-        />
+
 </LinearLayout>
