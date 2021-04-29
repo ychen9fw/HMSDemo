@@ -35,8 +35,9 @@ public class HMSAds extends BaseAds {
 
         BannerView bottomBannerView = baseActivity.findViewById(R.id.hw_banner_view);
         AdParam adParam = new AdParam.Builder().build();
-        Log.i(TAG, "ads try start");
         bottomBannerView.loadAd(adParam);
-        Log.i(TAG, "ads try end");
+        BannerView testbottomBannerView = baseActivity.findViewById(R.id.test_banner_view);
+        AdParam testadParam = new AdParam.Builder().build();
+        testbottomBannerView.loadAd(testadParam);
     }
 }
