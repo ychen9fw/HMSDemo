@@ -9,6 +9,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.clevertap.android.sdk.ActivityLifecycleCallback;
+import com.huawei.hms.ads.HwAds;
 import com.onesignal.OSInAppMessageAction;
 import com.onesignal.OSNotificationOpenResult;
 import com.onesignal.OneSignal;
@@ -23,6 +24,7 @@ public class ApplicationClass extends Application {
     public void onCreate() {
         ActivityLifecycleCallback.register(this);
         super.onCreate();
+        HwAds.init(this);
 
         // OneSignal Initialization
 //        OneSignal.setLogLevel(OneSignal.LOG_LEVEL.VERBOSE, OneSignal.LOG_LEVEL.NONE);

@@ -2,8 +2,11 @@ package com.ychen9.demo.ads;
 
 import android.util.Log;
 
+import com.huawei.hms.ads.AdParam;
+import com.huawei.hms.ads.banner.BannerView;
 import com.ychen9.demo.BaseActivity;
 import com.huawei.hms.ads.identifier.AdvertisingIdClient;
+import com.ychen9.demo.R;
 
 import java.io.IOException;
 
@@ -29,5 +32,11 @@ public class HMSAds extends BaseAds {
             Log.e(TAG, "getAdvertisingIdInfo IOException");
             callBack.onFail("getAdvertisingIdInfo IOException");
         }
+
+        BannerView bottomBannerView = baseActivity.findViewById(R.id.hw_banner_view);
+        AdParam adParam = new AdParam.Builder().build();
+        Log.i(TAG, "ads try start");
+        bottomBannerView.loadAd(adParam);
+        Log.i(TAG, "ads try end");
     }
 }
