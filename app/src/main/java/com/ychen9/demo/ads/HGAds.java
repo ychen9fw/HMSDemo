@@ -68,6 +68,16 @@ public class HGAds extends BaseActivity {
             }
         });
 
+        AdView mAdView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.setAdListener(new AdListener() {
+            @Override
+            public void onAdFailedToLoad(int errorCode) {
+                Toast.makeText(getContext(), "Ad failed: " + errorCode, Toast.LENGTH_LONG).show();
+            }
+
+        });
+        mAdView.loadAd(adRequest);
     }
 
     private Thread getIdentifierThread = new Thread() {
