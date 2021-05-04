@@ -12,12 +12,24 @@
         android:id="@+id/toolbar"
         layout="@layout/toolbar"></include>
 
+    <TextView
+        android:id="@+id/text_huawei"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="test huawei" />
+
     <com.huawei.hms.ads.banner.BannerView
         android:id="@+id/test_banner_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         hwads:adId="testw6vs28auh3"
         />
+
+    <TextView
+        android:id="@+id/text_real_huawei"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="real huawei" />
 
     <com.huawei.hms.ads.banner.BannerView
         android:id="@+id/hw_banner_view"
@@ -32,6 +44,11 @@
         android:layout_height="wrap_content">
     </include>
 
+    <TextView
+        android:id="@+id/text_admob"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="admob" />
 
     <com.google.android.gms.ads.AdView
         xmlns:ads="http://schemas.android.com/apk/res-auto"
